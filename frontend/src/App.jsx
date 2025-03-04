@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import MatchDetails from "./pages/MatchDetails";
-import './App.css'
+import React from "react";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import "./styles/global.scss";
 
-function App() {
+const App = () => {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/match/:id" element={<MatchDetails />} />
-            </Routes>
-        </Router>
-  )
-}
+        <div className="app">
+            <Sidebar />
+            <main className="main-content">
+                <Header />
+                <div className="content">
+                </div>
+            </main>
+        </div>
+    );
+};
 
-export default App
+export default App;

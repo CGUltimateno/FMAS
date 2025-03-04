@@ -1,0 +1,31 @@
+// Responsive Breakpoints
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: 600px) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: 900px) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: 1200px) { @content; }
+  }
+}
+
+// Flex Centering
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Button Style
+@mixin button($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

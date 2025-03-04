@@ -1,28 +1,20 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React from 'react';
+import Hero from "../components/Hero";
+import LiveMatch from "../components/LiveMatch";
+import MatchesTable from "../components/MatchesTable";
+import Standings from "../components/Standings";
 
-export default function Dashboard() {
-    const [matches, setMatches] = useState([]);
-
-    useEffect(() => {
-        axios.get("https://api.football-data.org/v4/teams/86/matches?status=SCHEDULED", {
-            headers: {
-                'X-Auth-Token': 'YOUR_API_KEY_HERE'
-            }
-        })
-            .then((res) => setMatches(res.data.matches))
-            .catch((err) => console.error(err));
-    }, []);
+const Dashboard = () => {
     return (
-        <div className="p-6">
-            <h1 className="text-xl font-bold">Live Matches</h1>
-            <ul>
-                {matches.map((match) => (
-                    <li key={match.id} className="border p-2 my-2">
-                        {match.homeTeam.name} vs {match.awayTeam.name}
-                    </li>
-                ))}
-            </ul>
+        <div className="p-6 space-y-6">
+            <Hero />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <LiveMatch />
+                <MatchesTable />
+            </div>
+            <Standings />
         </div>
     );
-}
+};
+
+export default Dashboard;
