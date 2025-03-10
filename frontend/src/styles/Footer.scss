@@ -1,0 +1,47 @@
+// Footer Styles
+footer {
+  background-color: #f2f2f0; // Dark gray background
+  color: #a0aec0; // Light gray text
+  font-size: 0.875rem; // Small text
+  padding: 1.5rem 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+  }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: right;
+    }
+  }
+}

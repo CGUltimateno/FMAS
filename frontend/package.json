@@ -12,6 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.8.1",
+    "cheerio": "^1.0.0",
     "http-proxy-middleware": "^3.0.3",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",

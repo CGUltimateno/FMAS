@@ -1,18 +1,23 @@
 import React from 'react';
-import Hero from "../components/Hero";
-import LiveMatch from "../components/LiveMatch";
-import MatchesTable from "../components/MatchesTable";
 import Standings from "../components/Standings";
-
+import Hero from "../components/Hero.jsx";
+import UpcomingMatches   from "../components/UpcomingMatches.jsx";
+import News from "../components/News.jsx";
+import FollowClub from "../components/FollowClub.jsx";
+import "../styles/Dashboard.scss";
+import Footer from "../components/Footer.jsx";
 const Dashboard = () => {
     return (
-        <div className="p-6 space-y-6">
+        <div className={"dashboard-container"}>
             <Hero />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <LiveMatch />
-                <MatchesTable />
+            <br></br>
+            <div className="dashboard">
+                <UpcomingMatches />
+                <Standings />
+                <FollowClub />
+                <br></br>
+                <News />
             </div>
-            <Standings />
         </div>
     );
 };

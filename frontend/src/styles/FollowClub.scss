@@ -1,0 +1,89 @@
+.follow-club-container {
+  background-color: #fff;
+  border-top: 3px solid #ededed;
+  border-radius: 0.15rem;
+  margin-top: 50px;
+  overflow: hidden; /* Add this line to hide overflowing content */
+
+  .follow-club-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .follow-club-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .trophy-icon {
+        font-size: 1.2rem;
+      }
+    }
+
+    .arrow-controls {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #6b7280;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #374151; /* slightly darker on hover */
+        }
+      }
+    }
+  }
+
+  /* Horizontal scroll container */
+  .clubs-scroll-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+
+    /* Hide scroll bar (Chrome/Safari) */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    /* For Firefox, optional: */
+    scrollbar-width: none;
+  }
+
+  /* Each club circle */
+  .club-circle {
+    flex: 0 0 auto; /* so they don't shrink */
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    /* Highlight the active/selected club with a purple ring */
+    &.active {
+      border-color: #8b5cf6; /* purple border */
+    }
+  }
+}

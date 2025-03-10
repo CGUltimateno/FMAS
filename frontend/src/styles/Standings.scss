@@ -1,0 +1,218 @@
+.standings-wrapper {
+  border-top: 3px solid #ededed;
+  border-radius: 0.15rem;
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+  .standings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    margin-top: 40px;
+
+    .title-league-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .title-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        h2 {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+      }
+
+      .league-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .league-flag {
+          width: 20px;
+          height: 14px;
+          object-fit: cover;
+          border-radius: 2px;
+        }
+
+        .league-emblem {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 2px;
+        }
+
+        .league-name {
+          font-size: 0.95rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .view-all-btn {
+      display: flex;
+      align-items: center;
+      background: none;
+      border: none;
+      color: #6b7280;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f9fafb;
+      }
+
+      svg {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  .standings-table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+
+  /* Table */
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+
+    thead {
+      tr {
+        background: #f3f4f6;
+
+        th {
+          font-weight: 600;
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          text-align: left;
+
+          &.club-col {
+            width: 30%;
+          }
+          &.cl-bar-col {
+            width: 10px;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e5e7eb;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          vertical-align: middle;
+        }
+
+        .club-cell {
+          .club-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            img {
+              width: 30px;
+              height: 30px;
+              object-fit: contain;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .cl-bar-cell {
+          position: relative;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .cl-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+
+    &.champions {
+      background: #6366f1;
+    }
+    &.europa {
+      background: #f472b6;
+    }
+  }
+
+  .last-match {
+    display: flex;
+    gap: 4px;
+
+    .match-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+
+      &.w {
+        background: #16a34a;
+      }
+      &.d {
+        background: #f59e0b;
+      }
+      &.l {
+        background: #dc2626;
+      }
+    }
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #475569;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      .legend-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+
+        &.champions {
+          background: #6366f1;
+        }
+        &.europa {
+          background: #f472b6;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+.matches-container {
+  margin-left: 20px;
+
+  .matches-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-left: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .matches-tabs {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+
+      &.active {
+        color: #000;
+        font-weight: 600;
+      }
+    }
+
+    .tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: #5641a8;
+      transition: width 0.3s, left 0.3s;
+    }
+  }
+  .matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .match-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+
+      &:nth-child(even) {
+        background-color: #fdfdfd;
+      }
+
+      .team-col {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+
+        img {
+          width: 32px;
+          height: 32px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        span {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #1e293b;
+        }
+
+        &.home-team {
+          justify-content: flex-start;
+        }
+
+        &.away-team {
+          justify-content: flex-end;
+        }
+      }
+      .score-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #efedf7;
+        padding: 10px 1.5rem;
+        border-radius: 2rem;
+
+        .score-col {
+          flex: 0.5;
+          text-align: center;
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #5641a8;
+        }
+      }
+      .status-col {
+        flex: 1;
+        text-align: center;
+
+        .match-status {
+          display: inline-block;
+          background: #fee2e2;
+          color: #dc2626;
+          font-size: 0.8rem;
+          font-weight: 600;
+          padding: 0.5rem 0.5rem;
+          border-radius: 10px;
+        }
+      }
+
+      .date-col {
+        flex: 1;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #475569;
+      }
+
+      .action-col {
+        flex: 0.5;
+        display: flex;
+        justify-content: flex-end;
+        color: #9ca3af;
+        cursor: pointer;
+
+        &:hover {
+          color: #6b7280;
+        }
+      }
+    }
+  }
+}
