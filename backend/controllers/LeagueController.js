@@ -1,43 +1,36 @@
-const LeagueService = require("../services/LeagueService");
+const FootballDataService = require("../services/LeagueService");
 
 class LeagueController {
-  static async getAllLeagues(req, res) {
+  static async getPLStandings(req, res) {
     try {
-      const leagues = await LeagueService.getAllLeagues();
-      res.json(leagues);
+      const data = await FootballDataService.getPLStandings();
+      res.json(data);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   }
 
-  static async getPopularLeagues(req, res) {
+  static async getLatestFinishedMatches(req, res) {
     try {
-      const leagues = await LeagueService.getPopularLeagues();
-      res.json(leagues);
+      const matches = await FootballDataService.getLatestFinishedMatches();
+      res.json({ matches });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   }
 
-  static async getLeagueDetails(req, res) {
+static async getMatches(req, res) {
     try {
-      const { leagueId } = req.params;
-      const league = await LeagueService.getLeagueDetails(leagueId);
-      res.json(league);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-
-  static async getLeagueLogo(req, res) {
-    try {
-      const { leagueId } = req.params;
-      const logo = await LeagueService.getLeagueLogo(leagueId);
-      res.json(logo);
+      // e.g. /api/football-data/matches?status=LIVE
+      const { status } = req.query;
+      const data = await FootballDataService.getMatchesByStatus(status || "FINISHED");
+      res.json(data);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   }
 }
+
+
 
 module.exports = LeagueController;

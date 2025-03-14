@@ -28,7 +28,7 @@ class AuthService {
       { expiresIn: "7h" }  
     );
 
-    return { token, user: { userId: user.userId, firstName: user.firstName, lastName: user.lastName, email: user.email } };
+    return { token, user: { userId: user.userId, firstName: user.firstName, lastName: user.lastName, email: user.email, username: user.username } };
   }
 
   static async verifyToken(token) {

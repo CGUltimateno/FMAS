@@ -1,48 +1,45 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "../styles/Standings.scss";
+import React from "react";
+import "../../styles/Standings.scss";
 import { Trophy, ArrowRight } from "lucide-react";
+// Import the RTK Query hook
+import { useGetPLStandingsQuery } from "../../services/footballApi";
 
 const Standings = () => {
-  const [standingsData, setStandingsData] = useState([]);
-  const [leagueInfo, setLeagueInfo] = useState({});
-  const API_KEY = "YOUR_API_KEY"; // Replace with your real token
+  // Call the auto-generated hook
+  const { data, error, isLoading } = useGetPLStandingsQuery();
 
-  useEffect(() => {
-    const fetchStandings = async () => {
-      try {
-        const standingsRes = await axios.get("/api/v4/competitions/PL/standings", {
-          headers: { "X-Auth-Token": API_KEY },
-        });
+  if (isLoading) {
+    return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
+  }
+  if (error) {
+    return <p style={{ padding: "1rem", color: "red" }}>Error loading standings.</p>;
+  }
 
-        const rawTable = standingsRes.data.standings[0].table;
-        const competition = standingsRes.data.competition;
-        const area = standingsRes.data.area;
+  // If successful, "data" has the entire JSON from /competitions/PL/standings
+  const rawTable = data?.standings?.[0]?.table || [];
+  const competition = data?.competition;
+  const area = data?.area;
 
-        const standings = rawTable.map((teamEntry) => ({
-          id: teamEntry.team.id,
-          name: teamEntry.team.name,
-          logo: teamEntry.team.crest,
-          wins: teamEntry.won,
-          draws: teamEntry.draw,
-          losses: teamEntry.lost,
-          pts: teamEntry.points,
-          idx: teamEntry.position,
-          playedGames: teamEntry.playedGames,
-          goalsFor: teamEntry.goalsFor,
-          goalsAgainst: teamEntry.goalsAgainst,
-          goalDifference: teamEntry.goalDifference,
-        }));
+  // Transform each team object
+  const standingsData = rawTable.map((teamEntry) => ({
+    id: teamEntry.team.id,
+    name: teamEntry.team.name,
+    logo: teamEntry.team.crest,
+    wins: teamEntry.won,
+    draws: teamEntry.draw,
+    losses: teamEntry.lost,
+    pts: teamEntry.points,
+    idx: teamEntry.position,
+    playedGames: teamEntry.playedGames,
+    goalsFor: teamEntry.goalsFor,
+    goalsAgainst: teamEntry.goalsAgainst,
+    goalDifference: teamEntry.goalDifference,
+  }));
 
-        setStandingsData(standings);
-        setLeagueInfo({ emblem: competition.emblem, flag: area.flag });
-      } catch (error) {
-        console.error("Error fetching standings:", error);
-      }
-    };
-
-    fetchStandings();
-  }, []);
+  const leagueInfo = {
+    emblem: competition?.emblem,
+    flag: area?.flag,
+  };
 
   return (
       <div className="standings-wrapper">
@@ -53,16 +50,20 @@ const Standings = () => {
               <h2>Standings</h2>
             </div>
             <div className="league-section">
-              <img
-                  src={leagueInfo.flag}
-                  alt="England Flag"
-                  className="league-flag"
-              />
-              <img
-                  src={leagueInfo.emblem}
-                  alt="Premier League Emblem"
-                  className="league-emblem"
-              />
+              {leagueInfo.flag && (
+                  <img
+                      src={leagueInfo.flag}
+                      alt="Country Flag"
+                      className="league-flag"
+                  />
+              )}
+              {leagueInfo.emblem && (
+                  <img
+                      src={leagueInfo.emblem}
+                      alt="League Emblem"
+                      className="league-emblem"
+                  />
+              )}
             </div>
           </div>
           <button className="view-all-btn">

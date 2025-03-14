@@ -1,9 +1,9 @@
 import React from 'react';
-import Standings from "../components/Standings";
-import Hero from "../components/Hero.jsx";
-import UpcomingMatches   from "../components/UpcomingMatches.jsx";
-import News from "../components/News.jsx";
-import FollowClub from "../components/FollowClub.jsx";
+import Standings from "../components/Dashboard/Standings";
+import Hero from "../components/Dashboard/Hero.jsx";
+import UpcomingMatches   from "../components/Dashboard/UpcomingMatches.jsx";
+import News from "../components/Dashboard/News.jsx";
+import FollowClub from "../components/Dashboard/FollowClub.jsx";
 import "../styles/Dashboard.scss";
 import Footer from "../components/Footer.jsx";
 const Dashboard = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "../styles/FollowClub.scss";
+import "../../styles/FollowClub.scss";
 
 const FollowClub = () => {
   const [activeClub, setActiveClub] = useState(2);

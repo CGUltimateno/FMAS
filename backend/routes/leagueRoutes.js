@@ -1,11 +1,15 @@
 const express = require("express");
-const LeagueController = require("../controllers/LeagueController");
+const FootballDataController = require("../controllers/LeagueController");
 
 const router = express.Router();
 
-router.get("/all", LeagueController.getAllLeagues);
-router.get("/popular", LeagueController.getPopularLeagues);
-router.get("/:leagueId", LeagueController.getLeagueDetails);
-router.get("/:leagueId/logo", LeagueController.getLeagueLogo);
+// GET Premier League standings
+router.get("/standings/pl", FootballDataController.getPLStandings);
+
+// GET matches by status
+router.get("/matches", FootballDataController.getMatches);
+
+router.get("/matches-latest", FootballDataController.getLatestFinishedMatches);
+
 
 module.exports = router;

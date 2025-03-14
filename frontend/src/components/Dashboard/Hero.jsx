@@ -1,28 +1,6 @@
 import React from "react";
-import "../styles/Hero.scss";
-
-// Example match data
-const featuredMatchData = {
-  teamA: {
-    name: "Mexico",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/220px-Liverpool_FC.svg.png",
-    score: 2,
-  },
-  teamB: {
-    name: "Sweden",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/220px-Manchester_United_FC_crest.svg.png",
-    score: 2,
-  },
-  liveTime: "62:24",
-  stats: {
-    shotsOnTargetA: 7,
-    shotsOnTargetB: 3,
-    shotsA: 12,
-    shotsB: 7,
-    foulsA: 7,
-    foulsB: 3,
-  },
-};
+import { useGetMatchesByStatusQuery } from "../../services/footballApi";
+import "../../styles/Hero.scss";
 
 const getBarWidths = (a, b) => {
   const total = a + b;
@@ -52,65 +30,105 @@ const StatBar = ({ label, teamAValue, teamBValue }) => {
 };
 
 const Hero = () => {
+  const { data, isLoading, error } = useGetMatchesByStatusQuery("LIVE");
+  if (isLoading) return null;
+  if (error) {
+    console.error("Error fetching live match:", error);
+    return null;
+  }
+
+  const liveMatches = data?.matches || [];
+  if (liveMatches.length === 0) {
+    return null;
+  }
+
+  const topMatch = liveMatches[0];
+
+  // Basic info from the match
+  const homeTeamName = topMatch.homeTeam.name;
+  const awayTeamName = topMatch.awayTeam.name;
+  const homeTeamLogo = topMatch.homeTeam.crest;
+  const awayTeamLogo = topMatch.awayTeam.crest;
+
+  const homeScore = topMatch.score?.fullTime?.home ?? 0;
+  const awayScore = topMatch.score?.fullTime?.away ?? 0;
+
+  const liveTime = "45:00"; // Example placeholder
+
+  const stats = {
+    shotsOnTargetA: 0,
+    shotsOnTargetB: 0,
+    shotsA: 0,
+    shotsB: 0,
+    foulsA: 0,
+    foulsB: 0,
+  };
+
   return (
       <div className="featured-match-container">
         <div className="featured-match-card">
+          {/* Header */}
           <div className="featured-match-header">
             <div className="header-content">
               <div className="header-title">
                 <h2>Live Match</h2>
-                <span className="live-time">{featuredMatchData.liveTime}</span>
+                <span className="live-time">{liveTime}</span>
               </div>
               <span className="live-badge">LIVE</span>
             </div>
           </div>
+
+          {/* Main Content */}
           <div className="match-content">
             <div className="teams-container">
               {/* Team A */}
               <div className="team">
                 <div className="team-logo-container">
                   <img
-                      src={featuredMatchData.teamA.logo}
-                      alt={featuredMatchData.teamA.name}
+                      src={homeTeamLogo}
+                      alt={homeTeamName}
                       className="team-logo"
                   />
                 </div>
               </div>
+
               {/* VS Section */}
               <div className="vs-section">
                 <div className="score-container">
-                  <span className="score">{featuredMatchData.teamA.score}</span>
+                  <span className="score">{homeScore}</span>
                   <span className="divider">-</span>
-                  <span className="score">{featuredMatchData.teamB.score}</span>
+                  <span className="score">{awayScore}</span>
                 </div>
               </div>
+
               {/* Team B */}
               <div className="team">
                 <div className="team-logo-container">
                   <img
-                      src={featuredMatchData.teamB.logo}
-                      alt={featuredMatchData.teamB.name}
+                      src={awayTeamLogo}
+                      alt={awayTeamName}
                       className="team-logo"
                   />
                 </div>
               </div>
             </div>
-            {/* Stats with bars */}
+
+            {/* Stats Grid */}
             <div className="stats-grid">
               <StatBar
                   label="Shots on Target"
-                  teamAValue={featuredMatchData.stats.shotsOnTargetA}
-                  teamBValue={featuredMatchData.stats.shotsOnTargetB}
+                  teamAValue={stats.shotsOnTargetA}
+                  teamBValue={stats.shotsOnTargetB}
               />
               <StatBar
                   label="Shots"
-                  teamAValue={featuredMatchData.stats.shotsA}
-                  teamBValue={featuredMatchData.stats.shotsB}
+                  teamAValue={stats.shotsA}
+                  teamBValue={stats.shotsB}
               />
               <StatBar
                   label="Fouls"
-                  teamAValue={featuredMatchData.stats.foulsA}
-                  teamBValue={featuredMatchData.stats.foulsB}
+                  teamAValue={stats.foulsA}
+                  teamBValue={stats.foulsB}
               />
             </div>
           </div>

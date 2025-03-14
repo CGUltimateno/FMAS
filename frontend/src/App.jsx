@@ -1,24 +1,32 @@
+// App.jsx
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import RegisterPage from "./pages/RegisterPage";
 import "./styles/global.scss";
 import Dashboard from "./pages/Dashboard.jsx";
-import Footer from "./components/Footer.jsx";
 
 const App = () => {
     return (
-        <div className={"overlay"}>
-            <div className="app">
-                <Sidebar/>
-                <main className="main-content">
-                    <Header/>
-                    <div className="content">
-                        <Dashboard/>
-                    </div>
-                </main>
+        <BrowserRouter>
+            <div className="overlay">
+                <div className="app">
+                    <Sidebar />
+                    <main className="main-content">
+                        <Header />
+                        <div className="content">
+                            <Routes>
+                                <Route path="/" element={<Dashboard />} />
+                                <Route path="/register" element={<RegisterPage />} />
+                            </Routes>
+                        </div>
+                    </main>
+                </div>
+                <Footer />
             </div>
-            <Footer/>
-        </div>
+        </BrowserRouter>
     );
 };
 

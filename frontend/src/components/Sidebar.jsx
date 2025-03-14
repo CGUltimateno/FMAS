@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FaHome, FaTable, FaStar, FaChevronDown, FaChevronUp, FaFutbol, FaTrophy, FaShieldAlt, FaFlag, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "../styles/sidebar.scss";
 import logo from "../assets/logo.png"; // Adjust the path to your logo file
+import {useNavigate} from "react-router-dom";
 
 const Sidebar = () => {
+    const navigate = useNavigate();
     const [isLeaguesOpen, setIsLeaguesOpen] = useState(false);
     const [isClubsOpen, setIsClubsOpen] = useState(false);
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -23,7 +25,7 @@ const Sidebar = () => {
             </div>
             <h3 className="menuTitle">MENU</h3>
             <ul className="menu">
-                <li><FaHome /> {isSidebarExpanded && 'Dashboard'}</li>
+                <li onClick={() => navigate("/")}><FaHome /> {isSidebarExpanded && 'Dashboard'}</li>
                 <li><FaFutbol /> {isSidebarExpanded && 'Live Football'}</li>
                 <li><FaTable /> {isSidebarExpanded && 'Standings'}</li>
                 <li><FaStar /> {isSidebarExpanded && 'Highlights'}</li>

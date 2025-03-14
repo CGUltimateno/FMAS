@@ -7,6 +7,12 @@
   background: #f4f4f2;
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .main-content {
   flex: 1;
   display: flex;

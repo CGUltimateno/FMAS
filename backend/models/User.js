@@ -12,7 +12,6 @@ User.init(
     email: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false },
     favoriteTeams: { type: DataTypes.JSON, allowNull: true },
-    favoriteLeagues: { type: DataTypes.JSON, allowNull: true },
   },
   { sequelize, modelName: "User" }
 );

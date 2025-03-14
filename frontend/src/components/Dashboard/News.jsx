@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../styles/News.scss";
+import "../../styles/News.scss";
 
 const newsData = [
   {

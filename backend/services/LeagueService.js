@@ -1,55 +1,69 @@
 const axios = require("axios");
 
-const API_BASE_URL = "https://free-api-live-football-data.p.rapidapi.com";
-const API_KEY = process.env.FOOTBALL_API_KEY;
-const API_HOST = "free-api-live-football-data.p.rapidapi.com";
+const FOOTBALL_DATA_API_KEY = process.env.FOOTBALL_DATA_API_KEY;
+
+const API_BASE_URL = "https://api.football-data.org/v4";
 
 const apiHeaders = {
   headers: {
-    "x-rapidapi-key": API_KEY,
-    "x-rapidapi-host": API_HOST,
+    "X-Auth-Token": FOOTBALL_DATA_API_KEY,
   },
 };
 
-class LeagueService {
-
-  static async getAllLeagues() {
+class FootballDataService {
+  static async getPLStandings() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/football-get-all-leagues`, apiHeaders);
-      return response.data;
+      const url = `${API_BASE_URL}/competitions/PL/standings`;
+      const response = await axios.get(url, apiHeaders);
+      return response.data; // raw JSON from football-data.org
     } catch (error) {
-      throw new Error("Error fetching all leagues");
+      throw new Error(`Error fetching PL standings: ${error.message}`);
     }
   }
 
- 
-  static async getPopularLeagues() {
+  static async getMatchesByStatus(status) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/football-popular-leagues`, apiHeaders);
-      return response.data;
+      const url = `${API_BASE_URL}/matches?status=${status}`;
+      const response = await axios.get(url, apiHeaders);
+      return response.data; // { matches: [...], ... }
     } catch (error) {
-      throw new Error("Error fetching popular leagues");
+      throw new Error(`Error fetching matches by status: ${error.message}`);
     }
   }
 
-  static async getLeagueDetails(leagueId) {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/football-get-league-detail?leagueid=${leagueId}`, apiHeaders);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching league details");
-    }
-  }
+  // Add more methods for teams, players, etc., if needed
 
-  
-  static async getLeagueLogo(leagueId) {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/football-get-league-logo?leagueid=${leagueId}`, apiHeaders);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching league logo");
+  static async getLatestFinishedMatches() {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const dateRanges = [
+      { dateFrom: formatDate(today), dateTo: formatDate(tomorrow) },
+      { dateFrom: formatDate(yesterday), dateTo: formatDate(today) },
+    ];
+
+    for (const { dateFrom, dateTo } of dateRanges) {
+      const url = `${API_BASE_URL}/matches?status=FINISHED&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+      const response = await axios.get(url, apiHeaders);
+      const matches = response.data.matches || [];
+      if (matches.length > 0) {
+        return matches;
+      }
     }
+
+    return [];
   }
 }
+function formatDate(dateObj) {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
-module.exports = LeagueService;
+module.exports = FootballDataService;
+
+module.exports = FootballDataService;
