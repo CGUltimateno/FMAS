@@ -29,6 +29,15 @@ static async getMatches(req, res) {
       res.status(500).json({ error: error.message });
     }
   }
+    static async getLeagueStandings(req, res) {
+        try {
+        const { leagueId } = req.params;
+        const data = await FootballDataService.getLeagueStandings(leagueId);
+        res.json(data);
+        } catch (error) {
+        res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 

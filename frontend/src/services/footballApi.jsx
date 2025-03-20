@@ -16,8 +16,14 @@ export const footballApi = createApi({
             query: (status) => `leagues/matches?status=${status}`,
         }),
 
+        // GET /api/football-data/league/matches-latest
         getLatestMatch: builder.query({
             query: () => "leagues/matches-latest",
+        }),
+
+        // GET /api/football-data/leagues/standings/:leagueId
+        getLeagueStandings: builder.query({
+            query: (leagueId) => `leagues/${leagueId}/standings`,
         }),
 
         // Add more endpoints if you add more routes
@@ -28,4 +34,5 @@ export const {
     useGetPLStandingsQuery,
     useGetMatchesByStatusQuery,
     useGetLatestMatchQuery,
+    useGetLeagueStandingsQuery,
 } = footballApi;

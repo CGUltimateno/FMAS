@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaSearch, FaBell, FaSun, FaUser } from "react-icons/fa";
 import "../styles/header.scss";
-
 import { useLoginUserMutation } from "../services/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials, logout } from "../services/authSlice";

@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../services/userApi";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../services/authSlice";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.scss";
 
 const RegisterPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [registerUser, { isLoading, error }] = useRegisterUserMutation();
 
@@ -16,7 +13,7 @@ const RegisterPage = () => {
         username: "",
         email: "",
         password: "",
-        favoriteTeams: "", // optional, might be a JSON or string for now
+        favoriteTeams: "",
     });
 
     const handleChange = (e) => {
@@ -31,12 +28,10 @@ const RegisterPage = () => {
             const favoriteTeamsValue = formData.favoriteTeams
                 ? JSON.parse(formData.favoriteTeams)
                 : null;
-
-            const result = await registerUser({
+            await registerUser({
                 ...formData,
                 favoriteTeams: favoriteTeamsValue,
             }).unwrap();
-
             alert("Registration successful! You can now log in.");
             setFormData({
                 firstName: "",
@@ -46,8 +41,6 @@ const RegisterPage = () => {
                 password: "",
                 favoriteTeams: "",
             });
-
-            // Redirect to the dashboard
             navigate("/");
         } catch (err) {
             console.error("Registration error:", err);

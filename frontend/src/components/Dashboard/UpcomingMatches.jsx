@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../../styles/UpcomingMatches.scss";
+import "../../styles/Dashboard/UpcomingMatches.scss";
 import { ArrowRight } from "lucide-react";
 import {
   useGetMatchesByStatusQuery,

@@ -27,7 +27,7 @@ const Sidebar = () => {
             <ul className="menu">
                 <li onClick={() => navigate("/")}><FaHome /> {isSidebarExpanded && 'Dashboard'}</li>
                 <li><FaFutbol /> {isSidebarExpanded && 'Live Football'}</li>
-                <li><FaTable /> {isSidebarExpanded && 'Standings'}</li>
+                <li onClick={() => navigate("/leagues")}><FaTable /> {isSidebarExpanded && 'Standings'}</li>
                 <li><FaStar /> {isSidebarExpanded && 'Highlights'}</li>
             </ul>
             <h3 className="menuTitle2" onClick={toggleLeagues}>

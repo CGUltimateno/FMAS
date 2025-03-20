@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetMatchesByStatusQuery } from "../../services/footballApi";
-import "../../styles/Hero.scss";
+import "../../styles/Dashboard/Hero.scss";
 
 const getBarWidths = (a, b) => {
   const total = a + b;

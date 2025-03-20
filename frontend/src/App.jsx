@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import RegisterPage from "./pages/RegisterPage";
 import "./styles/global.scss";
 import Dashboard from "./pages/Dashboard.jsx";
-
+import LeaguesPage from "./pages/LeaguesPage";
 const App = () => {
     return (
         <BrowserRouter>
@@ -20,6 +20,7 @@ const App = () => {
                             <Routes>
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/register" element={<RegisterPage />} />
+                                <Route path="/leagues" element={<LeaguesPage />} />
                             </Routes>
                         </div>
                     </main>

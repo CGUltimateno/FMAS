@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../styles/News.scss";
+import "../../styles/Dashboard/News.scss";
 
 const newsData = [
   {
@@ -52,7 +52,7 @@ const newsData = [
   },
 ];
 
-;const News = () => {
+const News = () => {
   const [activeTab, setActiveTab] = useState("All News");
 
   const truncateDescription = (text) => {

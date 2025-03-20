@@ -15,7 +15,7 @@ class FootballDataService {
     try {
       const url = `${API_BASE_URL}/competitions/PL/standings`;
       const response = await axios.get(url, apiHeaders);
-      return response.data; // raw JSON from football-data.org
+      return response.data;
     } catch (error) {
       throw new Error(`Error fetching PL standings: ${error.message}`);
     }
@@ -25,13 +25,11 @@ class FootballDataService {
     try {
       const url = `${API_BASE_URL}/matches?status=${status}`;
       const response = await axios.get(url, apiHeaders);
-      return response.data; // { matches: [...], ... }
+      return response.data;
     } catch (error) {
       throw new Error(`Error fetching matches by status: ${error.message}`);
     }
   }
-
-  // Add more methods for teams, players, etc., if needed
 
   static async getLatestFinishedMatches() {
     const today = new Date();
@@ -56,6 +54,18 @@ class FootballDataService {
 
     return [];
   }
+
+    static async getLeagueStandings(leagueId) {
+        try {
+        const url = `${API_BASE_URL}/competitions/${leagueId}/standings`;
+        const response = await axios.get(url, apiHeaders);
+        return response.data;
+        } catch (error) {
+        throw new Error(`Error fetching league standings: ${error.message}`);
+        }
+    }
+
+
 }
 function formatDate(dateObj) {
   const year = dateObj.getFullYear();
@@ -63,7 +73,5 @@ function formatDate(dateObj) {
   const day = String(dateObj.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
-
-module.exports = FootballDataService;
 
 module.exports = FootballDataService;

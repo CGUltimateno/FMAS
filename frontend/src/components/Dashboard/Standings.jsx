@@ -1,13 +1,11 @@
 import React from "react";
-import "../../styles/Standings.scss";
+import "../../styles/Dashboard/Standings.scss";
 import { Trophy, ArrowRight } from "lucide-react";
-// Import the RTK Query hook
 import { useGetPLStandingsQuery } from "../../services/footballApi";
-
+import { useNavigate } from "react-router-dom";
 const Standings = () => {
-  // Call the auto-generated hook
   const { data, error, isLoading } = useGetPLStandingsQuery();
-
+  const navigate = useNavigate();
   if (isLoading) {
     return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
   }
@@ -15,12 +13,10 @@ const Standings = () => {
     return <p style={{ padding: "1rem", color: "red" }}>Error loading standings.</p>;
   }
 
-  // If successful, "data" has the entire JSON from /competitions/PL/standings
   const rawTable = data?.standings?.[0]?.table || [];
   const competition = data?.competition;
   const area = data?.area;
 
-  // Transform each team object
   const standingsData = rawTable.map((teamEntry) => ({
     id: teamEntry.team.id,
     name: teamEntry.team.name,
@@ -34,7 +30,7 @@ const Standings = () => {
     goalsFor: teamEntry.goalsFor,
     goalsAgainst: teamEntry.goalsAgainst,
     goalDifference: teamEntry.goalDifference,
-  }));
+  })).slice(0,5) ;
 
   const leagueInfo = {
     emblem: competition?.emblem,
@@ -66,7 +62,7 @@ const Standings = () => {
               )}
             </div>
           </div>
-          <button className="view-all-btn">
+          <button onClick={() => navigate("/leagues")} className="view-all-btn">
             View All <ArrowRight size={18} />
           </button>
         </div>

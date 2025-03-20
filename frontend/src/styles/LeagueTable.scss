@@ -1,0 +1,133 @@
+.league-table {
+  border-top: 3px solid #ededed;
+  border-radius: 0.15rem;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .league-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+    .title-league-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .title-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        h2 {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+
+      .league-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .league-flag {
+          width: 20px;
+          height: 14px;
+          object-fit: cover;
+          border-radius: 2px;
+        }
+
+        .league-emblem {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .league-table-content {
+    padding: 0 1rem 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .standings-table {
+      border-collapse: collapse;
+
+      thead {
+        tr {
+          background: #f3f4f6;
+
+          th {
+            font-weight: 600;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            text-align: left;
+
+            &.club-col {
+              width: 30%;
+            }
+            &.cl-bar-col {
+              width: 10px;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid #e5e7eb;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          td {
+            padding: 0.75rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+          }
+
+          .club-cell {
+            .club-info {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+
+              img {
+                width: 30px;
+                height: 30px;
+                object-fit: contain;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          .cl-bar-cell {
+            position: relative;
+            padding: 0;
+          }
+        }
+      }
+
+      .cl-bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 100%;
+
+        &.champions {
+          background: #6366f1; // purple
+        }
+        &.europa {
+          background: #f472b6; // pink
+        }
+      }
+    }
+  }
+}
