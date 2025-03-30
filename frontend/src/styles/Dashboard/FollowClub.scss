@@ -3,7 +3,7 @@
   border-top: 3px solid #ededed;
   border-radius: 0.15rem;
   margin-top: 50px;
-  overflow: hidden; /* Add this line to hide overflowing content */
+  overflow: hidden;
 
   .follow-club-header {
     display: flex;
@@ -56,10 +56,8 @@
     /* For Firefox, optional: */
     scrollbar-width: none;
   }
-
-  /* Each club circle */
   .club-circle {
-    flex: 0 0 auto; /* so they don't shrink */
+    flex: 0 0 auto;
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -81,9 +79,26 @@
       transform: scale(1.05);
     }
 
-    /* Highlight the active/selected club with a purple ring */
     &.active {
-      border-color: #8b5cf6; /* purple border */
+      border-color: #8b5cf6;
+    }
+  }
+}
+
+.dark .follow-club-container {
+  border-top: 3px solid #2B2D31;
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+
+  .clubs-scroll-wrapper {
+    .club-circle {
+      background: #2a2b31;
+      img {
+        filter: none;
+      }
+      &.active {
+        border: 2px solid #F5C451;
+      }
     }
   }
 }

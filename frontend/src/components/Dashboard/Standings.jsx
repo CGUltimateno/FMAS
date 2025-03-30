@@ -16,7 +16,6 @@ const Standings = () => {
   const rawTable = data?.standings?.[0]?.table || [];
   const competition = data?.competition;
   const area = data?.area;
-
   const standingsData = rawTable.map((teamEntry) => ({
     id: teamEntry.team.id,
     name: teamEntry.team.name,
@@ -53,12 +52,8 @@ const Standings = () => {
                       className="league-flag"
                   />
               )}
-              {leagueInfo.emblem && (
-                  <img
-                      src={leagueInfo.emblem}
-                      alt="League Emblem"
-                      className="league-emblem"
-                  />
+              {competition.name && (
+                    <h3 className="league-name">{competition.name}</h3>
               )}
             </div>
           </div>

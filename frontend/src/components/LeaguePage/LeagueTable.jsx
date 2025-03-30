@@ -1,5 +1,5 @@
-import { useGetLeagueStandingsQuery } from "../services/footballApi";
-import "../styles/LeagueTable.scss";
+import { useGetLeagueStandingsQuery } from "../../services/footballApi";
+import "../../styles/LeagueTable.scss";
 const LeagueTable = ({ leagueId, leagueName }) => {
     const { data, error, isLoading } = useGetLeagueStandingsQuery(leagueId);
 

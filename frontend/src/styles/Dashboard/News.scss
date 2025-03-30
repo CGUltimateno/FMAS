@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 2rem;
   max-width: 1200px;
-  border-top: 3px solid #ededed;
   border-radius: 0.15rem;
 
   .news-header {
@@ -107,5 +106,45 @@
 @media (max-width: 768px) {
   .news-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+.dark .news-container {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+
+  .news-header {
+    .news-title {
+      color: #fff;
+    }
+    .news-tabs {
+      .tab {
+        &.active {
+          color: #fff;
+          font-weight: 600;
+
+          &::after {
+            background-color: #F5C451;
+            box-shadow: 0 0 10px #F5C451;
+          }
+        }
+      }
+    }
+  }
+
+  .news-grid {
+    .news-card {
+      background: #2a2b31;
+      color: #e0e0e0;
+      .news-category {
+        color: #ccc;
+      }
+      .news-card-title {
+        color: #fff;
+      }
+      .news-card-description {
+        color: #bbb;
+      }
+    }
   }
 }

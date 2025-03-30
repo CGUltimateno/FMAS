@@ -216,3 +216,68 @@
     }
   }
 }
+
+// Dark Mode
+.dark .standings-wrapper {
+  background-color: #1f1f1f;
+  border-color: #333;
+  color: #e0e0e0;
+  .legend {
+    .legend-item {
+      color: #fff;
+
+      .legend-dot {
+        &.champions {
+          background: #6366f1;
+        }
+        &.europa {
+          background: #f472b6;
+        }
+      }
+    }
+  }
+
+  .standings-table {
+    thead {
+      tr {
+        background: #2a2b31;
+        th {
+          color: #ddd;
+        }
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #333;
+        td {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
+.dark .league-table-wrapper {
+  background-color: #1f1f1f;
+  border-color: #333;
+  color: #e0e0e0;
+
+  .league-table {
+    thead {
+      tr {
+        background: #2a2b31;
+        th {
+          color: #ddd;
+        }
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #333;
+        td {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}

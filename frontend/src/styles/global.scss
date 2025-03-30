@@ -1,10 +1,11 @@
 @import "variables";
 @import "mixins";
 
+// Base light-mode styling
 .app {
   display: flex;
   font-family: 'Inter', sans-serif;
-  background: #f4f4f2;
+  background: #f4f4f2; // Light background
 }
 
 body, html {
@@ -22,3 +23,132 @@ body, html {
     padding: $padding;
   }
 }
+
+// Light mode defaults
+body,
+.overlay {
+  background-color: #f4f4f2;
+  color: #333;
+}
+
+// ─────────────────────────────────────────────────────
+// DARK MODE OVERRIDES
+// We rely on the .dark class on the <html> element.
+// ─────────────────────────────────────────────────────
+
+.dark body,
+.dark .overlay,
+.dark .app {
+  background-color: #212227;
+  color: #fff;
+}
+
+.dark .dashboard {
+  background-color: #1f1f1f;
+  color: #fff;
+}
+
+.dark .content {
+  .featured-match-container {
+    background-color: #1f1f1f;
+    .teams-container {
+      .vs-section {
+        background: rgba(245, 196, 81, 0.10);
+        .score-container {
+          color: #F5C451;
+        }
+      }
+    }
+    .header-title {
+      color: #e0e0e0;
+      .live-time {
+        color: #14FF00;
+      }
+    }
+    .stats-grid {
+      .stat-item {
+        .stat-label {
+          color: #fff;
+        }
+        .stat-value {
+          color: #F5C451;
+        }
+        .stat-bars {
+          .bar {
+            &.bar-teamA {
+              background-color: #F5C451;
+            }
+            &.bar-teamB {
+              background-color: #006AA9;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// FORMS, INPUTS, BUTTONS
+.dark input,
+.dark textarea {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.dark button {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  &:hover {
+    background-color: #444;
+  }
+}
+
+// STANDINGS WRAPPER
+.standings-wrapper {
+  background-color: #fff;
+  border-top: 3px solid #ededed;
+  border-radius: 0.15rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  color: #333;
+
+  .standings-table {
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        background: #f3f4f6;
+
+        th {
+          font-weight: 600;
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          text-align: left;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e5e7eb;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+
+
+// DARK MODE STYLES

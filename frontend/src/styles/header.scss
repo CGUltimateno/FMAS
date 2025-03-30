@@ -139,6 +139,7 @@
   }
 }
 
+
 .profile-dropdown {
   position: absolute;
   top: 90px;
@@ -170,6 +171,52 @@
 
     &:hover {
       background: #0056b3;
+    }
+  }
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $primary-color;
+  cursor: pointer;
+}
+
+// Dark mode
+.dark .header {
+  background-color: #1f1f1f;
+  border-color: #333;
+  color: #e0e0e0;
+
+  .login-dropdown{
+    background: #1f1f1f;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    h2 {
+      color: #e0e0e0;
+    }
+  }
+
+  .search-bar {
+    background: #2a2b31;
+    input {
+      color: #e0e0e0;
+    }
+  }
+
+  .header-right {
+    .notification-icon,
+    .mode-icon,
+    .user-icon {
+      color: #cfcfcf;
+      &:hover {
+        color: #fff;
+      }
+    }
+    .profile-pic {
+      border-color: #444;
     }
   }
 }

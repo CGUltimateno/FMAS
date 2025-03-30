@@ -13,4 +13,8 @@ router.get("/matches-latest", FootballDataController.getLatestFinishedMatches);
 
 // GET league standings by league ID
 router.get("/:leagueId/standings/", FootballDataController.getLeagueStandings);
+
+// GET popular leagues
+router.get("/popular", FootballDataController.getPopularLeagues);
+
 module.exports = router;

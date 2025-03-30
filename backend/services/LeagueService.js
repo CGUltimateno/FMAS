@@ -65,6 +65,19 @@ class FootballDataService {
         }
     }
 
+  static async getPopularLeagues() {
+    try {
+      const url = `${API_BASE_URL}/competitions?plan=TIER_ONE`;
+      const response = await axios.get(url, apiHeaders);
+      const popularLeagues = response.data.competitions.filter(league =>
+          ["PL", "BL1", "SA", "CL", "FL1"].includes(league.code)
+      );
+      return { competitions: popularLeagues };
+    } catch (error) {
+      throw new Error(`Error fetching popular leagues: ${error.message}`);
+    }
+  }
+
 
 }
 function formatDate(dateObj) {

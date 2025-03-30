@@ -1,5 +1,5 @@
 import "../styles/LeaguesPage.scss";
-import LeagueTable from "../components/LeagueTable.jsx";
+import LeagueTable from "../components/LeaguePage/LeagueTable.jsx";
 
 const LeaguesPage = () => {
     const leagueObj = [

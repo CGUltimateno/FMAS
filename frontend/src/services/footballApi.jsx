@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const footballApi = createApi({
     reducerPath: "footballApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "/api/",
+        baseUrl: "http://localhost:5000/api/",
     }),
     endpoints: (builder) => ({
         // GET /api/football-data/standings/pl
@@ -26,6 +26,11 @@ export const footballApi = createApi({
             query: (leagueId) => `leagues/${leagueId}/standings`,
         }),
 
+        // GET /api/football-data/popular
+        getPopularLeagues: builder.query({
+            query: () => "leagues/popular",
+        }),
+
         // Add more endpoints if you add more routes
     }),
 });
@@ -35,4 +40,5 @@ export const {
     useGetMatchesByStatusQuery,
     useGetLatestMatchQuery,
     useGetLeagueStandingsQuery,
+    useGetPopularLeaguesQuery,
 } = footballApi;

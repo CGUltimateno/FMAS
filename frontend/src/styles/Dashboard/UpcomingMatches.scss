@@ -135,3 +135,55 @@
     }
   }
 }
+
+.dark .matches-container {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+
+  .matches-tabs {
+    .tab-btn {
+      background: transparent;
+      color: #ccc;
+      &:hover {
+        background: #2a2b31;
+      }
+      &.active {
+        color: #fff;
+        background: #2a2b31;
+      }
+    }
+    .tab-bar {
+      background: #fff;
+    }
+  }
+
+  .matches-list {
+    p {
+      color: #e0e0e0;
+    }
+    .match-row {
+      &:nth-child(odd) {
+        background: #1b1c21;
+        .team-col span {
+          color: #e0e0e0;
+        }
+      }
+      &:nth-child(even) {
+        background: #212227;
+        .team-col span {
+          color: #e0e0e0;
+        }
+      }
+      color: #e0e0e0;
+      .match-date {
+        color: #e0e0e0;
+      }
+      .match-team {
+        color: #e0e0e0;
+      }
+      .match-score {
+        color: #e0e0e0;
+      }
+    }
+  }
+}

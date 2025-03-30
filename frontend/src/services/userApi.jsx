@@ -1,20 +1,11 @@
-// src/services/userApi.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-// We'll assume your Node backend has these routes:
-// POST /api/auth/login => { message, token, user }
-// POST /api/auth/register => { message, user }
-// GET  /api/auth/profile => protected route, returns user info
-//
-// Adjust URLs to match your actual server routes.
 
 export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "/api/auth",
-        // If you need to attach token for protected routes, do:
         prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth?.token; // or wherever you store it
+            const token = getState().auth?.token;
             if (token) {
                 headers.set("Authorization", `Bearer ${token}`);
             }
