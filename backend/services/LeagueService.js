@@ -11,15 +11,6 @@ const apiHeaders = {
 };
 
 class FootballDataService {
-  static async getPLStandings() {
-    try {
-      const url = `${API_BASE_URL}/competitions/PL/standings`;
-      const response = await axios.get(url, apiHeaders);
-      return response.data;
-    } catch (error) {
-      throw new Error(`Error fetching PL standings: ${error.message}`);
-    }
-  }
 
   static async getMatchesByStatus(status) {
     try {

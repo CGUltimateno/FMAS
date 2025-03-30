@@ -1,11 +1,13 @@
 import React from "react";
 import "../../styles/Dashboard/Standings.scss";
 import { Trophy, ArrowRight } from "lucide-react";
-import { useGetPLStandingsQuery } from "../../services/footballApi";
+import { useGetLeagueStandingsQuery } from "../../services/footballApi";
 import { useNavigate } from "react-router-dom";
+
 const Standings = () => {
-  const { data, error, isLoading } = useGetPLStandingsQuery();
+  const { data, error, isLoading } = useGetLeagueStandingsQuery("PL");
   const navigate = useNavigate();
+
   if (isLoading) {
     return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
   }
@@ -29,7 +31,7 @@ const Standings = () => {
     goalsFor: teamEntry.goalsFor,
     goalsAgainst: teamEntry.goalsAgainst,
     goalDifference: teamEntry.goalDifference,
-  })).slice(0,5) ;
+  })).slice(0, 5);
 
   const leagueInfo = {
     emblem: competition?.emblem,
@@ -53,7 +55,7 @@ const Standings = () => {
                   />
               )}
               {competition.name && (
-                    <h3 className="league-name">{competition.name}</h3>
+                  <h3 className="league-name">{competition.name}</h3>
               )}
             </div>
           </div>

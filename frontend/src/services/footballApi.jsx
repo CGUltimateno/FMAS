@@ -6,10 +6,6 @@ export const footballApi = createApi({
         baseUrl: "http://localhost:5000/api/",
     }),
     endpoints: (builder) => ({
-        // GET /api/football-data/standings/pl
-        getPLStandings: builder.query({
-            query: () => "leagues/standings/pl",
-        }),
 
         // GET /api/football-data/matches?status=FINISHED|SCHEDULED|LIVE
         getMatchesByStatus: builder.query({

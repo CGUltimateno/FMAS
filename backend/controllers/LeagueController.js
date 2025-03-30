@@ -1,14 +1,6 @@
 const FootballDataService = require("../services/LeagueService");
 
 class LeagueController {
-  static async getPLStandings(req, res) {
-    try {
-      const data = await FootballDataService.getPLStandings();
-      res.json(data);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
 
   static async getLatestFinishedMatches(req, res) {
     try {
