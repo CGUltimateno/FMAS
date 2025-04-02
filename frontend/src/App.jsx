@@ -8,7 +8,10 @@ import "./styles/global.scss";
 import Dashboard from "./pages/Dashboard.jsx";
 import LeaguesPage from "./pages/LeaguesPage";
 import LoginPage from "./pages/LoginPage";
-
+import MatchDetails from "./pages/MatchDetails.jsx";
+import LeagueDetailsPage from "./pages/LeagueDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import TeamDetailsPage from "./pages/TeamDetailsPage";
 const App = () => {
     const location = useLocation();
     const isLoginPage = location.pathname === "/login";
@@ -16,7 +19,7 @@ const App = () => {
     return (
         <div className="overlay">
             <div className="app">
-                {!isLoginPage &&  !isRegisterPage && <Sidebar />}
+                {!isLoginPage && !isRegisterPage && <Sidebar />}
                 <main className="main-content">
                     {!isLoginPage && !isRegisterPage && <Header />}
                     <div className="content">
@@ -25,6 +28,11 @@ const App = () => {
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/leagues" element={<LeaguesPage />} />
+                            <Route path="/MatchDetails" element={<MatchDetails />} />
+                            <Route path="/leagues/:leagueId" element={<LeagueDetailsPage />} />
+                            <Route path="/team/:teamId" element={<TeamDetailsPage />} />
+                            <Route path="/leagues/:*" element={<NotFoundPage />} />
+                            <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </div>
                 </main>

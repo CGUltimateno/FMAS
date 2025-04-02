@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../styles/Dashboard/UpcomingMatches.scss";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   useGetMatchesByStatusQuery,
   useGetLatestMatchQuery,
@@ -32,8 +33,10 @@ function transformMatches(apiMatches) {
     return {
       id: m.id,
       homeTeam,
+      homeTeamId: m.homeTeam.id,
       homeTeamLogo:  m.homeTeam.crest,
       awayTeam,
+        awayTeamId: m.awayTeam.id,
       awayTeamLogo: m.awayTeam.crest,
       score,
       status,
@@ -106,6 +109,7 @@ const UpcomingMatches = () => {
     }
   }, [activeTab]);
 
+  console.log("Matches Data:", matchesData);
   const isAnyLoading =
       finishedQuery.isLoading || scheduledQuery.isLoading || liveQuery.isLoading;
 
@@ -146,7 +150,9 @@ const UpcomingMatches = () => {
                       ) : (
                           <div className="no-logo"/>
                       )}
-                      <span>{match.homeTeam}</span>
+                      <Link to={`/team/${match.homeTeamId}`} className="team-name-link">
+                        <span>{match.homeTeam}</span>
+                      </Link>
                     </div>
 
                     <div className="score-container">
@@ -154,7 +160,9 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="team-col away-team">
-                      <span>{match.awayTeam}</span>
+                      <Link to={`/team/${match.awayTeamId}`} className="team-name-link">
+                        <span>{match.awayTeam}</span>
+                      </Link>
                       {match.awayTeamLogo ? (
                           <img src={match.awayTeamLogo} alt={match.awayTeam}/>
                       ) : (
@@ -163,7 +171,7 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="status-col">
-                    <span className="match-status">{match.status}</span>
+                      <span className="match-status">{match.status}</span>
                     </div>
 
                     <div className="date-col">
@@ -180,6 +188,5 @@ const UpcomingMatches = () => {
       </div>
   );
 };
-
 
 export default UpcomingMatches;

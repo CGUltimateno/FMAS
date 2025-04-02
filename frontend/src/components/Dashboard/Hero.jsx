@@ -94,7 +94,7 @@ const Hero = () => {
 
               {/* VS Section */}
               <div className="vs-section">
-                <div className="score-container">
+                <div className="hero-score-container">
                   <span className="score">{homeScore}</span>
                   <span className="divider">-</span>
                   <span className="score">{awayScore}</span>

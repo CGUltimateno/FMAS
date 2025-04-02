@@ -1,0 +1,25 @@
+.league-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #333;
+    }
+
+    &.active {
+      color: #000;
+      border-color: #3b82f6;
+    }
+  }
+}

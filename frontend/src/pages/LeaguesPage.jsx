@@ -1,4 +1,4 @@
-import "../styles/LeaguesPage.scss";
+import "../styles/LeagueDetails/LeaguesPage.scss";
 import LeagueTable from "../components/LeaguePage/LeagueTable.jsx";
 
 const LeaguesPage = () => {

@@ -1,0 +1,176 @@
+.league-stats-box {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 1430px;
+  height: 517px;
+  flex-shrink: 0;
+}
+
+.stats-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ededed;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .stats-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+
+    .stats-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem;
+      border-bottom: 1px solid #ededed;
+
+      .stats-info {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .player-details {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          margin-bottom: 20px;
+
+          .player-name {
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+          }
+
+          .club-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            .team-name-link{
+              text-decoration: none;
+              color: inherit;
+            }
+
+            .club-emblem {
+              width: 20px;
+              height: 20px;
+              object-fit: contain;
+              border-radius: 50%;
+            }
+
+            .club-name {
+              font-size: 0.9rem;
+              color: #666;
+            }
+          }
+        }
+
+        .player-stats {
+          padding: 0.25rem 0.5rem;
+          border-radius: 16px;
+          background: #5742A9;
+          width: 93px;
+          height: 32px;
+          color: #FFF;
+          text-align: center;
+          font-family: Inter, serif;
+          font-size: 17px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .view-all-link {
+    margin-top: auto;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+
+// Dark Mode
+.dark .league-stats-box {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+
+  .stats-section {
+    border-right: 1px solid #333;
+
+    h2 {
+      color: #ddd;
+    }
+
+    .stats-list {
+      .stats-card {
+        border-bottom: 1px solid #333;
+
+        .stats-info {
+          .player-details {
+            .player-name {
+              color: #ddd;
+            }
+
+            .club-info {
+                .team-name-link {
+                    color: #ddd;
+                }
+              .club-emblem {
+                filter: brightness(0.8);
+              }
+
+              .club-name {
+                color: #999;
+              }
+            }
+          }
+
+          .player-stats {
+            background: #5742A9;
+            color: #FFF;
+          }
+        }
+      }
+    }
+  }
+
+  .view-all-link {
+    color: #ddd;
+
+    &:hover {
+      background-color: #333;
+    }
+  }
+}

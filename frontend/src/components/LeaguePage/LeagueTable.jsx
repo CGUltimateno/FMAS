@@ -1,6 +1,9 @@
+import React from "react";
 import { useGetLeagueStandingsQuery } from "../../services/footballApi";
-import "../../styles/LeagueTable.scss";
-const LeagueTable = ({ leagueId, leagueName }) => {
+import { Link } from "react-router-dom";
+import "../../styles/LeagueDetails/LeagueTable.scss";
+
+const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
     const { data, error, isLoading } = useGetLeagueStandingsQuery(leagueId);
 
     if (isLoading) {
@@ -12,11 +15,10 @@ const LeagueTable = ({ leagueId, leagueName }) => {
 
     const rawTable = data?.standings?.[0]?.table || [];
     const competition = data?.competition;
-
-    console.log(rawTable)
     const area = data?.area;
     const standingsData = rawTable.map((team) => ({
         position: team.position,
+        id: team.team.id,
         team: team.team,
         name: team.team.name,
         logo: team.team.crest,
@@ -29,30 +31,34 @@ const LeagueTable = ({ leagueId, leagueName }) => {
         goalDifference: team.goalDifference,
         points: team.points,
     }));
+    console.log(standingsData);
     return (
         <div className="league-table">
-            <div className="league-table-header">
-                <div className="title-league-section">
-                    <div className="title-section">
-                        <h2>{leagueName}</h2>
-                    </div>
-                    <div className="league-section">
-                        {area?.flag && (
-                            <img src={area.flag} alt={area.name} className="league-flag"/>
-                        )}
-                        {competition && competition.emblem && (
-                            <img src={competition.emblem} alt={competition.name} className="league-emblem"/>
-                        )}
+            {showTitle && (
+                <div className="league-table-header">
+                    <div className="title-league-section">
+                        <div className="title-section">
+                            <h2>
+                                <Link to={`/leagues/${leagueId}`}>{leagueName}</Link>
+                            </h2>
+                        </div>
+                        <div className="league-section">
+                            {area?.flag && (
+                                <img src={area.flag} alt={area.name} className="league-flag" />
+                            )}
+                            {competition && competition.emblem && (
+                                <img src={competition.emblem} alt={competition.name} className="league-emblem" />
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
             <div className="league-table-content">
                 <table className="standings-table">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th className="club-col">Club</th>
-                        <th>Name</th>
                         <th>Played</th>
                         <th>W</th>
                         <th>D</th>
@@ -74,8 +80,10 @@ const LeagueTable = ({ leagueId, leagueName }) => {
                                 <td>{team.position}</td>
                                 <td className="club-cell">
                                     <div className="club-info">
-                                        <img src={team.logo} alt={`${team.name} logo`}/>
+                                        <img src={team.logo} alt={`${team.name} logo`} />
+                                        <Link to={`/team/${team.id}`} className="team-name-link">
                                         <span>{team.name}</span>
+                                        </Link>
                                     </div>
                                 </td>
                                 <td>{team.playedGames}</td>
@@ -87,8 +95,8 @@ const LeagueTable = ({ leagueId, leagueName }) => {
                                 <td>{team.goalDifference}</td>
                                 <td>{team.points}</td>
                                 <td className="cl-bar-cell">
-                                    {isChampionsLeague && <div className="cl-bar champions"/>}
-                                    {isEuropaLeague && <div className="cl-bar europa"/>}
+                                    {isChampionsLeague && <div className="cl-bar champions" />}
+                                    {isEuropaLeague && <div className="cl-bar europa" />}
                                 </td>
                             </tr>
                         );
@@ -96,8 +104,18 @@ const LeagueTable = ({ leagueId, leagueName }) => {
                     </tbody>
                 </table>
             </div>
+            <div className="legend">
+                <div className="legend-item">
+                    <span className="legend-dot champions"></span>
+                    Champions League
+                </div>
+                <div className="legend-item">
+                    <span className="legend-dot europa"></span>
+                    Europa League
+                </div>
+            </div>
         </div>
     );
-}
+};
 
 export default LeagueTable;

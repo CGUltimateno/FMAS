@@ -1,0 +1,142 @@
+.match-details {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #312f2f, #b63a40);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 10px;
+    text-shadow: none;
+    font-weight: bold;
+  }
+}
+
+.match-card {
+  background: linear-gradient(135deg, #010618, #1f1f1f);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.teams-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.team-header {
+  text-align: center;
+  flex: 1;
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+
+  h3 {
+    color: #fff;
+    margin: 10px 0;
+    font-size: 1.4em;
+  }
+}
+
+.score, .vs {
+  font-weight: bold;
+  color: #15abd1;
+}
+
+.score {
+  font-size: 2.5em;
+  margin: 10px 0;
+}
+
+.vs {
+  font-size: 2em;
+  margin: 0 20px;
+}
+
+.stats-section {
+  margin: 30px 0;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 10px 0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255,255,255,0.1);
+  }
+}
+
+.stat-label, .team1-value, .team2-value {
+  color: #fff;
+  font-size: 1.2em;
+  flex: 1;
+  text-align: center;
+}
+
+.team1-value, .team2-value {
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+
+  &.higher {
+    background-color: #DA291C;
+    color: white;
+  }
+}
+
+.team2-value.higher {
+  background-color: #C8102E;
+}
+
+.ratings-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(255,255,255,0.1);
+}
+
+.team-ratings {
+  flex: 1;
+
+  h4 {
+    color: #fff;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  p {
+    color: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba(255,255,255,0.1);
+    }
+  }
+}

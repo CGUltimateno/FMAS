@@ -27,14 +27,25 @@ export const footballApi = createApi({
             query: () => "leagues/popular",
         }),
 
-        // Add more endpoints if you add more routes
+        // GET /api/football-data/leagues/:leagueId
+        getLeagueDetails: builder.query({
+            query: (leagueId) => `leagues/${leagueId}`,
+        }),
+
+       //  GET /api/teams/:teamId
+        getTeamDetails: builder.query({
+            query: (teamId) => `/${teamId}`,
+        }),
+
+            // Add more endpoints if you add more routes
     }),
 });
 
 export const {
-    useGetPLStandingsQuery,
     useGetMatchesByStatusQuery,
     useGetLatestMatchQuery,
     useGetLeagueStandingsQuery,
     useGetPopularLeaguesQuery,
+    useGetLeagueDetailsQuery,
+    useGetTeamDetailsQuery,
 } = footballApi;

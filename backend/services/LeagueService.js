@@ -1,8 +1,9 @@
+// services/FootballDataService.js
 const axios = require("axios");
 
 const FOOTBALL_DATA_API_KEY = process.env.FOOTBALL_DATA_API_KEY;
 
-const API_BASE_URL = "https://api.football-data.org/v4";
+const API_BASE_URL = "http://api.football-data.org/v4";
 
 const apiHeaders = {
   headers: {
@@ -11,7 +12,32 @@ const apiHeaders = {
 };
 
 class FootballDataService {
+  static async getLeagueFullDetails(leagueId) {
+    try {
+      const detailsUrl = `${API_BASE_URL}/competitions/${leagueId}`;
+      const standingsUrl = `${API_BASE_URL}/competitions/${leagueId}/standings`;
+      const matchesUrl = `${API_BASE_URL}/competitions/${leagueId}/matches`;
+      const scorersUrl = `${API_BASE_URL}/competitions/${leagueId}/scorers`;
 
+      const [detailsRes, standingsRes, matchesRes, scorersRes] = await Promise.all([
+        axios.get(detailsUrl, apiHeaders),
+        axios.get(standingsUrl, apiHeaders),
+        axios.get(matchesUrl, apiHeaders),
+        axios.get(scorersUrl, apiHeaders),
+      ]);
+
+      return {
+        details: detailsRes.data,
+        standings: standingsRes.data,
+        matches: matchesRes.data,
+        scorers: scorersRes.data,
+      };
+    } catch (error) {
+      throw new Error(`Error fetching full league details: ${error.message}`);
+    }
+  }
+
+  // Existing methods remain below...
   static async getMatchesByStatus(status) {
     try {
       const url = `${API_BASE_URL}/matches?status=${status}`;
@@ -46,15 +72,15 @@ class FootballDataService {
     return [];
   }
 
-    static async getLeagueStandings(leagueId) {
-        try {
-        const url = `${API_BASE_URL}/competitions/${leagueId}/standings`;
-        const response = await axios.get(url, apiHeaders);
-        return response.data;
-        } catch (error) {
-        throw new Error(`Error fetching league standings: ${error.message}`);
-        }
+  static async getLeagueStandings(leagueId) {
+    try {
+      const url = `${API_BASE_URL}/competitions/${leagueId}/standings`;
+      const response = await axios.get(url, apiHeaders);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error fetching league standings: ${error.message}`);
     }
+  }
 
   static async getPopularLeagues() {
     try {

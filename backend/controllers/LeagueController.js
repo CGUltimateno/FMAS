@@ -38,7 +38,20 @@ static async getMatches(req, res) {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async getLeagueFullDetails(req, res) {
+        try {
+            const { leagueId } = req.params;
+            // Call your service
+            const data = await FootballDataService.getLeagueFullDetails(leagueId);
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
+
+
 
 
 

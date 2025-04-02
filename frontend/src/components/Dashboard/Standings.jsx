@@ -3,6 +3,7 @@ import "../../styles/Dashboard/Standings.scss";
 import { Trophy, ArrowRight } from "lucide-react";
 import { useGetLeagueStandingsQuery } from "../../services/footballApi";
 import { useNavigate } from "react-router-dom";
+import LeagueTable from "../LeaguePage/LeagueTable";
 
 const Standings = () => {
   const { data, error, isLoading } = useGetLeagueStandingsQuery("PL");
@@ -46,18 +47,6 @@ const Standings = () => {
               <Trophy size={20} />
               <h2>Standings</h2>
             </div>
-            <div className="league-section">
-              {leagueInfo.flag && (
-                  <img
-                      src={leagueInfo.flag}
-                      alt="Country Flag"
-                      className="league-flag"
-                  />
-              )}
-              {competition.name && (
-                  <h3 className="league-name">{competition.name}</h3>
-              )}
-            </div>
           </div>
           <button onClick={() => navigate("/leagues")} className="view-all-btn">
             View All <ArrowRight size={18} />
@@ -65,64 +54,7 @@ const Standings = () => {
         </div>
 
         <div className="standings-table-wrapper">
-          <table className="standings-table">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th className="club-col">Club</th>
-              <th>Played</th>
-              <th>W</th>
-              <th>D</th>
-              <th>L</th>
-              <th>GF</th>
-              <th>GA</th>
-              <th>GD</th>
-              <th>Pts</th>
-              <th className="cl-bar-col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {standingsData.map((team) => {
-              const isChampionsLeague = team.idx <= 4;
-              const isEuropaLeague = team.idx >= 5 && team.idx <= 6;
-
-              return (
-                  <tr key={team.id}>
-                    <td>{team.idx}</td>
-                    <td className="club-cell">
-                      <div className="club-info">
-                        <img src={team.logo} alt={`${team.name} logo`} />
-                        <span>{team.name}</span>
-                      </div>
-                    </td>
-                    <td>{team.playedGames}</td>
-                    <td>{team.wins}</td>
-                    <td>{team.draws}</td>
-                    <td>{team.losses}</td>
-                    <td>{team.goalsFor}</td>
-                    <td>{team.goalsAgainst}</td>
-                    <td>{team.goalDifference}</td>
-                    <td>{team.pts}</td>
-                    <td className="cl-bar-cell">
-                      {isChampionsLeague && <div className="cl-bar champions" />}
-                      {isEuropaLeague && <div className="cl-bar europa" />}
-                    </td>
-                  </tr>
-              );
-            })}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="legend">
-          <div className="legend-item">
-            <span className="legend-dot champions"></span>
-            Champions League
-          </div>
-          <div className="legend-item">
-            <span className="legend-dot europa"></span>
-            Europa League
-          </div>
+          <LeagueTable leagueId="PL" leagueName={competition.name} showTitle={true} />
         </div>
       </div>
   );

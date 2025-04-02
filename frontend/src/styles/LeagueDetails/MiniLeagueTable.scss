@@ -1,0 +1,170 @@
+.mini-league-table {
+  background: #fff;
+  border-radius: 0.15rem;
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        background: #f3f4f6;
+
+        th {
+          font-weight: 600;
+          padding: 0.5rem;
+          font-size: 0.9rem;
+          text-align: left;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e5e7eb;
+
+        .club-cell {
+          .team-name-link {
+            text-decoration: none;
+            color: #000000;
+
+            &.dark {
+              color: #fff;
+            }
+          }
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 0.5rem;
+          font-size: 0.9rem;
+          vertical-align: middle;
+          text-decoration: none;
+        }
+
+        .cl-bar-cell {
+          position: relative;
+          padding: 0;
+        }
+      }
+
+      .cl-bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 100%;
+
+        &.champions {
+          background: #6366f1;
+        }
+
+        &.europa {
+          background: #f472b6;
+        }
+      }
+    }
+  }
+
+  .legend {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .legend-bar {
+        width: 20px;
+        height: 4px;
+        display: inline-block;
+      }
+
+      .champions {
+        background: #6366f1;
+      }
+
+      .europa {
+        background: #f472b6;
+      }
+    }
+  }
+}
+
+.dark .mini-league-table {
+  background: #1f1f1f;
+  color: #e0e0e0;
+
+  .standings-table {
+    thead {
+      tr {
+        background: #2a2b31;
+
+        th {
+          color: #ddd;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #333;
+
+        td {
+          color: #fff; /* Textfarbe im Dunkelmodus auf Weiß setzen */
+        }
+
+        .club-cell {
+          .team-name-link {
+            color: #fff; /* Textfarbe im Dunkelmodus auf Weiß setzen */
+          }
+        }
+
+        .cl-bar-cell {
+          position: relative;
+          padding: 0;
+        }
+      }
+
+      .cl-bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 6px;
+        height: 100%;
+
+        &.champions {
+          background: #6366f1;
+        }
+
+        &.europa {
+          background: #f472b6;
+        }
+      }
+    }
+  }
+
+  .legend {
+    .legend-item {
+      color: #fff;
+
+      .legend-bar {
+        &.champions {
+          background: #6366f1;
+        }
+
+        &.europa {
+          background: #f472b6;
+        }
+      }
+    }
+  }
+}

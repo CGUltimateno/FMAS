@@ -82,6 +82,11 @@
         &.away-team {
           justify-content: flex-end;
         }
+
+        .team-name-link {
+          text-decoration: none; // Entfernt die Unterstreichung
+          color: inherit; // Erbt die Textfarbe
+        }
       }
       .score-container{
         display: flex;

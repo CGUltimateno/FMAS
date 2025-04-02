@@ -18,11 +18,24 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        text-decoration: none;
+        color: inherit;
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
 
         h2 {
           font-size: 1.1rem;
           font-weight: 600;
           margin: 0;
+          text-decoration: none;
+          color: inherit;
         }
       }
 
@@ -69,6 +82,7 @@
             &.club-col {
               width: 30%;
             }
+
             &.cl-bar-col {
               width: 10px;
             }
@@ -79,6 +93,15 @@
       tbody {
         tr {
           border-bottom: 1px solid #e5e7eb;
+
+          .club-cell {
+            .club-info {
+              .team-name-link{
+                text-decoration: none;
+                color: inherit;
+              }
+            }
+          }
 
           &:last-child {
             border-bottom: none;
@@ -122,6 +145,7 @@
         &.champions {
           background: #6366f1; // purple
         }
+
         &.europa {
           background: #f472b6; // pink
         }
@@ -130,42 +154,108 @@
   }
 }
 
+.legend {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .champions {
+      background: #6366f1; // purple
+    }
+
+    .europa {
+      background: #f472b6; // pink
+    }
+  }
+}
+
 // Dark Mode
-.league-table-wrapper {
-  background-color: #fff;
-  border-top: 3px solid #ededed;
-  border-radius: 0.15rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  color: #333;
+.dark .league-table {
+  background: #212121;
+  color: #e0e0e0;
 
-  .league-table {
-    border-collapse: collapse;
+  .league-table-header {
+    border-bottom: 1px solid #333;
 
-    thead {
-      tr {
-        background: #f3f4f6;
+    .title-section {
+      color: #ddd;
 
-        th {
-          font-weight: 600;
-          padding: 0.75rem;
-          font-size: 0.9rem;
-          text-align: left;
+      a {
+        color: #ddd;
+
+        &:hover {
+          text-decoration: underline;
         }
+      }
+
+      h2 {
+        color: #ddd;
       }
     }
 
-    tbody {
-      tr {
-        border-bottom: 1px solid #e5e7eb;
+    .league-section {
+      .league-flag,
+      .league-emblem {
+        filter: brightness(0.8);
+      }
+    }
+  }
 
-        &:last-child {
-          border-bottom: none;
+  .league-table-content {
+    .standings-table {
+      thead {
+        tr {
+          background: #2a2b31;
+
+          .club-cell {
+            .club-info {
+              .team-name-link{
+                text-decoration: none;
+                color: inherit;
+              }
+            }
+          }
+          th {
+            color: #ddd;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid #333;
+
+          td {
+            color: #ccc;
+          }
+        }
+      }
+    }
+  }
+
+  .legend {
+    .legend-item {
+      color: #fff;
+
+      .legend-dot {
+        &.champions {
+          background: #6366f1;
         }
 
-        td {
-          padding: 0.75rem;
-          font-size: 0.9rem;
-          vertical-align: middle;
+        &.europa {
+          background: #f472b6;
         }
       }
     }
