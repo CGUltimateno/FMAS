@@ -90,14 +90,26 @@ const Sidebar = () => {
             {user && user.favoriteTeams && user.favoriteTeams.length > 0 && (
                 <>
                     <h3 className="menuTitle2" onClick={toggleClubs}>
-                        <span>FAVORITE CLUB</span>{" "}
+                        <span>FAVORITE CLUBS</span>{" "}
                         {isClubsOpen ? <FaChevronUp /> : <FaChevronDown />}
                     </h3>
                     {isClubsOpen && (
                         <ul className="menu2">
                             {user.favoriteTeams.map((club, index) => (
-                                <li key={index}>
-                                    <FaFutbol /> {isSidebarExpanded && club}
+                                <li
+                                    key={club.id || index}
+                                    onClick={() => navigate(`/teams/${typeof club === 'object' ? club.id : club}`)}
+                                >
+                                    {typeof club === 'object' && club.crest ? (
+                                        <img
+                                            src={club.crest}
+                                            alt={`${club.name} logo`}
+                                            className="team-logo"
+                                        />
+                                    ) : (
+                                        <FaFutbol />
+                                    )}
+                                    {isSidebarExpanded && (typeof club === 'object' ? club.name : club)}
                                 </li>
                             ))}
                         </ul>

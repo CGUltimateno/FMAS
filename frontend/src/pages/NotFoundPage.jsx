@@ -5,9 +5,9 @@ import "../styles/NotFoundPage.scss";
 const NotFoundPage = () => {
     return (
         <div className="not-found-page">
-            <h1>404 - Seite nicht gefunden</h1>
-            <p>Die Seite, die Sie suchen, existiert nicht.</p>
-            <Link to="/">Zurück zur Startseite</Link>
+            <h1>404 - Site not found</h1>
+            <p>The Site that you're trying to find is not available.</p>
+            <Link to="/">Go back to Main Page</Link>
         </div>
     );
 };

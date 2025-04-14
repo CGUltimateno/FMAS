@@ -30,14 +30,15 @@ const App = () => {
                             <Route path="/leagues" element={<LeaguesPage />} />
                             <Route path="/MatchDetails" element={<MatchDetails />} />
                             <Route path="/leagues/:leagueId" element={<LeagueDetailsPage />} />
-                            <Route path="/team/:teamId" element={<TeamDetailsPage />} />
+                            <Route path="/teams/:teamId" element={<TeamDetailsPage />} />
+                            <Route path="/leagues/:leagueId/matches" element={<MatchDetails />} />
                             <Route path="/leagues/:*" element={<NotFoundPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </div>
                 </main>
             </div>
-            <Footer />
+            {/*<Footer />*/}
         </div>
     );
 };

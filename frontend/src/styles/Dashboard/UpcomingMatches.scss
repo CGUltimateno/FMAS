@@ -1,18 +1,48 @@
+// frontend/src/styles/Dashboard/UpcomingMatches.scss
 .matches-container {
-  margin-left: 20px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-radius: 16px 16px 0 0;
+  }
 
   .matches-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-left: 20px;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.75rem;
+    color: #333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 50px;
+      height: 3px;
+      background: #6f42c1;
+      border-radius: 2px;
+    }
   }
 
   .matches-tabs {
     position: relative;
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
     .tab-btn {
       background: transparent;
@@ -21,24 +51,29 @@
       font-weight: 500;
       color: #64748b;
       cursor: pointer;
-      border-radius: 4px;
-      transition: background 0.2s;
+      border-radius: 6px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(111, 66, 193, 0.08);
+      }
 
       &.active {
-        color: #000;
+        color: #6f42c1;
         font-weight: 600;
       }
     }
 
     .tab-bar {
       position: absolute;
-      bottom: 0;
+      bottom: -1px;
       left: 0;
       height: 2px;
-      background: #5641a8;
+      background: #6f42c1;
       transition: width 0.3s, left 0.3s;
     }
   }
+
   .matches-list {
     display: flex;
     flex-direction: column;
@@ -49,11 +84,13 @@
       align-items: center;
       justify-content: space-between;
       background-color: #f9f9f9;
-      border-radius: 6px;
+      border-radius: 12px;
       padding: 0.75rem 1rem;
+      transition: all 0.2s ease;
 
-      &:nth-child(even) {
-        background-color: #fdfdfd;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       }
 
       .team-col {
@@ -67,12 +104,23 @@
           height: 32px;
           object-fit: contain;
           border-radius: 50%;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         span {
-          font-size: 1.2rem;
+          font-size: 0.95rem;
           font-weight: 600;
-          color: #1e293b;
+          color: #333;
+          transition: color 0.2s;
+        }
+
+        .team-name-link {
+          text-decoration: none;
+          color: inherit;
+
+          &:hover span {
+            color: #6f42c1;
+          }
         }
 
         &.home-team {
@@ -82,39 +130,36 @@
         &.away-team {
           justify-content: flex-end;
         }
-
-        .team-name-link {
-          text-decoration: none; // Entfernt die Unterstreichung
-          color: inherit; // Erbt die Textfarbe
-        }
       }
-      .score-container{
+
+      .score-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         background: #efedf7;
-        padding: 10px 1.5rem;
-        border-radius: 2rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 1.5rem;
+        margin: 0 0.5rem;
 
         .score-col {
-          flex: 0.5;
           text-align: center;
           font-size: 0.95rem;
           font-weight: 600;
-          color: #5641a8;
+          color: #6f42c1;
         }
       }
+
       .status-col {
-        flex: 1;
+        flex: 0.8;
         text-align: center;
 
         .match-status {
           display: inline-block;
           background: #fee2e2;
           color: #dc2626;
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           font-weight: 600;
-          padding: 0.5rem 0.5rem;
+          padding: 0.35rem 0.6rem;
           border-radius: 10px;
         }
       }
@@ -127,68 +172,123 @@
       }
 
       .action-col {
-        flex: 0.5;
         display: flex;
         justify-content: flex-end;
         color: #9ca3af;
         cursor: pointer;
+        transition: color 0.2s;
 
         &:hover {
-          color: #6b7280;
+          color: #6f42c1;
         }
       }
     }
   }
 }
 
+// Dark mode
 .dark .matches-container {
-  background-color: #1f1f1f;
-  color: #e0e0e0;
+  background: #2a2b31;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  &::before {
+    background: linear-gradient(to right, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
+  .matches-title {
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    &::after {
+      background: #8a63d2;
+    }
+  }
 
   .matches-tabs {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
     .tab-btn {
-      background: transparent;
-      color: #ccc;
+      color: #aaa;
+
       &:hover {
-        background: #2a2b31;
+        background: rgba(138, 99, 210, 0.1);
       }
+
       &.active {
-        color: #fff;
-        background: #2a2b31;
+        color: #a98eda;
       }
     }
+
     .tab-bar {
-      background: #fff;
+      background: #a98eda;
     }
   }
 
   .matches-list {
-    p {
-      color: #e0e0e0;
-    }
     .match-row {
-      &:nth-child(odd) {
-        background: #1b1c21;
-        .team-col span {
-          color: #e0e0e0;
+      background: #323338;
+
+      &:hover {
+        background: #3a3b42;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .team-col span {
+        color: #e0e0e0;
+      }
+
+      .team-name-link:hover span {
+        color: #a98eda;
+      }
+
+      .score-container {
+        background: rgba(138, 99, 210, 0.15);
+
+        .score-col {
+          color: #a98eda;
         }
       }
-      &:nth-child(even) {
-        background: #212227;
-        .team-col span {
-          color: #e0e0e0;
-        }
+
+      .date-col {
+        color: #aaa;
       }
-      color: #e0e0e0;
-      .match-date {
-        color: #e0e0e0;
+
+      .action-col:hover {
+        color: #a98eda;
       }
-      .match-team {
-        color: #e0e0e0;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .matches-container {
+    padding: 1rem;
+
+    .matches-title {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .team-col span {
+      font-size: 0.85rem;
+    }
+
+    .score-container {
+      padding: 0.4rem 1rem;
+
+      .score-col {
+        font-size: 0.85rem;
       }
-      .match-score {
-        color: #e0e0e0;
-      }
+    }
+
+    .status-col .match-status {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .date-col {
+      display: none;
     }
   }
 }

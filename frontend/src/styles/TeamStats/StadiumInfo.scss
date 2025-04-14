@@ -1,0 +1,208 @@
+.stadium-wrapper {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  width: 413px;
+  height: 230px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 40%;
+    background: linear-gradient(to bottom, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-top-left-radius: 16px;
+  }
+
+  .stadium-title {
+    position: relative;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 20px;
+      height: 3px;
+      background: #6f42c1;
+      border-radius: 2px;
+    }
+  }
+
+  .stadium-info {
+    margin-bottom: 1.25rem;
+
+    .stadium-venue {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: #222;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s ease;
+    }
+
+    .stadium-location {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #6f42c1;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .stadium-divider {
+    margin: 1.25rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, rgba(111, 66, 193, 0.2), rgba(111, 66, 193, 0.05));
+  }
+
+  .stadium-stats-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+
+    .stadium-stats-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: rgba(111, 66, 193, 0.05);
+        transform: translateY(-3px);
+      }
+
+      .stat-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem;
+        color: #333;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        color: #666;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+    }
+  }
+}
+
+// Dark mode styling
+.dark .stadium-wrapper {
+  background: #2a2b31;
+  color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  &::before {
+    background: linear-gradient(to bottom, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
+  .stadium-title {
+    color: #fff;
+
+    &::after {
+      background: #8a63d2;
+    }
+  }
+
+  .stadium-info {
+    .stadium-venue {
+      color: #fff;
+    }
+
+    .stadium-location {
+      color: #aaa;
+
+      &::before {
+        background-color: #8a63d2;
+      }
+    }
+  }
+
+  .stadium-divider {
+    background: linear-gradient(to right, rgba(138, 99, 210, 0.3), rgba(138, 99, 210, 0.05));
+  }
+
+  .stadium-stats-row {
+    .stadium-stats-item {
+      &:hover {
+        background-color: rgba(138, 99, 210, 0.15);
+      }
+
+      .stat-value {
+        color: #ddd;
+      }
+
+      .stat-label {
+        color: #aaa;
+      }
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .stadium-wrapper {
+    width: 100%;
+    padding: 1.25rem;
+
+    .stadium-title {
+      font-size: 1.1rem;
+    }
+
+    .stadium-info {
+      .stadium-venue {
+        font-size: 1.1rem;
+      }
+    }
+
+    .stadium-stats-row {
+      flex-wrap: wrap;
+
+      .stadium-stats-item {
+        padding: 0.5rem;
+        min-width: 100px;
+
+        .stat-value {
+          font-size: 1.1rem;
+        }
+
+        .stat-label {
+          font-size: 0.7rem;
+        }
+      }
+    }
+  }
+}

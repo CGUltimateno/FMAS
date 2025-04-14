@@ -33,6 +33,25 @@ export const userApi = createApi({
         getProfile: builder.query({
             query: () => "/profile",
         }),
+
+        // follow a team
+        followTeam: builder.mutation({
+            query: ({ teamId, teamData }) => ({
+                url: '/follow-team',  // Remove the "/users" part
+                method: 'POST',
+                body: { teamId, teamData }
+            }),
+            invalidatesTags: ['User']
+        }),
+
+        unfollowTeam: builder.mutation({
+            query: (teamId) => ({
+                url: '/unfollow-team',  // Remove the "/users" part
+                method: 'DELETE',
+                body: { teamId }
+            }),
+            invalidatesTags: ['User']
+        })
     }),
 });
 
@@ -40,4 +59,6 @@ export const {
     useLoginUserMutation,
     useRegisterUserMutation,
     useGetProfileQuery,
+    useFollowTeamMutation,
+    useUnfollowTeamMutation,
 } = userApi;

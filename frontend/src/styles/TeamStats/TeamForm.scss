@@ -1,22 +1,221 @@
 .team-form {
-  text-align: center;
-  .team-crest {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-  }
-  .team-name {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  .team-meta {
-    font-size: 1rem;
-    color: #666;
+  width: 536px;
+  height: auto;
+  min-height: 171px;
+  border-radius: 16px;
+  background: #FFF;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+
+  .team-performance {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
+    flex-direction: column;
+    padding: 0.5rem;
+
+    .team-form-h2 {
+      position: relative;
+      display: flex;
+      height: 42px;
+      flex-direction: column;
+      text-align: left;
+      color: #000;
+      font-family: Inter, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      margin-top: 25px;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 30px;
+        height: 3px;
+        background: #6f42c1;
+        border-radius: 2px;
+      }
+    }
+
+    .form-results {
+      display: flex;
+      justify-content: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+      padding-bottom: 1rem;
+
+      .match-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+
+          .opponent-crest {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+          }
+        }
+
+        .score {
+          padding: 6px 10px;
+          border-radius: 8px;
+          font-weight: bold;
+          font-size: 14px;
+          margin-bottom: 8px;
+          display: flex;
+          min-width: 36px;
+          height: 18px;
+          align-items: center;
+          justify-content: center;
+          color: #FFF;
+          text-align: center;
+          font-family: Inter, sans-serif;
+          letter-spacing: 0.02em;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .opponent-crest {
+          width: 54px;
+          height: 54px;
+          object-fit: contain;
+          border-radius: 50%;
+          background-color: #f9f9f9;
+          padding: 4px;
+          transition: all 0.25s ease;
+        }
+
+        .loading-crest {
+          font-size: 11px;
+          color: #777;
+          height: 54px;
+          width: 54px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #f2f2f2;
+          border-radius: 50%;
+        }
+
+        &.W {
+          .score {
+            background: linear-gradient(135deg, #4caf50, #43a047);
+            box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+          }
+        }
+
+        &.L {
+          .score {
+            background: linear-gradient(135deg, #f44336, #e53935);
+            box-shadow: 0 2px 6px rgba(244, 67, 54, 0.3);
+          }
+        }
+
+        &.D {
+          .score {
+            background: linear-gradient(135deg, #ffc107, #ffb300);
+            box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark mode styling
+.dark .team-form {
+  background: #2a2b31;
+  color: #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+
+  .team-performance {
+    .team-form-h2 {
+      color: #fff;
+
+      &::after {
+        background: #8a63d2;
+      }
+    }
+
+    .form-results {
+      .match-result {
+        .score {
+          color: #fff;
+        }
+
+        &.W {
+          .score {
+            background: linear-gradient(135deg, #43a047, #388e3c);
+          }
+        }
+
+        &.L {
+          .score {
+            background: linear-gradient(135deg, #e53935, #d32f2f);
+          }
+        }
+
+        &.D {
+          .score {
+            background: linear-gradient(135deg, #ffb300, #ffa000);
+            color: #000;
+          }
+        }
+
+        .opponent-crest {
+          background-color: #3a3b40;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+
+        .loading-crest {
+          color: #aaa;
+          background-color: #3a3b40;
+        }
+      }
+    }
+  }
+}
+
+// Media queries for responsive design
+@media (max-width: 768px) {
+  .team-form {
+    width: 100%;
+
+    .team-performance {
+      .team-form-h2 {
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      .form-results {
+        gap: 0.75rem;
+
+        .match-result {
+          width: 56px;
+
+          .opponent-crest {
+            width: 48px;
+            height: 48px;
+          }
+
+          .loading-crest {
+            width: 48px;
+            height: 48px;
+          }
+        }
+      }
+    }
   }
 }

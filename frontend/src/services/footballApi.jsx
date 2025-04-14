@@ -34,9 +34,38 @@ export const footballApi = createApi({
 
        //  GET /api/teams/:teamId
         getTeamDetails: builder.query({
-            query: (teamId) => `/${teamId}`,
+            query: (teamId) => `teams/${teamId}`,
         }),
 
+        // GET /api/leagues/:leagueid/top-stats
+        getTopStats: builder.query({
+    query: (leagueId) => `leagues/${leagueId}/top-stats`
+        }),
+
+        // GET /api/teams/news
+        getTrendingNews: builder.query({
+            query: () => `teams/news`,
+        }),
+
+        // GET /api/teams/:teamId/form/:leagueId
+        getTeamForm: builder.query({
+            query: ({ teamId, leagueId }) => `teams/${teamId}/form/${leagueId}`,
+        }),
+
+        // GET /api/teams/crest/:teamId
+        getTeamCrest: builder.query({
+            query: (teamId) => `teams/crest/${teamId}`,
+        }),
+
+        // GET /api/teams/:teamId/fixtures
+        getTeamFixtures: builder.query({
+            query: (teamId) => `teams/${teamId}/fixtures`,
+        }),
+
+        // GET /api/teams/:teamid/squad
+        getTeamSquad: builder.query({
+            query: (teamId) => `teams/${teamId}/squad`,
+        }),
             // Add more endpoints if you add more routes
     }),
 });
@@ -48,4 +77,10 @@ export const {
     useGetPopularLeaguesQuery,
     useGetLeagueDetailsQuery,
     useGetTeamDetailsQuery,
+    useGetTopStatsQuery,
+    useGetTrendingNewsQuery,
+    useGetTeamFormQuery,
+    useGetTeamCrestQuery,
+    useGetTeamFixturesQuery,
+    useGetTeamSquadQuery,
 } = footballApi;

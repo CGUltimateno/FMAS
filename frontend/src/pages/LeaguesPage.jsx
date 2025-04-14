@@ -1,29 +1,27 @@
 import "../styles/LeagueDetails/LeaguesPage.scss";
 import LeagueTable from "../components/LeaguePage/LeagueTable.jsx";
+import { useGetPopularLeaguesQuery } from "../services/footballApi";
 
 const LeaguesPage = () => {
-    const leagueObj = [
-        { leagueCode: "PL", leagueName: "Premier League" },
-        { leagueCode: "BL1", leagueName: "Bundesliga" },
-        { leagueCode: "PD", leagueName: "La Liga" },
-        { leagueCode: "SA", leagueName: "Serie A" },
-        { leagueCode: "FL1", leagueName: "Ligue 1" },
-        { leagueCode: "DED", leagueName: "Eredivisie" },
-    ]
-        return (
-            <div className="leagues-wrapper">
-                <h2>Leagues</h2>
-                <div className="leagues-container">
-                    {leagueObj.map((leagueObj) => (
+    const { data, error, isLoading } = useGetPopularLeaguesQuery();
+    console.log(data);
+    if (isLoading) return <div className="leagues-wrapper"><h2>Loading leagues...</h2></div>;
+    if (error) return <div className="leagues-wrapper"><h2>Error loading leagues</h2></div>;
+
+    return (
+        <div className="leagues-wrapper">
+            <h2>Leagues</h2>
+            <div className="leagues-container">
+                {data && data.competitions && data.competitions.map((league) => (
                     <LeagueTable
-                        key={leagueObj.leagueCode}
-                        leagueId={leagueObj.leagueCode}
-                        leagueName={leagueObj.leagueName}
-                        />
-                    ))}
-                </div>
+                        key={league.code}
+                        leagueId={league.id}
+                        leagueName={league.name}
+                    />
+                ))}
             </div>
-        );
+        </div>
+    );
 }
 
 export default LeaguesPage;

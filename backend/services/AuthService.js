@@ -38,6 +38,35 @@ class AuthService {
       throw new Error("Invalid or expired token");
     }
   }
+
+    static async FollowTeam(userId, teamId, teamData) {
+        const user = await User.findByPk(userId);
+        if (!user) throw new Error("User not found");
+
+        const favoriteTeams = user.favoriteTeams || [];
+        if (!favoriteTeams.includes(teamId)) {
+        favoriteTeams.push(teamId);
+        user.favoriteTeams = favoriteTeams;
+        await user.save();
+        }
+
+        return user;
+    }
+
+    static async UnfollowTeam(userId, teamId) {
+        const user = await User.findByPk(userId);
+        if (!user) throw new Error("User not found");
+
+        const favoriteTeams = user.favoriteTeams || [];
+        const teamIndex = favoriteTeams.indexOf(teamId);
+        if (teamIndex !== -1) {
+            favoriteTeams.splice(teamIndex, 1);
+            user.favoriteTeams = favoriteTeams;
+            await user.save();
+        }
+
+        return user;
+    }
 }
 
 

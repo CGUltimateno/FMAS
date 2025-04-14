@@ -18,6 +18,26 @@ class AuthController {
       res.status(400).json({ error: error.message });
     }
   }
+
+  static async FollowTeam(req, res) {
+    try {
+      const { teamId, teamData } = req.body;
+      const user = await AuthService.FollowTeam(req.user.userId, teamId, teamData);
+      res.json({ message: "Team followed successfully", user });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  static async UnfollowTeam(req, res) {
+    try {
+      const { teamId } = req.body;
+      const user = await AuthService.UnfollowTeam(req.user.userId, teamId);
+      res.json({ message: "Team unfollowed successfully", user });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = AuthController;

@@ -1,10 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGetLeagueStandingsQuery } from "../../services/footballApi";
 import { Link } from "react-router-dom";
 import "../../styles/LeagueDetails/LeagueTable.scss";
 
 const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
     const { data, error, isLoading } = useGetLeagueStandingsQuery(leagueId);
+    const [teamForms, setTeamForms] = useState({});
+
+    useEffect(() => {
+        if (data?.standings?.[0]?.table) {
+            const fetchForms = async () => {
+                const forms = {};
+                for (const team of data.standings[0].table) {
+                    try {
+                        const response = await fetch(`http://localhost:5000/api/teams/${team.team.id}/form/${leagueId}`);
+                        const matchData = await response.json();
+                        // Process the response to convert to W/D/L format
+                        const formResults = matchData.map(match => {
+                            // Use the flags provided by the backend
+                            const isHome = match.isRequestedTeamHome;
+                            const isAway = !isHome;
+
+                            // Convert scores to numbers
+                            const homeScore = Number(match.home.score);
+                            const awayScore = Number(match.away.score);
+
+                            // Get the team's score and opponent's score
+                            const teamScore = isHome ? homeScore : awayScore;
+                            const opponentScore = isHome ? awayScore : homeScore;
+
+                            if (teamScore > opponentScore) {
+                                return "W"; // Win
+                            } else if (teamScore < opponentScore) {
+                                return "L"; // Loss
+                            } else {
+                                return "D"; // Draw
+                            }
+                        });
+                        forms[team.team.id] = formResults.slice(0, 5);
+                    } catch (error) {
+                        console.error(`Error fetching form for team ${team.team.id}:`, error);
+                        forms[team.team.id] = [];
+                    }
+                }
+                setTeamForms(forms);
+            };
+            fetchForms();
+        }
+    }, [data, leagueId]);
 
     if (isLoading) {
         return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
@@ -31,7 +74,7 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
         goalDifference: team.goalDifference,
         points: team.points,
     }));
-    console.log(standingsData);
+
     return (
         <div className="league-table">
             {showTitle && (
@@ -39,7 +82,7 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
                     <div className="title-league-section">
                         <div className="title-section">
                             <h2>
-                                <Link to={`/leagues/${leagueId}`}>{leagueName}</Link>
+                                <Link to={`/leagues/${competition.id}`}>{leagueName}</Link>
                             </h2>
                         </div>
                         <div className="league-section">
@@ -67,22 +110,24 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
                         <th>GA</th>
                         <th>GD</th>
                         <th>Pts</th>
-                        <th className="cl-bar-col"></th>
+                        <th>Form</th>
                     </tr>
                     </thead>
                     <tbody>
                     {standingsData.map((team) => {
-                        const isChampionsLeague = team.position <= 4;
-                        const isEuropaLeague = team.position >= 5 && team.position <= 6;
-
+                        const form = teamForms[team.id] || [];
                         return (
                             <tr key={team.position}>
                                 <td>{team.position}</td>
                                 <td className="club-cell">
                                     <div className="club-info">
                                         <img src={team.logo} alt={`${team.name} logo`} />
-                                        <Link to={`/team/${team.id}`} className="team-name-link">
-                                        <span>{team.name}</span>
+                                        <Link
+                                            to={`/teams/${team.id}`}
+                                            state={{ leagueId }}
+                                            className="team-name-link"
+                                        >
+                                            <span>{team.name}</span>
                                         </Link>
                                     </div>
                                 </td>
@@ -94,25 +139,29 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
                                 <td>{team.goalsAgainst}</td>
                                 <td>{team.goalDifference}</td>
                                 <td>{team.points}</td>
-                                <td className="cl-bar-cell">
-                                    {isChampionsLeague && <div className="cl-bar champions" />}
-                                    {isEuropaLeague && <div className="cl-bar europa" />}
+                                <td>
+                                    <div className="form-indicators">
+                                        {form.map((result, index) => (
+                                            <span
+                                                key={index}
+                                                className={`form-indicator ${
+                                                    result === "W"
+                                                        ? "win"
+                                                        : result === "D"
+                                                            ? "draw"
+                                                            : "loss"
+                                                }`}
+                                            >
+                                                {result}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </td>
                             </tr>
                         );
                     })}
                     </tbody>
                 </table>
-            </div>
-            <div className="legend">
-                <div className="legend-item">
-                    <span className="legend-dot champions"></span>
-                    Champions League
-                </div>
-                <div className="legend-item">
-                    <span className="legend-dot europa"></span>
-                    Europa League
-                </div>
             </div>
         </div>
     );

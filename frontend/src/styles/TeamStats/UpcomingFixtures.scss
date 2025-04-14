@@ -1,0 +1,343 @@
+.fixtures {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 40%;
+    background: linear-gradient(to bottom, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-top-right-radius: 16px;
+  }
+
+  .fixtures-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, rgba(111, 66, 193, 0.2), rgba(111, 66, 193, 0.05));
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      position: relative;
+      padding-bottom: 0.25rem;
+      letter-spacing: -0.01em;
+      font-family: 'Inter', sans-serif;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 20px;
+        height: 3px;
+        background: #6f42c1;
+        border-radius: 2px;
+      }
+    }
+
+    .arrow-button {
+      background: none;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #6f42c1;
+      font-size: 1.1rem;
+      font-weight: bold;
+
+      &:hover:not(:disabled) {
+        background-color: rgba(111, 66, 193, 0.1);
+        transform: translateY(-1px);
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .fixtures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .fixture-card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background: #f2f2f7;
+      transform: translateX(2px);
+      border-left: 3px solid rgba(111, 66, 193, 0.5);
+    }
+
+    .fixture-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-row {
+      margin-bottom: 0.75rem;
+
+      .fixture-day {
+        min-width: 70px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #6f42c1;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .fixture-competition {
+        min-width: 100px;
+        text-align: right;
+        font-weight: 500;
+        color: #666;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .team-crest {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+        transition: transform 0.2s ease;
+        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+
+        &:hover {
+          transform: scale(1.15);
+          filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
+        }
+      }
+
+      .line-container {
+        position: relative;
+        flex: 1;
+        margin: 0 0.75rem;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .line {
+          height: 1px;
+          background: linear-gradient(to right, rgba(111, 66, 193, 0.3), rgba(111, 66, 193, 0.1));
+          width: 100%;
+          position: absolute;
+        }
+
+        .fixture-time {
+          position: relative;
+          background: #fff;
+          padding: 0.25rem 0.75rem;
+          font-weight: 700;
+          font-size: 0.9rem;
+          z-index: 1;
+          border-radius: 12px;
+          color: #333;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+          letter-spacing: 0.01em;
+          transition: all 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+          }
+        }
+      }
+    }
+
+    .bottom-row {
+      padding: 0 0.25rem;
+
+      .team-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #333;
+        transition: color 0.2s ease;
+
+        &:first-of-type {
+          margin-right: auto;
+        }
+      }
+    }
+  }
+}
+
+// Dark mode
+.dark .fixtures {
+  background: #2a2b31;
+  color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+
+  &::before {
+    background: linear-gradient(to bottom, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
+  .fixtures-header {
+    &:after {
+      background: linear-gradient(to right, rgba(138, 99, 210, 0.2), rgba(138, 99, 210, 0.05));
+    }
+
+    h2 {
+      color: #fff;
+
+      &::after {
+        background: #8a63d2;
+      }
+    }
+
+    .arrow-button {
+      color: #8a63d2;
+
+      &:hover:not(:disabled) {
+        background-color: rgba(138, 99, 210, 0.2);
+      }
+
+      &:disabled {
+        color: #555;
+      }
+    }
+  }
+
+  .fixtures-list {
+    .fixture-card {
+      background: #323338;
+      border-left: 3px solid transparent;
+
+      &:hover {
+        background: #3a3b42;
+        border-left: 3px solid rgba(138, 99, 210, 0.5);
+      }
+
+      .top-row {
+        .fixture-day {
+          color: #a98eda;
+        }
+
+        .fixture-competition {
+          color: #aaa;
+        }
+
+        .team-crest {
+          filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+
+          &:hover {
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+          }
+        }
+
+        .line-container {
+          .line {
+            background: linear-gradient(to right, rgba(138, 99, 210, 0.4), rgba(138, 99, 210, 0.1));
+          }
+
+          .fixture-time {
+            background: #2a2b31;
+            color: #ddd;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+          }
+        }
+      }
+
+      .bottom-row {
+        .team-name {
+          color: #ccc;
+        }
+      }
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .fixtures {
+    padding: 1.25rem;
+
+    .fixtures-header {
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      .arrow-button {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .fixture-card {
+      padding: 0.75rem 0.75rem;
+
+      .top-row {
+        .fixture-day {
+          min-width: 60px;
+          font-size: 0.75rem;
+        }
+
+        .team-crest {
+          width: 30px;
+          height: 30px;
+        }
+
+        .line-container {
+          margin: 0 0.5rem;
+
+          .fixture-time {
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+          }
+        }
+
+        .fixture-competition {
+          min-width: 80px;
+          font-size: 0.75rem;
+        }
+      }
+
+      .bottom-row {
+        .team-name {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}

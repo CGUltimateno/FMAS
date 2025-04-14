@@ -109,7 +109,6 @@ const UpcomingMatches = () => {
     }
   }, [activeTab]);
 
-  console.log("Matches Data:", matchesData);
   const isAnyLoading =
       finishedQuery.isLoading || scheduledQuery.isLoading || liveQuery.isLoading;
 

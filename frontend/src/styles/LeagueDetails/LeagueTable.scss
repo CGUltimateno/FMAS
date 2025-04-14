@@ -1,90 +1,129 @@
 .league-table {
-  border-radius: 0.15rem;
   background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-radius: 16px 16px 0 0;
+  }
 
   .league-table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
 
     .title-league-section {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.75rem;
 
       .title-section {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: inherit;
-
-        a {
-          text-decoration: none;
-          color: inherit;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
+        gap: 0.75rem;
 
         h2 {
-          font-size: 1.1rem;
+          font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
-          text-decoration: none;
-          color: inherit;
+          position: relative;
+
+          a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #6f42c1;
+            }
+          }
         }
       }
 
       .league-section {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
 
         .league-flag {
-          width: 20px;
-          height: 14px;
+          width: 24px;
+          height: 16px;
           object-fit: cover;
           border-radius: 2px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+          transition: transform 0.2s ease;
+
+          &:hover {
+            transform: scale(1.1);
+          }
         }
 
         .league-emblem {
-          width: 50px;
-          height: 50px;
-          object-fit: cover;
-          border-radius: 4px;
+          width: 48px;
+          height: 48px;
+          object-fit: contain;
+          border-radius: 8px;
+          transition: transform 0.2s ease;
+
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
     }
   }
 
   .league-table-content {
-    padding: 0 1rem 1rem;
+    padding: 0;
     overflow-y: auto;
-    overflow-x: hidden;
 
     .standings-table {
-      border-collapse: collapse;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 0.5rem;
 
       thead {
         tr {
-          background: #f3f4f6;
+          background: #f7f7f9;
+          border-radius: 8px;
 
           th {
+            padding: 0.85rem 1rem;
             font-weight: 600;
-            padding: 0.75rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
             text-align: left;
+            white-space: nowrap;
+
+            &:first-child {
+              border-top-left-radius: 8px;
+              border-bottom-left-radius: 8px;
+              padding-left: 1.25rem;
+            }
+
+            &:last-child {
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+              padding-right: 1.25rem;
+            }
 
             &.club-col {
               width: 30%;
-            }
-
-            &.cl-bar-col {
-              width: 10px;
             }
           }
         }
@@ -92,123 +131,137 @@
 
       tbody {
         tr {
-          border-bottom: 1px solid #e5e7eb;
+          background: #fafafa;
+          border-radius: 8px;
+          transition: transform 0.2s ease, background 0.2s ease;
 
-          .club-cell {
-            .club-info {
-              .team-name-link{
-                text-decoration: none;
-                color: inherit;
-              }
+          &:hover {
+            background: #f0f0f7;
+            transform: translateX(3px);
+          }
+
+          &.highlighted-row {
+            background-color: rgba(111, 66, 193, 0.08);
+            border-left: 3px solid #6f42c1;
+
+            td:first-child {
+              padding-left: calc(1.25rem - 3px);
             }
           }
 
-          &:last-child {
-            border-bottom: none;
-          }
-
           td {
-            padding: 0.75rem;
-            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
             vertical-align: middle;
+
+            &:first-child {
+              border-top-left-radius: 8px;
+              border-bottom-left-radius: 8px;
+              padding-left: 1.25rem;
+              font-weight: 600;
+              color: #555;
+            }
+
+            &:last-child {
+              border-top-right-radius: 8px;
+              border-bottom-right-radius: 8px;
+              padding-right: 1.25rem;
+            }
           }
 
           .club-cell {
             .club-info {
               display: flex;
               align-items: center;
-              gap: 0.5rem;
+              gap: 0.75rem;
 
               img {
-                width: 30px;
-                height: 30px;
+                width: 32px;
+                height: 32px;
                 object-fit: contain;
                 border-radius: 50%;
+                transition: transform 0.2s ease;
+                filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+
+                &:hover {
+                  transform: scale(1.15);
+                  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
+                }
+              }
+
+              .team-name-link {
+                text-decoration: none;
+
+                span {
+                  font-weight: 600;
+                  color: #333;
+                  transition: color 0.2s ease;
+
+                  &:hover {
+                    color: #6f42c1;
+                  }
+                }
               }
             }
           }
-
-          .cl-bar-cell {
-            position: relative;
-            padding: 0;
-          }
-        }
-      }
-
-      .cl-bar {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 6px;
-        height: 100%;
-
-        &.champions {
-          background: #6366f1; // purple
-        }
-
-        &.europa {
-          background: #f472b6; // pink
         }
       }
     }
   }
-}
 
-.legend {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  padding: 0 1rem;
-
-  .legend-item {
+  .form-indicators {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 4px;
 
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
+    .form-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
 
-    .champions {
-      background: #6366f1; // purple
-    }
+      &.win {
+        background-color: #00A75F;
+      }
 
-    .europa {
-      background: #f472b6; // pink
+      &.draw {
+        background-color: #D9D9D9;
+        color: #333;
+      }
+
+      &.loss {
+        background-color: #DB4242;
+      }
     }
   }
 }
 
 // Dark Mode
 .dark .league-table {
-  background: #212121;
+  background: #2a2b31;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   color: #e0e0e0;
 
+  &::before {
+    background: linear-gradient(to right, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
   .league-table-header {
-    border-bottom: 1px solid #333;
+    .title-league-section {
+      .title-section {
+        h2 {
+          a {
+            color: #e0e0e0;
 
-    .title-section {
-      color: #ddd;
-
-      a {
-        color: #ddd;
-
-        &:hover {
-          text-decoration: underline;
+            &:hover {
+              color: #a98eda;
+            }
+          }
         }
-      }
-
-      h2 {
-        color: #ddd;
-      }
-    }
-
-    .league-section {
-      .league-flag,
-      .league-emblem {
-        filter: brightness(0.8);
       }
     }
   }
@@ -217,46 +270,106 @@
     .standings-table {
       thead {
         tr {
-          background: #2a2b31;
+          background: #323338;
 
-          .club-cell {
-            .club-info {
-              .team-name-link{
-                text-decoration: none;
-                color: inherit;
-              }
-            }
-          }
           th {
-            color: #ddd;
+            color: #aaa;
           }
         }
       }
 
       tbody {
         tr {
-          border-bottom: 1px solid #333;
+          background: #2d2e34;
+
+          &:hover {
+            background: #363741;
+          }
+
+          &.highlighted-row {
+            background-color: rgba(138, 99, 210, 0.15);
+            border-left: 3px solid #8a63d2;
+          }
 
           td {
-            color: #ccc;
+            color: #ddd;
+
+            &:first-child {
+              color: #aaa;
+            }
+          }
+
+          .club-cell {
+            .club-info {
+              .team-name-link {
+                span {
+                  color: #e0e0e0;
+
+                  &:hover {
+                    color: #a98eda;
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
 
-  .legend {
-    .legend-item {
-      color: #fff;
+  .form-indicators {
+    .form-indicator {
+      &.draw {
+        background-color: #444;
+        color: #ddd;
+      }
+    }
+  }
+}
 
-      .legend-dot {
-        &.champions {
-          background: #6366f1;
-        }
+// Media queries
+@media (max-width: 992px) {
+  .league-table {
+    padding: 1.25rem;
 
-        &.europa {
-          background: #f472b6;
+    .form-indicators {
+      .form-indicator {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .league-table {
+    padding: 1rem;
+
+    .league-table-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .league-table-content {
+      overflow-x: auto;
+
+      .standings-table {
+        min-width: 600px;
+
+        thead th, tbody td {
+          padding: 0.75rem 0.5rem;
+          font-size: 0.85rem;
         }
+      }
+    }
+
+    .form-indicators {
+      .form-indicator {
+        width: 18px;
+        height: 18px;
+        font-size: 0.65rem;
       }
     }
   }

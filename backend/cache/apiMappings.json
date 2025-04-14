@@ -1,0 +1,6729 @@
+{
+  "leagues": {
+    "PL": {
+      "fdId": 2021,
+      "flId": 47
+    },
+    "PD": {
+      "fdId": 2014,
+      "flId": 87
+    },
+    "BL1": {
+      "fdId": 2002,
+      "flId": 54
+    },
+    "SA": {
+      "fdId": 2019,
+      "flId": 55
+    },
+    "FL1": {
+      "fdId": 2015,
+      "flId": 53
+    },
+    "CL": {
+      "fdId": 2001,
+      "flId": 42
+    }
+  },
+  "teams": {
+    "4": {
+      "name": "Borussia Dortmund",
+      "flId": 9789,
+      "leagueCode": "BL1"
+    },
+    "10": {
+      "name": "VfB Stuttgart",
+      "flId": 10269,
+      "leagueCode": "BL1"
+    },
+    "18": {
+      "name": "Borussia Mönchengladbach",
+      "flId": 9788,
+      "leagueCode": "BL1"
+    },
+    "19": {
+      "name": "Eintracht Frankfurt",
+      "flId": 9810,
+      "leagueCode": "BL1"
+    },
+    "57": {
+      "name": "Arsenal FC",
+      "flId": 9825,
+      "leagueCode": "PL"
+    },
+    "58": {
+      "name": "Aston Villa FC",
+      "flId": 10252,
+      "leagueCode": "PL"
+    },
+    "61": {
+      "name": "Chelsea FC",
+      "flId": 8455,
+      "leagueCode": "PL"
+    },
+    "62": {
+      "name": "Everton FC",
+      "flId": 8668,
+      "leagueCode": "PL"
+    },
+    "63": {
+      "name": "Fulham FC",
+      "flId": 9879,
+      "leagueCode": "PL"
+    },
+    "64": {
+      "name": "Liverpool FC",
+      "flId": 8650,
+      "leagueCode": "PL"
+    },
+    "65": {
+      "name": "Manchester City FC",
+      "flId": 8456,
+      "leagueCode": "PL"
+    },
+    "66": {
+      "name": "Manchester United FC",
+      "flId": 10260,
+      "leagueCode": "PL"
+    },
+    "67": {
+      "name": "Newcastle United FC",
+      "flId": 10261,
+      "leagueCode": "PL"
+    },
+    "73": {
+      "name": "Tottenham Hotspur FC",
+      "flId": 8586,
+      "leagueCode": "PL"
+    },
+    "76": {
+      "name": "Wolverhampton Wanderers FC",
+      "flId": 8602,
+      "leagueCode": "PL"
+    },
+    "77": {
+      "name": "Athletic Club",
+      "flId": 8315,
+      "leagueCode": "PD"
+    },
+    "82": {
+      "name": "Getafe CF",
+      "flId": 8305,
+      "leagueCode": "PD"
+    },
+    "86": {
+      "name": "Real Madrid CF",
+      "flId": 8633,
+      "leagueCode": "PD"
+    },
+    "94": {
+      "name": "Villarreal CF",
+      "flId": 10205,
+      "leagueCode": "PD"
+    },
+    "95": {
+      "name": "Valencia CF",
+      "flId": 10267,
+      "leagueCode": "PD"
+    },
+    "109": {
+      "name": "Juventus FC",
+      "flId": 9885,
+      "leagueCode": "SA"
+    },
+    "250": {
+      "name": "Real Valladolid CF",
+      "flId": 10281,
+      "leagueCode": "PD"
+    },
+    "298": {
+      "name": "Girona FC",
+      "flId": 7732,
+      "leagueCode": "PD"
+    },
+    "338": {
+      "name": "Leicester City FC",
+      "flId": 8197,
+      "leagueCode": "PL"
+    },
+    "340": {
+      "name": "Southampton FC",
+      "flId": 8466,
+      "leagueCode": "PL"
+    },
+    "349": {
+      "name": "Ipswich Town FC",
+      "flId": 9902,
+      "leagueCode": "PL"
+    },
+    "351": {
+      "name": "Nottingham Forest FC",
+      "flId": 10203,
+      "leagueCode": "PL"
+    },
+    "354": {
+      "name": "Crystal Palace FC",
+      "flId": 9826,
+      "leagueCode": "PL"
+    },
+    "397": {
+      "name": "Brighton & Hove Albion FC",
+      "flId": 10204,
+      "leagueCode": "PL"
+    },
+    "402": {
+      "name": "Brentford FC",
+      "flId": 9937,
+      "leagueCode": "PL"
+    },
+    "445": {
+      "name": "Empoli FC",
+      "flId": 8534,
+      "leagueCode": "SA"
+    },
+    "450": {
+      "name": "Hellas Verona FC",
+      "flId": 9876,
+      "leagueCode": "SA"
+    },
+    "454": {
+      "name": "Venezia FC",
+      "flId": 7881,
+      "leagueCode": "SA"
+    },
+    "511": {
+      "name": "Toulouse FC",
+      "flId": 9941,
+      "leagueCode": "FL1"
+    },
+    "524": {
+      "name": "Paris Saint-Germain FC",
+      "flId": 9847,
+      "leagueCode": "FL1"
+    },
+    "559": {
+      "name": "Sevilla FC",
+      "flId": 8302,
+      "leagueCode": "PD"
+    },
+    "563": {
+      "name": "West Ham United FC",
+      "flId": 8654,
+      "leagueCode": "PL"
+    },
+    "586": {
+      "name": "Torino FC",
+      "flId": 9804,
+      "leagueCode": "SA"
+    },
+    "720": {
+      "name": "Holstein Kiel",
+      "flId": 8150,
+      "leagueCode": "BL1"
+    },
+    "721": {
+      "name": "RB Leipzig",
+      "flId": 178475,
+      "leagueCode": "BL1"
+    },
+    "732": {
+      "name": "Celtic FC",
+      "flId": 9925,
+      "leagueCode": "CL"
+    },
+    "1044": {
+      "name": "AFC Bournemouth",
+      "flId": 8678,
+      "leagueCode": "PL"
+    },
+    "7283": {
+      "name": "FK Crvena Zvezda",
+      "flId": 8687,
+      "leagueCode": "CL"
+    }
+  },
+  "players": {
+    "2": {
+      "name": "Juanmi",
+      "flId": 191873,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "14": {
+      "name": "Antonio Sanabria",
+      "flId": 474448,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "22": {
+      "name": "Fabián Ruiz",
+      "flId": 605654,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "45": {
+      "name": "Lucas Vázquez",
+      "flId": 359193,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "52": {
+      "name": "Marco Asensio",
+      "flId": 498033,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "53": {
+      "name": "Achraf Hakimi",
+      "flId": 770881,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "69": {
+      "name": "Borja Mayoral",
+      "flId": 635772,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "74": {
+      "name": "Pablo Sarabia",
+      "flId": 240054,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "78": {
+      "name": "David Soria",
+      "flId": 581919,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "88": {
+      "name": "Fabian Schär",
+      "flId": 189982,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "96": {
+      "name": "Federico Valverde",
+      "flId": 743533,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "110": {
+      "name": "Thomas Partey",
+      "flId": 434325,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "140": {
+      "name": "Mario Götze",
+      "flId": 177714,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "143": {
+      "name": "Manuel Akanji",
+      "flId": 521318,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "144": {
+      "name": "Julian Weigl",
+      "flId": 521421,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "146": {
+      "name": "Jadon Sancho",
+      "flId": 846381,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "148": {
+      "name": "Julian Brandt",
+      "flId": 516846,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "156": {
+      "name": "Benjamin Henrichs",
+      "flId": 681383,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "157": {
+      "name": "Leon Bailey",
+      "flId": 671331,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "158": {
+      "name": "Mahmoud Dahoud",
+      "flId": 469701,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "171": {
+      "name": "Kai Havertz",
+      "flId": 749736,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "201": {
+      "name": "Salih Özcan",
+      "flId": 738064,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "206": {
+      "name": "Chris Führich",
+      "flId": 892679,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "223": {
+      "name": "Patrick Erras",
+      "flId": 673377,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "267": {
+      "name": "Alfonso Pedraza",
+      "flId": 629594,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "277": {
+      "name": "Diego Rico",
+      "flId": 488718,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "304": {
+      "name": "Niclas Füllkrug",
+      "flId": 276791,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "334": {
+      "name": "Gregor Kobel",
+      "flId": 764018,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "349": {
+      "name": "David Alaba",
+      "flId": 121633,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "351": {
+      "name": "Niklas Süle",
+      "flId": 447084,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "357": {
+      "name": "Juan Bernat",
+      "flId": 282691,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "379": {
+      "name": "Waldemar Anton",
+      "flId": 664970,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "400": {
+      "name": "Robin Hack",
+      "flId": 884919,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "404": {
+      "name": "Florian Grillitsch",
+      "flId": 617044,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "612": {
+      "name": "Yoane Wissa",
+      "flId": 666857,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "633": {
+      "name": "Pape Gueye",
+      "flId": 844544,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "641": {
+      "name": "Jean-Philippe Mateta",
+      "flId": 706297,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "727": {
+      "name": "Franck Honorat",
+      "flId": 501543,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "788": {
+      "name": "Jean-Ricner Bellegarde",
+      "flId": 769166,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "813": {
+      "name": "Axel Disasi",
+      "flId": 696646,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "814": {
+      "name": "Logan Costa",
+      "flId": 922877,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "1148": {
+      "name": "Arthur",
+      "flId": 654044,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "1324": {
+      "name": "Rodrygo",
+      "flId": 895362,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "1543": {
+      "name": "Lucas Paquetá",
+      "flId": 766435,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "1556": {
+      "name": "Vinicius Junior",
+      "flId": 846033,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "1731": {
+      "name": "Gianluigi Donnarumma",
+      "flId": 618878,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "1734": {
+      "name": "Antonio Donnarumma",
+      "flId": 212772,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "1751": {
+      "name": "Manuel Locatelli",
+      "flId": 624166,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "1752": {
+      "name": "Suso",
+      "flId": 280276,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "1769": {
+      "name": "Federico Brancolini",
+      "flId": 936020,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "1776": {
+      "name": "Cristiano Biraghi",
+      "flId": 239350,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "1780": {
+      "name": "Federico Chiesa",
+      "flId": 784510,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "1836": {
+      "name": "Timothy Castagne",
+      "flId": 465750,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "1846": {
+      "name": "Nicolas Haas",
+      "flId": 570830,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "1859": {
+      "name": "Dejan Kulusevski",
+      "flId": 935379,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "1865": {
+      "name": "Adam Masina",
+      "flId": 500502,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "1868": {
+      "name": "Emil Krafth",
+      "flId": 259306,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "1959": {
+      "name": "Mattia Perin",
+      "flId": 181910,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "2018": {
+      "name": "Yann Karamoh",
+      "flId": 686102,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "2023": {
+      "name": "Carlo Pinsoglio",
+      "flId": 196074,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "2030": {
+      "name": "Mattia De Sciglio",
+      "flId": 288613,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2041": {
+      "name": "Rodrigo Bentancur",
+      "flId": 620618,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "2074": {
+      "name": "Pedro Neto",
+      "flId": 843040,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "2094": {
+      "name": "Jorginho",
+      "flId": 282775,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "2105": {
+      "name": "Arkadiusz Milik",
+      "flId": 277460,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "2107": {
+      "name": "Alessio Zerbin",
+      "flId": 850295,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "2120": {
+      "name": "Giuseppe Pezzella",
+      "flId": 670928,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2123": {
+      "name": "Francesco Zampano",
+      "flId": 414924,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "2143": {
+      "name": "Marco Silvestri",
+      "flId": 165952,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2194": {
+      "name": "Alfred Duncan",
+      "flId": 317156,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "2253": {
+      "name": "Joachim Andersen",
+      "flId": 503659,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "2258": {
+      "name": "Karol Linetty",
+      "flId": 361403,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "2362": {
+      "name": "Alberto Grassi",
+      "flId": 575364,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2439": {
+      "name": "Alessandro Berardi",
+      "flId": 213330,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "2463": {
+      "name": "Liam Henderson",
+      "flId": 469939,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2495": {
+      "name": "Miha Zajc",
+      "flId": 396949,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "2563": {
+      "name": "Sandro Tonali",
+      "flId": 867414,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "2684": {
+      "name": "Alberto Paleari",
+      "flId": 415137,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "2707": {
+      "name": "Christian Kouamé",
+      "flId": 776940,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "2828": {
+      "name": "Antonio Candela",
+      "flId": 814400,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "3086": {
+      "name": "Guglielmo Vicario",
+      "flId": 538501,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "3126": {
+      "name": "Amath Ndiaye",
+      "flId": 737444,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "3171": {
+      "name": "Cristhian Stuani",
+      "flId": 58294,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "3174": {
+      "name": "Bernd Leno",
+      "flId": 215168,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3175": {
+      "name": "Kevin Trapp",
+      "flId": 145550,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "3177": {
+      "name": "Antonio Rüdiger",
+      "flId": 276738,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "3182": {
+      "name": "Ilkay Gündogan",
+      "flId": 178818,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3183": {
+      "name": "Emre Can",
+      "flId": 307021,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "3187": {
+      "name": "Timo Werner",
+      "flId": 450980,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "3189": {
+      "name": "Kepa Arrizabalaga",
+      "flId": 317564,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "3199": {
+      "name": "Rodri",
+      "flId": 675088,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3221": {
+      "name": "Neto",
+      "flId": 176186,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "3225": {
+      "name": "Marquinhos",
+      "flId": 267365,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "3230": {
+      "name": "Willian",
+      "flId": 94086,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3231": {
+      "name": "Casemiro",
+      "flId": 208494,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "3236": {
+      "name": "Gabriel Jesus",
+      "flId": 576165,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "3254": {
+      "name": "Bernardo Silva",
+      "flId": 488139,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3257": {
+      "name": "Bruno Fernandes",
+      "flId": 422685,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "3293": {
+      "name": "Edson Álvarez",
+      "flId": 783505,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "3309": {
+      "name": "Jordan Pickford",
+      "flId": 303919,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "3310": {
+      "name": "Nick Pope",
+      "flId": 280484,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "3312": {
+      "name": "Kieran Trippier",
+      "flId": 191869,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "3313": {
+      "name": "John Stones",
+      "flId": 263653,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3316": {
+      "name": "James Tarkowski",
+      "flId": 243138,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "3317": {
+      "name": "Ashley Young",
+      "flId": 23354,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "3318": {
+      "name": "Adam Lallana",
+      "flId": 37234,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "3326": {
+      "name": "Harry Maguire",
+      "flId": 255610,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "3327": {
+      "name": "Lewis Cook",
+      "flId": 562724,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "3328": {
+      "name": "Danny Welbeck",
+      "flId": 113836,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "3329": {
+      "name": "Raheem Sterling",
+      "flId": 246575,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "3330": {
+      "name": "Jamie Vardy",
+      "flId": 286119,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "3331": {
+      "name": "Marcus Rashford",
+      "flId": 696365,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "3359": {
+      "name": "Lucas Digne",
+      "flId": 210111,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "3362": {
+      "name": "Djibril Sidibé",
+      "flId": 242156,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "3363": {
+      "name": "Presnel Kimpembe",
+      "flId": 562035,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "3365": {
+      "name": "Lucas Hernández",
+      "flId": 504606,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "3373": {
+      "name": "Ousmane Dembélé",
+      "flId": 692984,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "3374": {
+      "name": "Kylian Mbappé",
+      "flId": 701154,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "3383": {
+      "name": "Wilfred Ndidi",
+      "flId": 533228,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "3385": {
+      "name": "Tyronne Ebuehi",
+      "flId": 561844,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "3386": {
+      "name": "Ola Aina",
+      "flId": 682548,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "3392": {
+      "name": "Alex Iwobi",
+      "flId": 604785,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3416": {
+      "name": "Massimo Luongo",
+      "flId": 305219,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "3448": {
+      "name": "Kasper Schmeichel",
+      "flId": 37770,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "3459": {
+      "name": "Christian Eriksen",
+      "flId": 157723,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "3466": {
+      "name": "Yussuf Poulsen",
+      "flId": 266527,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "3475": {
+      "name": "Nico Elvedi",
+      "flId": 517346,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "3608": {
+      "name": "Ellyes Skhiri",
+      "flId": 574642,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "3641": {
+      "name": "Thibaut Courtois",
+      "flId": 170323,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "3643": {
+      "name": "Matz Sels",
+      "flId": 181069,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "3654": {
+      "name": "Kevin De Bruyne",
+      "flId": 169200,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3658": {
+      "name": "Youri Tielemans",
+      "flId": 465960,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "3664": {
+      "name": "Michy Batshuayi",
+      "flId": 248689,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "3737": {
+      "name": "Jefferson Lerma",
+      "flId": 466672,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "3754": {
+      "name": "Mohamed Salah",
+      "flId": 292462,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "3765": {
+      "name": "Sam Morsy",
+      "flId": 185326,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "3884": {
+      "name": "Sam Johnstone",
+      "flId": 280287,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "3894": {
+      "name": "Axel Tuanzebe",
+      "flId": 690149,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "3895": {
+      "name": "Jack Grealish",
+      "flId": 312765,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "3899": {
+      "name": "James Bree",
+      "flId": 539939,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "3927": {
+      "name": "Antonee Robinson",
+      "flId": 662428,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3953": {
+      "name": "Marcus Bettinelli",
+      "flId": 363357,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "3959": {
+      "name": "Ryan Sessegnon",
+      "flId": 773991,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3962": {
+      "name": "Matt Targett",
+      "flId": 538112,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "3965": {
+      "name": "Tom Cairney",
+      "flId": 182962,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3992": {
+      "name": "James Maddison",
+      "flId": 493165,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "3995": {
+      "name": "Harrison Reed",
+      "flId": 502420,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "3998": {
+      "name": "Jamal Lewis",
+      "flId": 864983,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "4010": {
+      "name": "Joe Lumley",
+      "flId": 574448,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "4024": {
+      "name": "Ryan Manning",
+      "flId": 435513,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "4032": {
+      "name": "Eberechi Eze",
+      "flId": 818975,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "4040": {
+      "name": "Jason Steele",
+      "flId": 107917,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "4078": {
+      "name": "John Ruddy",
+      "flId": 40602,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "4081": {
+      "name": "Matt Doherty",
+      "flId": 239920,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "4082": {
+      "name": "Kortney Hause",
+      "flId": 364549,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "4083": {
+      "name": "Conor Coady",
+      "flId": 247761,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "4086": {
+      "name": "Willy Boly",
+      "flId": 246331,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "4091": {
+      "name": "Morgan Gibbs-White",
+      "flId": 789502,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "4092": {
+      "name": "Diogo Jota",
+      "flId": 570461,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "4119": {
+      "name": "Che Adams",
+      "flId": 599353,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "4147": {
+      "name": "Kalvin Phillips",
+      "flId": 609755,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4158": {
+      "name": "Jack Clarke",
+      "flId": 914402,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4172": {
+      "name": "Scott Carson",
+      "flId": 36373,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "4220": {
+      "name": "Jack Harrison",
+      "flId": 751649,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "4221": {
+      "name": "Adama Traoré",
+      "flId": 493647,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "4228": {
+      "name": "Adam Webster",
+      "flId": 303346,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "4233": {
+      "name": "Cameron Carter-Vickers",
+      "flId": 643589,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "4235": {
+      "name": "Luke Woolfenden",
+      "flId": 866688,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4321": {
+      "name": "David Brooks",
+      "flId": 674014,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "4334": {
+      "name": "Ethan Pinnock",
+      "flId": 711357,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "4376": {
+      "name": "Harry Toffolo",
+      "flId": 575804,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "4393": {
+      "name": "Lloyd Kelly",
+      "flId": 819215,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "4398": {
+      "name": "Bobby Reid",
+      "flId": 262550,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "4417": {
+      "name": "Antoine Semenyo",
+      "flId": 933576,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "4418": {
+      "name": "Daniel Bentley",
+      "flId": 189103,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "4426": {
+      "name": "Rico Henry",
+      "flId": 562892,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "4440": {
+      "name": "Chiedozie Ogbene",
+      "flId": 674009,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4444": {
+      "name": "Ollie Watkins",
+      "flId": 540088,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "4690": {
+      "name": "Liberato Cacace",
+      "flId": 919671,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "4832": {
+      "name": "David Raya",
+      "flId": 562727,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "4867": {
+      "name": "Christian Walton",
+      "flId": 512013,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4931": {
+      "name": "Conor Chaplin",
+      "flId": 605647,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "4955": {
+      "name": "Sean Longstaff",
+      "flId": 820024,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "5048": {
+      "name": "Mark Gillespie",
+      "flId": 195668,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "5332": {
+      "name": "Wes Burns",
+      "flId": 421768,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "5430": {
+      "name": "Conor Townsend",
+      "flId": 295069,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "5432": {
+      "name": "Cameron Burgess",
+      "flId": 564842,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "5435": {
+      "name": "Ryan Yates",
+      "flId": 775614,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "5457": {
+      "name": "Dean Henderson",
+      "flId": 719330,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "5487": {
+      "name": "Ben Godfrey",
+      "flId": 662936,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "5530": {
+      "name": "Aaron Ramsdale",
+      "flId": 746395,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "5613": {
+      "name": "James Justin",
+      "flId": 710158,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "5626": {
+      "name": "Flynn Downes",
+      "flId": 844943,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "5999": {
+      "name": "Jack Taylor",
+      "flId": 789507,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "6154": {
+      "name": "Ben White",
+      "flId": 776151,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "6317": {
+      "name": "Ezri Konsa",
+      "flId": 710159,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "6318": {
+      "name": "Joe Aribo",
+      "flId": 798659,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "6332": {
+      "name": "Stephy Mavididi",
+      "flId": 759580,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "6396": {
+      "name": "Marcus Tavernier",
+      "flId": 789630,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "6413": {
+      "name": "Remi Matthews",
+      "flId": 562726,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "6483": {
+      "name": "Dan-Axel Zagadou",
+      "flId": 852347,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "6486": {
+      "name": "Alexander Isak",
+      "flId": 690107,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "6491": {
+      "name": "Alexander Nübel",
+      "flId": 554534,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "6507": {
+      "name": "Weston McKennie",
+      "flId": 848266,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "6523": {
+      "name": "Josha Vagnoman",
+      "flId": 928454,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "6526": {
+      "name": "Lewis Holtby",
+      "flId": 128827,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "6543": {
+      "name": "Jann-Fiete Arp",
+      "flId": 844432,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "6560": {
+      "name": "Ondrej Duda",
+      "flId": 350634,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "6563": {
+      "name": "Valentino Lazaro",
+      "flId": 321140,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "6603": {
+      "name": "Fabian Bredlow",
+      "flId": 522236,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "6629": {
+      "name": "Suat Serdar",
+      "flId": 667790,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "6634": {
+      "name": "Ridle Baku",
+      "flId": 883087,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "6655": {
+      "name": "Kevin Danso",
+      "flId": 754126,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "6667": {
+      "name": "Tobias Sippel",
+      "flId": 37678,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "6668": {
+      "name": "Moritz Nicolas",
+      "flId": 784146,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "6671": {
+      "name": "Jannik Vestergaard",
+      "flId": 205893,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "6716": {
+      "name": "Daichi Kamada",
+      "flId": 621515,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "6825": {
+      "name": "Marvin Friedrich",
+      "flId": 530858,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "6839": {
+      "name": "Steven Skrzybski",
+      "flId": 212982,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "6901": {
+      "name": "Marcel Engelhardt",
+      "flId": 657654,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "6928": {
+      "name": "Deniz Undav",
+      "flId": 661519,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "7079": {
+      "name": "Atakan Karazor",
+      "flId": 684983,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "7328": {
+      "name": "Wout Faes",
+      "flId": 693678,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "7427": {
+      "name": "Martin Ødegaard",
+      "flId": 534670,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "7457": {
+      "name": "Donyell Malen",
+      "flId": 660301,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "7459": {
+      "name": "Cody Gakpo",
+      "flId": 806552,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "7466": {
+      "name": "Ridgeciano Haps",
+      "flId": 414232,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "7468": {
+      "name": "Lutsharel Geertruida",
+      "flId": 881640,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "7549": {
+      "name": "Matthijs de Ligt",
+      "flId": 769895,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "7553": {
+      "name": "Noussair Mazraoui",
+      "flId": 775539,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "7554": {
+      "name": "Rasmus Kristensen",
+      "flId": 722207,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "7556": {
+      "name": "Donny van de Beek",
+      "flId": 612836,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "7561": {
+      "name": "Justin Kluivert",
+      "flId": 794253,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "7599": {
+      "name": "Mason Mount",
+      "flId": 750032,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "7672": {
+      "name": "Umar Sadiq",
+      "flId": 590494,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "7693": {
+      "name": "Teun Koopmeiners",
+      "flId": 866516,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "7720": {
+      "name": "Sepp van den Berg",
+      "flId": 919435,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "7763": {
+      "name": "Abdou Harroui",
+      "flId": 909030,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "7789": {
+      "name": "Konstantinos Mavropanos",
+      "flId": 719219,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "7799": {
+      "name": "Reiss Nelson",
+      "flId": 748382,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "7809": {
+      "name": "Emerson",
+      "flId": 267371,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "7810": {
+      "name": "Trevoh Chalobah",
+      "flId": 793907,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "7816": {
+      "name": "Callum Hudson-Odoi",
+      "flId": 846383,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "7817": {
+      "name": "Ross Barkley",
+      "flId": 215384,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "7829": {
+      "name": "Michael Keane",
+      "flId": 290410,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "7839": {
+      "name": "Dominic Calvert-Lewin",
+      "flId": 612150,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "7848": {
+      "name": "Anthony Gordon",
+      "flId": 906937,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "7853": {
+      "name": "Nathan Broadhead",
+      "flId": 760329,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "7857": {
+      "name": "Danny Ward",
+      "flId": 254472,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "7861": {
+      "name": "James Milner",
+      "flId": 38807,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "7863": {
+      "name": "Nathaniel Clyne",
+      "flId": 157838,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "7867": {
+      "name": "Trent Alexander-Arnold",
+      "flId": 760712,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "7868": {
+      "name": "Andrew Robertson",
+      "flId": 357880,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "7869": {
+      "name": "Virgil van Dijk",
+      "flId": 209405,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "7873": {
+      "name": "Curtis Jones",
+      "flId": 933768,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "7875": {
+      "name": "Danny Ings",
+      "flId": 214426,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "7878": {
+      "name": "Dominic Solanke",
+      "flId": 591734,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "7880": {
+      "name": "Tosin Adarabioyo",
+      "flId": 683402,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "7887": {
+      "name": "Brahim Diaz",
+      "flId": 750027,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "7888": {
+      "name": "Phil Foden",
+      "flId": 815006,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "7889": {
+      "name": "Oleksandr Zinchenko",
+      "flId": 623621,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "7898": {
+      "name": "Luke Shaw",
+      "flId": 362694,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "7899": {
+      "name": "Daley Blind",
+      "flId": 161012,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "7901": {
+      "name": "Eric Bailly",
+      "flId": 574200,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "7934": {
+      "name": "Jacob Murphy",
+      "flId": 521148,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "7935": {
+      "name": "Mikel Merino",
+      "flId": 574645,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "7936": {
+      "name": "Ayoze Pérez",
+      "flId": 479020,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "7939": {
+      "name": "Kenedy",
+      "flId": 467354,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "7984": {
+      "name": "Jordan Ayew",
+      "flId": 154280,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "7992": {
+      "name": "Alfie Whiteman",
+      "flId": 795539,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "7993": {
+      "name": "Paulo Gazzaniga",
+      "flId": 278285,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "7994": {
+      "name": "Ben Davies",
+      "flId": 276121,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "7995": {
+      "name": "Kyle Walker-Peters",
+      "flId": 734042,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "7996": {
+      "name": "Juan Foyth",
+      "flId": 833219,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "7999": {
+      "name": "Harry Winks",
+      "flId": 528453,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "8011": {
+      "name": "Alex Palmer",
+      "flId": 643228,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "8012": {
+      "name": "Craig Dawson",
+      "flId": 169162,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "8014": {
+      "name": "Jonny Evans",
+      "flId": 43248,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "8015": {
+      "name": "Allan Nyom",
+      "flId": 213809,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "8035": {
+      "name": "Tom Heaton",
+      "flId": 24155,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "8043": {
+      "name": "Charlie Taylor",
+      "flId": 289137,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "8057": {
+      "name": "Chris Wood",
+      "flId": 169719,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "8065": {
+      "name": "Ben Chilwell",
+      "flId": 672469,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "8076": {
+      "name": "Harvey Barnes",
+      "flId": 760359,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "8079": {
+      "name": "Fraser Forster",
+      "flId": 95336,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "8080": {
+      "name": "Alex McCarthy",
+      "flId": 119079,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "8085": {
+      "name": "Jack Stephens",
+      "flId": 215387,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "8086": {
+      "name": "Jan Bednarek",
+      "flId": 490868,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "8088": {
+      "name": "James Ward-Prowse",
+      "flId": 279490,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "8091": {
+      "name": "Oriol Romeu",
+      "flId": 212470,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "8119": {
+      "name": "Abdoulaye Doucouré",
+      "flId": 352887,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "8124": {
+      "name": "Will Hughes",
+      "flId": 295067,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "8128": {
+      "name": "Dodi Lukebakio",
+      "flId": 688876,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "8133": {
+      "name": "Richarlison",
+      "flId": 654908,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "8137": {
+      "name": "Wayne Hennessey",
+      "flId": 36283,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "8141": {
+      "name": "Joel Ward",
+      "flId": 146830,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "8145": {
+      "name": "Jeffrey Schlupp",
+      "flId": 214570,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "8158": {
+      "name": "Aaron Wan-Bissaka",
+      "flId": 760320,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "8201": {
+      "name": "Aaron Cresswell",
+      "flId": 155782,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "8212": {
+      "name": "Michail Antonio",
+      "flId": 158545,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "8215": {
+      "name": "Declan Rice",
+      "flId": 654096,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "8224": {
+      "name": "Ben Johnson",
+      "flId": 770267,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "8231": {
+      "name": "Adam Smith",
+      "flId": 160447,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "8235": {
+      "name": "Tyrone Mings",
+      "flId": 419664,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "8240": {
+      "name": "Nathan Aké",
+      "flId": 417068,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "8247": {
+      "name": "Ryan Fraser",
+      "flId": 230916,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "8251": {
+      "name": "Callum Wilson",
+      "flId": 184321,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "8252": {
+      "name": "Joshua King",
+      "flId": 185236,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "8259": {
+      "name": "Lewis Dunk",
+      "flId": 201690,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "8296": {
+      "name": "Issa Diop",
+      "flId": 696443,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "8307": {
+      "name": "Ibrahim Sangaré",
+      "flId": 795371,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "8346": {
+      "name": "Boubacar Kamara",
+      "flId": 816325,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "8382": {
+      "name": "Junior Sambia",
+      "flId": 581137,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "8406": {
+      "name": "Boubakary Soumaré",
+      "flId": 882401,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "8410": {
+      "name": "Yves Bissouma",
+      "flId": 724306,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "8412": {
+      "name": "Nicolas Pépé",
+      "flId": 575735,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "8456": {
+      "name": "Mouctar Diakhaby",
+      "flId": 561198,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "8458": {
+      "name": "Ferland Mendy",
+      "flId": 623537,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "8460": {
+      "name": "Kenny Tete",
+      "flId": 469804,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "8479": {
+      "name": "Yuri Berchiche",
+      "flId": 80295,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "8484": {
+      "name": "Christopher Nkunku",
+      "flId": 704523,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "8487": {
+      "name": "Antoine Bernede",
+      "flId": 767013,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "8545": {
+      "name": "Wesley Fofana",
+      "flId": 917802,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "8626": {
+      "name": "Bryan Mbeumo",
+      "flId": 923312,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "8708": {
+      "name": "Randal Kolo Muani",
+      "flId": 823825,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "8768": {
+      "name": "Pietro Pellegri",
+      "flId": 817844,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "8780": {
+      "name": "Dimitri Foulquier",
+      "flId": 261609,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "8805": {
+      "name": "Ramy Bensebaini",
+      "flId": 559065,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "8862": {
+      "name": "Albert Sambi Lokonga",
+      "flId": 901495,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "8921": {
+      "name": "Mamadou Sylla",
+      "flId": 629579,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "8968": {
+      "name": "Joseph Aidoo",
+      "flId": 643998,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "8973": {
+      "name": "Sander Berge",
+      "flId": 540963,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "8984": {
+      "name": "Leandro Trossard",
+      "flId": 318615,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "9034": {
+      "name": "Takehiro Tomiyasu",
+      "flId": 664444,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "9208": {
+      "name": "Selim Amallah",
+      "flId": 658658,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "9218": {
+      "name": "Taiwo Awoniyi",
+      "flId": 643717,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "9306": {
+      "name": "Grigoris Kastanos",
+      "flId": 625797,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "9387": {
+      "name": "Jens Grahl",
+      "flId": 97746,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "9389": {
+      "name": "Alexander Meyer",
+      "flId": 743381,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "9398": {
+      "name": "Orel Mangala",
+      "flId": 765693,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "9405": {
+      "name": "Jacob Bruun Larsen",
+      "flId": 655575,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "9455": {
+      "name": "Niklas Schmidt",
+      "flId": 637754,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "9479": {
+      "name": "Robin Koch",
+      "flId": 628201,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "9487": {
+      "name": "Pascal Stenzel",
+      "flId": 513503,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "9490": {
+      "name": "Vincent Sierro",
+      "flId": 634310,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "9499": {
+      "name": "Tim Kleindienst",
+      "flId": 442728,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "9522": {
+      "name": "Florian Neuhaus",
+      "flId": 764507,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "9533": {
+      "name": "Péter Gulácsi",
+      "flId": 151001,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "9536": {
+      "name": "Lukas Klostermann",
+      "flId": 526657,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "9537": {
+      "name": "Willi Orban",
+      "flId": 278856,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "9542": {
+      "name": "Ibrahima Konaté",
+      "flId": 820140,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "9550": {
+      "name": "Kevin Kampl",
+      "flId": 185175,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "9551": {
+      "name": "Marcel Sabitzer",
+      "flId": 215151,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "9870": {
+      "name": "Arnaut Danjuma",
+      "flId": 704151,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "9905": {
+      "name": "David Raum",
+      "flId": 806669,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "9923": {
+      "name": "Mark Flekken",
+      "flId": 330643,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "9999": {
+      "name": "Kevin Stöger",
+      "flId": 276739,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "10000": {
+      "name": "Vitaly Janelt",
+      "flId": 688273,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "10182": {
+      "name": "Ricardo Pereira",
+      "flId": 306128,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "10194": {
+      "name": "Mathias Jensen",
+      "flId": 650616,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "10202": {
+      "name": "Szymon Zurkowski",
+      "flId": 846948,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "10208": {
+      "name": "Borna Sosa",
+      "flId": 622091,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "10324": {
+      "name": "Timo Becker",
+      "flId": 785739,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "10366": {
+      "name": "Finn Porath",
+      "flId": 721091,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "10653": {
+      "name": "Joelinton",
+      "flId": 535936,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "10777": {
+      "name": "Igor",
+      "flId": 768331,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "11414": {
+      "name": "Jarrod Bowen",
+      "flId": 523825,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "11623": {
+      "name": "Dwight McNeil",
+      "flId": 939542,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "11636": {
+      "name": "Harry Souttar",
+      "flId": 671518,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "11644": {
+      "name": "Matty Cash",
+      "flId": 729731,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "11777": {
+      "name": "Harry Wilson",
+      "flId": 494417,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "15512": {
+      "name": "Robin Olsen",
+      "flId": 120569,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "15611": {
+      "name": "James Forrest",
+      "flId": 185566,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "15615": {
+      "name": "Kieran Tierney",
+      "flId": 582499,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "15620": {
+      "name": "Callum McGregor",
+      "flId": 111060,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "15862": {
+      "name": "Nélson Semedo",
+      "flId": 470834,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "15899": {
+      "name": "José Sá",
+      "flId": 416175,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "15905": {
+      "name": "Diogo Dalot",
+      "flId": 751550,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "16067": {
+      "name": "Scott Bain",
+      "flId": 186891,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "16077": {
+      "name": "Odsonne Edouard",
+      "flId": 637746,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "16275": {
+      "name": "Djibril Sow",
+      "flId": 707970,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "16338": {
+      "name": "Stefan Lainer",
+      "flId": 195206,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "16344": {
+      "name": "Xaver Schlager",
+      "flId": 620027,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "16347": {
+      "name": "Dominik Szoboszlai",
+      "flId": 846005,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "16348": {
+      "name": "Patson Daka",
+      "flId": 644459,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "16480": {
+      "name": "Viktor Kovalenko",
+      "flId": 593213,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "21385": {
+      "name": "Gabriel Suazo",
+      "flId": 659490,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "21410": {
+      "name": "Nemanja Gudelj",
+      "flId": 178753,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "22040": {
+      "name": "Luis Sinisterra",
+      "flId": 846369,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "23128": {
+      "name": "Gabriel",
+      "flId": 795179,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "23287": {
+      "name": "Ardian Ismajli",
+      "flId": 750880,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "23926": {
+      "name": "Jesse Joronen",
+      "flId": 436563,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "24102": {
+      "name": "Christian Nørgaard",
+      "flId": 266520,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "24190": {
+      "name": "Rasmus Nicolaisen",
+      "flId": 656491,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "24215": {
+      "name": "Paul Onuachu",
+      "flId": 412357,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "24235": {
+      "name": "Martin Frese",
+      "flId": 824623,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "24238": {
+      "name": "Mikkel Damsgaard",
+      "flId": 888912,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "25376": {
+      "name": "Max Kilman",
+      "flId": 865931,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "25606": {
+      "name": "George Hirst",
+      "flId": 750033,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "25650": {
+      "name": "Dara O'Shea",
+      "flId": 789578,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "28549": {
+      "name": "Manuel Ugarte",
+      "flId": 1035614,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "28995": {
+      "name": "Andriy Lunin",
+      "flId": 800882,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "30629": {
+      "name": "Eljif Elmas",
+      "flId": 741049,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "30772": {
+      "name": "Marvin Schulz",
+      "flId": 553555,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "30774": {
+      "name": "Jonas Omlin",
+      "flId": 557342,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "30823": {
+      "name": "Eray Cömert",
+      "flId": 705484,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "30842": {
+      "name": "Matheus Cunha",
+      "flId": 863098,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "31577": {
+      "name": "Carl Johansson",
+      "flId": 484640,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "31913": {
+      "name": "Ruben Vargas",
+      "flId": 860752,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "32035": {
+      "name": "Luis Pérez",
+      "flId": 766957,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "32115": {
+      "name": "Kike Pérez",
+      "flId": 888167,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "32449": {
+      "name": "Luis Milla",
+      "flId": 638090,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "32510": {
+      "name": "Carles Pérez",
+      "flId": 873297,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "32511": {
+      "name": "Abel Ruiz",
+      "flId": 748380,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "32579": {
+      "name": "Yeray Álvarez",
+      "flId": 639450,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "32618": {
+      "name": "Daniel Vivian",
+      "flId": 940743,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "32719": {
+      "name": "Gerard Moreno",
+      "flId": 246438,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "32758": {
+      "name": "Mauro Arambarri",
+      "flId": 625340,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "32762": {
+      "name": "Hugo Duro",
+      "flId": 929838,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "32767": {
+      "name": "Santiago Bueno",
+      "flId": 848034,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "32854": {
+      "name": "Juan Carlos",
+      "flId": 246422,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "33073": {
+      "name": "Juan Berrocal",
+      "flId": 873838,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "33091": {
+      "name": "Andoni Gorosabel",
+      "flId": 839893,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "33109": {
+      "name": "Pau Torres",
+      "flId": 792645,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "33132": {
+      "name": "Enes Ünal",
+      "flId": 464486,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "33148": {
+      "name": "Carlos Soler",
+      "flId": 708890,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "33153": {
+      "name": "Andreas Pereira",
+      "flId": 575779,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "33242": {
+      "name": "Ermedin Demirovic",
+      "flId": 840241,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "33270": {
+      "name": "Pepelu",
+      "flId": 673689,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "33511": {
+      "name": "Juanpe",
+      "flId": 174862,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "33525": {
+      "name": "Douglas Luiz",
+      "flId": 787350,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "33781": {
+      "name": "Stole Dimitrievski",
+      "flId": 254241,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "34411": {
+      "name": "Anthony Ralston",
+      "flId": 668422,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "34495": {
+      "name": "Ryan Christie",
+      "flId": 439369,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "34646": {
+      "name": "John McGinn",
+      "flId": 356406,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "34754": {
+      "name": "Marshall Munetsi",
+      "flId": 786580,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "34780": {
+      "name": "Greg Taylor",
+      "flId": 744907,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "34907": {
+      "name": "Wesley Foderingham",
+      "flId": 212944,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "35101": {
+      "name": "Ross Stewart",
+      "flId": 776159,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "37539": {
+      "name": "André Almeida",
+      "flId": 777028,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "37578": {
+      "name": "Jota",
+      "flId": 820707,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "37903": {
+      "name": "Ola Solbakken",
+      "flId": 917779,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "38101": {
+      "name": "Erling Haaland",
+      "flId": 737066,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "38625": {
+      "name": "Chidera Ejuke",
+      "flId": 837270,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "41381": {
+      "name": "Michele Di Gregorio",
+      "flId": 766062,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "42026": {
+      "name": "Matteo Grandi",
+      "flId": 415091,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "42319": {
+      "name": "Simone Perilli",
+      "flId": 364515,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "42871": {
+      "name": "Odisseas Vlachodimos",
+      "flId": 304355,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "44017": {
+      "name": "Daizen Maeda",
+      "flId": 728765,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "44030": {
+      "name": "Julian Ryerson",
+      "flId": 659272,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "44055": {
+      "name": "Kjetil Haug",
+      "flId": 760747,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "45472": {
+      "name": "Domingos Duarte",
+      "flId": 566425,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "45569": {
+      "name": "Leopold Zingerle",
+      "flId": 450972,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "45680": {
+      "name": "Nicolás González",
+      "flId": 841672,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "45681": {
+      "name": "Alexis Mac Allister",
+      "flId": 831489,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "46046": {
+      "name": "Marcos Senesi",
+      "flId": 785411,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "46491": {
+      "name": "Omar Alderete",
+      "flId": 751998,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "48670": {
+      "name": "Yukinari Sugawara",
+      "flId": 924610,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "48902": {
+      "name": "Ko Itakura",
+      "flId": 620917,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "48988": {
+      "name": "Shuto Machino",
+      "flId": 915111,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "50907": {
+      "name": "Luis Rioja",
+      "flId": 638070,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "52035": {
+      "name": "Luke McCowan",
+      "flId": 866570,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "52791": {
+      "name": "André Ferreira",
+      "flId": 540415,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "53403": {
+      "name": "Jay Idzes",
+      "flId": 937412,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "53469": {
+      "name": "Perr Schuurs",
+      "flId": 726127,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "56628": {
+      "name": "Reece James",
+      "flId": 807729,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "56829": {
+      "name": "Christoph Baumgartner",
+      "flId": 747718,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "57805": {
+      "name": "Youssef Maleh",
+      "flId": 789243,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "61968": {
+      "name": "Michael Svoboda",
+      "flId": 951921,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "62327": {
+      "name": "Benedikt Pichler",
+      "flId": 803163,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "62631": {
+      "name": "Vladimir Coufal",
+      "flId": 307317,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "64228": {
+      "name": "Christian Gytkjær",
+      "flId": 121086,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "65215": {
+      "name": "Marco Komenda",
+      "flId": 560990,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "66896": {
+      "name": "Omar Marmoush",
+      "flId": 839204,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "72392": {
+      "name": "Philipp Sander",
+      "flId": 951918,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "74783": {
+      "name": "Daniel Iversen",
+      "flId": 617763,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "75439": {
+      "name": "Timon Weiner",
+      "flId": 951919,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "75539": {
+      "name": "Nico Schlotterbeck",
+      "flId": 1002058,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "75739": {
+      "name": "Maarten Vandevoordt",
+      "flId": 972200,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "76936": {
+      "name": "Matt Turner",
+      "flId": 729988,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "77078": {
+      "name": "Gianluca Busio",
+      "flId": 924431,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "77185": {
+      "name": "Auston Trusty",
+      "flId": 688271,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "77399": {
+      "name": "Mohammed Kudus",
+      "flId": 891743,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "77596": {
+      "name": "Tyler Adams",
+      "flId": 729769,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "77734": {
+      "name": "Yangel Herrera",
+      "flId": 730901,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "77803": {
+      "name": "Mark McKenzie",
+      "flId": 924485,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "79533": {
+      "name": "Álvaro Fernández",
+      "flId": 796781,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "79903": {
+      "name": "Jean-Clair Todibo",
+      "flId": 955214,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "80171": {
+      "name": "William Saliba",
+      "flId": 955406,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "80175": {
+      "name": "Yann Gboho",
+      "flId": 955411,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "80765": {
+      "name": "Max Aarons",
+      "flId": 956621,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "80775": {
+      "name": "Djed Spence",
+      "flId": 894803,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "80899": {
+      "name": "Javi Sánchez",
+      "flId": 683761,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "81037": {
+      "name": "Pedro Porro",
+      "flId": 941573,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "81082": {
+      "name": "Sven Botman",
+      "flId": 956682,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "81085": {
+      "name": "Zakaria Aboukhlal",
+      "flId": 846761,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "81179": {
+      "name": "Arijanet Muric",
+      "flId": 760752,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "81189": {
+      "name": "Georginio Rutter",
+      "flId": 956925,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "81565": {
+      "name": "Gorka Guruzeta",
+      "flId": 711231,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "81793": {
+      "name": "Ryan Gravenberch",
+      "flId": 956683,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "81973": {
+      "name": "Jesper Lindstrøm",
+      "flId": 958335,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "82132": {
+      "name": "Akor Adams",
+      "flId": 958640,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "82140": {
+      "name": "Morgan Rogers",
+      "flId": 883080,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "82145": {
+      "name": "James Hill",
+      "flId": 959407,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "82351": {
+      "name": "Maxence Lacroix",
+      "flId": 950485,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "82442": {
+      "name": "Joseph Scally",
+      "flId": 959696,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "82515": {
+      "name": "Karim Adeyemi",
+      "flId": 959594,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "83351": {
+      "name": "Juan Iglesias",
+      "flId": 1102289,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "84506": {
+      "name": "Giorgi Mamardashvili",
+      "flId": 948800,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "85570": {
+      "name": "Emile Smith Rowe",
+      "flId": 889534,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "91512": {
+      "name": "Matheus Nunes",
+      "flId": 955529,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "94091": {
+      "name": "Iliman Ndiaye",
+      "flId": 965764,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "96868": {
+      "name": "Mikel Vesga",
+      "flId": 616545,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "96974": {
+      "name": "Oliver Skipp",
+      "flId": 873014,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "97120": {
+      "name": "Yannik Keitel",
+      "flId": 844431,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "97144": {
+      "name": "Mads Hermansen",
+      "flId": 967941,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "97505": {
+      "name": "Mats Wieffer",
+      "flId": 970243,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "97894": {
+      "name": "Hans Nicolussi Caviglia",
+      "flId": 845994,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "98223": {
+      "name": "Lucien Agoume",
+      "flId": 971790,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "98549": {
+      "name": "John Yeboah",
+      "flId": 845368,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "98566": {
+      "name": "Jan Paul van Hecke",
+      "flId": 974618,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "98746": {
+      "name": "Nathan N'Goumou",
+      "flId": 979759,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "98750": {
+      "name": "Jorge Cuenca",
+      "flId": 821728,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "98816": {
+      "name": "Jurrien Timber",
+      "flId": 942381,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "99120": {
+      "name": "Leif Davis",
+      "flId": 980381,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "99357": {
+      "name": "Tuta",
+      "flId": 982158,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "99731": {
+      "name": "Joshua Zirkzee",
+      "flId": 950830,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "99813": {
+      "name": "Bukayo Saka",
+      "flId": 961995,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "99856": {
+      "name": "Chris Richards",
+      "flId": 950829,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "101076": {
+      "name": "James Garner",
+      "flId": 950474,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "101111": {
+      "name": "Aaron Hickey",
+      "flId": 1002039,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "101432": {
+      "name": "David Zec",
+      "flId": 861541,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "101910": {
+      "name": "Keane Lewis-Potter",
+      "flId": 1010426,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "101912": {
+      "name": "Bryan Gil",
+      "flId": 970692,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "102046": {
+      "name": "Caoimhin Kelleher",
+      "flId": 776689,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "102047": {
+      "name": "Cheikh Niasse",
+      "flId": 1011022,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "102193": {
+      "name": "Crysencio Summerville",
+      "flId": 941213,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "102223": {
+      "name": "Toti Gomes",
+      "flId": 1013277,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "102343": {
+      "name": "Eduardo Camavinga",
+      "flId": 1015185,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "102603": {
+      "name": "Enzo Fernández",
+      "flId": 1137705,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "105441": {
+      "name": "Sebastian Walukiewicz",
+      "flId": 860592,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "105533": {
+      "name": "Thomas Dähne",
+      "flId": 314960,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "107330": {
+      "name": "Elliot Anderson",
+      "flId": 1089691,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "110693": {
+      "name": "Liam Scales",
+      "flId": 782705,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "111071": {
+      "name": "Leonidas Stergiou",
+      "flId": 1019947,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "111437": {
+      "name": "Jacob Ramsey",
+      "flId": 1021929,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "111570": {
+      "name": "Alex Sola",
+      "flId": 895953,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "111622": {
+      "name": "Alexander Bernhardsson",
+      "flId": 1014688,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "113038": {
+      "name": "Nicolas  Seiwald",
+      "flId": 1024672,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "113175": {
+      "name": "Tajon Buchanan",
+      "flId": 1026135,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "113285": {
+      "name": "Khvicha Kvaratskhelia",
+      "flId": 900433,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "113335": {
+      "name": "Julian Araujo",
+      "flId": 1027447,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "114024": {
+      "name": "Amadou Onana",
+      "flId": 1185748,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "114054": {
+      "name": "Sebastiano Esposito",
+      "flId": 1030212,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "114120": {
+      "name": "Jarrad Branthwaite",
+      "flId": 1030829,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "115112": {
+      "name": "Magnus Knudsen",
+      "flId": 1025560,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "115245": {
+      "name": "Samuele Ricci",
+      "flId": 941656,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "115642": {
+      "name": "Nathan Collins",
+      "flId": 961306,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "117370": {
+      "name": "Fali Candé",
+      "flId": 1041522,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "118029": {
+      "name": "Carlos Miguel",
+      "flId": 1043826,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "118604": {
+      "name": "Alistair Johnston",
+      "flId": 1055426,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "119385": {
+      "name": "Armin Gigovic",
+      "flId": 1057426,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "119596": {
+      "name": "Morato",
+      "flId": 1053838,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "121103": {
+      "name": "Moisés Caicedo",
+      "flId": 1137668,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "121860": {
+      "name": "Juan Cabal",
+      "flId": 1083562,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "122320": {
+      "name": "Flavius Daniliuc",
+      "flId": 1072472,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "123103": {
+      "name": "Woyo Coulibaly",
+      "flId": 1074476,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "123286": {
+      "name": "Kevin Schade",
+      "flId": 1083796,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "123333": {
+      "name": "Jamie Leweling",
+      "flId": 1074968,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "124469": {
+      "name": "Maik Nawrocki",
+      "flId": 1053713,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "124473": {
+      "name": "Amin Sarr",
+      "flId": 1156568,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "124694": {
+      "name": "Brennan Johnson",
+      "flId": 1076756,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "124824": {
+      "name": "Harvey Elliott",
+      "flId": 963964,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "124865": {
+      "name": "Andrea Cambiaso",
+      "flId": 1078846,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "125010": {
+      "name": "Jude Bellingham",
+      "flId": 1077894,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "125044": {
+      "name": "Beto",
+      "flId": 1079485,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "125561": {
+      "name": "Adam Idah",
+      "flId": 846009,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "125651": {
+      "name": "Jacob Greaves",
+      "flId": 1079103,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "126870": {
+      "name": "Bart Verbruggen",
+      "flId": 1131987,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "126878": {
+      "name": "Oihan Sancet",
+      "flId": 950545,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "127140": {
+      "name": "Cenk Özkacar",
+      "flId": 1107951,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "128242": {
+      "name": "Cameron Archer",
+      "flId": 1086647,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "128565": {
+      "name": "Angelo Stiller",
+      "flId": 1071186,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "129381": {
+      "name": "Casper Tengstedt",
+      "flId": 1102240,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "130809": {
+      "name": "Evan Ferguson",
+      "flId": 1068482,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "131035": {
+      "name": "Taylor Harwood-Bellis",
+      "flId": 966021,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "131120": {
+      "name": "Ian Maatsen",
+      "flId": 966026,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "131127": {
+      "name": "Will Dennis",
+      "flId": 1096635,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "131260": {
+      "name": "Evanilson",
+      "flId": 1098096,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "131569": {
+      "name": "Jake O'Brien",
+      "flId": 1098607,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "132707": {
+      "name": "Kaoru Mitoma",
+      "flId": 862608,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "133229": {
+      "name": "Brandon Austin",
+      "flId": 862993,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "133292": {
+      "name": "Niels Nkounkou",
+      "flId": 1104441,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "133512": {
+      "name": "Riccardo Calafiori",
+      "flId": 1105912,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "133547": {
+      "name": "Nick Woltemade",
+      "flId": 1106563,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "133584": {
+      "name": "Amad Diallo",
+      "flId": 1070052,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "133765": {
+      "name": "Neco Williams",
+      "flId": 1078788,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "133787": {
+      "name": "Tariq Lamptey",
+      "flId": 955139,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "133903": {
+      "name": "Maximilian Beier",
+      "flId": 1047667,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "135524": {
+      "name": "Alejandro Francés",
+      "flId": 1112511,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "135555": {
+      "name": "Robert Sánchez",
+      "flId": 789571,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "136334": {
+      "name": "Jota Silva",
+      "flId": 1114798,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "136628": {
+      "name": "Mattia Viti",
+      "flId": 1116749,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "136724": {
+      "name": "Reo Hatate",
+      "flId": 980792,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "136782": {
+      "name": "Luan Patrick",
+      "flId": 1118195,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "136783": {
+      "name": "Welington",
+      "flId": 1118192,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "137068": {
+      "name": "Tyrick Mitchell",
+      "flId": 1120224,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "137396": {
+      "name": "William Smallbone",
+      "flId": 807925,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "138015": {
+      "name": "Edmond-Paris Maghoma",
+      "flId": 886150,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "138036": {
+      "name": "Rodrigo Muniz",
+      "flId": 1128945,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "138174": {
+      "name": "Nathan Patterson",
+      "flId": 1112684,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "140203": {
+      "name": "Thomas McGill",
+      "flId": 815080,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "140269": {
+      "name": "Carlos Alcaraz",
+      "flId": 1128965,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "140773": {
+      "name": "El Bilal Touré",
+      "flId": 1054114,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "140823": {
+      "name": "Filip Stankovic",
+      "flId": 1130600,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "141295": {
+      "name": "Pierre Kalulu",
+      "flId": 1131217,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "141333": {
+      "name": "Paulo Bernardo",
+      "flId": 1050831,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "142119": {
+      "name": "Andu Yobel Kelati",
+      "flId": 1253909,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "142140": {
+      "name": "Kamal Deen Sulemana",
+      "flId": 1130691,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "142283": {
+      "name": "John Tolkin",
+      "flId": 1136403,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "143054": {
+      "name": "Armando Broja",
+      "flId": 1077975,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "143573": {
+      "name": "Illia Zabarnyi",
+      "flId": 1140003,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "143959": {
+      "name": "Wahid Faghir",
+      "flId": 1136392,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "144283": {
+      "name": "Yan Couto",
+      "flId": 1109171,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "144361": {
+      "name": "Luca Netz",
+      "flId": 1155130,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "144530": {
+      "name": "Hákon Rafn Valdimarsson",
+      "flId": 850962,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "144566": {
+      "name": "Lorenzo Colombo",
+      "flId": 1050163,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "144570": {
+      "name": "Nuno Mendes",
+      "flId": 1158945,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "144892": {
+      "name": "Cole Palmer",
+      "flId": 1096353,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "144953": {
+      "name": "Miguel Gutiérrez",
+      "flId": 942379,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "145613": {
+      "name": "Yasin Ayari",
+      "flId": 1168311,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "145893": {
+      "name": "Arthur Theate",
+      "flId": 1173250,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "145937": {
+      "name": "Daniel Svensson",
+      "flId": 1209228,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "146019": {
+      "name": "Luke Thomas",
+      "flId": 916332,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "146023": {
+      "name": "Arnau Tenas",
+      "flId": 942375,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "146154": {
+      "name": "Calvin Bassey",
+      "flId": 877401,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "146896": {
+      "name": "Bojan Miovski",
+      "flId": 846970,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "147286": {
+      "name": "Jakub Kiwior",
+      "flId": 1021834,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "147766": {
+      "name": "Arne Engels",
+      "flId": 1178443,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "147913": {
+      "name": "Enzo Millot",
+      "flId": 1050859,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "148289": {
+      "name": "Xavi Simons",
+      "flId": 1173787,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "149731": {
+      "name": "Emmanuel Agbadou",
+      "flId": 1114979,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "149840": {
+      "name": "Iker Álvarez",
+      "flId": 1101270,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "149995": {
+      "name": "Nicolai Remberg",
+      "flId": 1188890,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "150085": {
+      "name": "Max Geschwill",
+      "flId": 1222134,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "150517": {
+      "name": "Rocco Reitz",
+      "flId": 1174726,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "150546": {
+      "name": "Diego Conde",
+      "flId": 1022354,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "150797": {
+      "name": "Charlie Cresswell",
+      "flId": 1186444,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "150860": {
+      "name": "Ansgar Knauff",
+      "flId": 1175708,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "150948": {
+      "name": "Chadi Riad",
+      "flId": 1187506,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "151018": {
+      "name": "David Argüelles",
+      "flId": 1187730,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "151095": {
+      "name": "Liam Delap",
+      "flId": 1113903,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "151119": {
+      "name": "Fabio Carvalho",
+      "flId": 963965,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "151521": {
+      "name": "Rodrigo Gomes",
+      "flId": 1192166,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "151744": {
+      "name": "Arnau Martinez",
+      "flId": 1194892,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "152149": {
+      "name": "Justin Devenny",
+      "flId": 1336751,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "152232": {
+      "name": "Viljami Sinisalo",
+      "flId": 1185782,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "152454": {
+      "name": "Hugo Ekitike",
+      "flId": 1197030,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "152498": {
+      "name": "Malo Gusto",
+      "flId": 1197250,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "152515": {
+      "name": "Nicolas Jackson",
+      "flId": 1197347,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "152692": {
+      "name": "Fabian Rieder",
+      "flId": 1161211,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "152734": {
+      "name": "Franco Carboni",
+      "flId": 1199360,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "152770": {
+      "name": "Rasmus Højlund",
+      "flId": 1199272,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "153130": {
+      "name": "Federico Gatti",
+      "flId": 1189288,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "153570": {
+      "name": "Yerson Mosquera",
+      "flId": 1200657,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "153828": {
+      "name": "Filip Jörgensen",
+      "flId": 1200984,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "154103": {
+      "name": "Daniel Fila",
+      "flId": 1203212,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "156616": {
+      "name": "Dane Scarlett",
+      "flId": 1113753,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "156629": {
+      "name": "Igor Matanovic",
+      "flId": 1210893,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "156764": {
+      "name": "Jakub Stolarczyk",
+      "flId": 1096327,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "156794": {
+      "name": "Yaser Asprilla",
+      "flId": 1277380,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "156949": {
+      "name": "Mohamed Sankoh",
+      "flId": 1116945,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "157135": {
+      "name": "Nico Williams",
+      "flId": 1202110,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "157263": {
+      "name": "Ramon Hendriks",
+      "flId": 1125187,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "158894": {
+      "name": "Enzo Barrenechea",
+      "flId": 1352923,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "161083": {
+      "name": "Saba Sazonov",
+      "flId": 1179368,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "161088": {
+      "name": "Alex Scott",
+      "flId": 1233655,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "161365": {
+      "name": "Solly March",
+      "flId": 416850,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "165154": {
+      "name": "Harvey Davies",
+      "flId": 1236818,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "166249": {
+      "name": "Simon Adingra",
+      "flId": 1227012,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "166376": {
+      "name": "Anthony Elanga",
+      "flId": 1050166,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "167115": {
+      "name": "Ben Mee",
+      "flId": 240538,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "167140": {
+      "name": "Victor Kristiansen",
+      "flId": 1211437,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "167570": {
+      "name": "Carney Chukwuemeka",
+      "flId": 1089685,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "167657": {
+      "name": "Eiran Cashin",
+      "flId": 1127305,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "167720": {
+      "name": "Noni Madueke",
+      "flId": 1084981,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "168663": {
+      "name": "Benat Prados",
+      "flId": 1229176,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "168712": {
+      "name": "Valentino Livramento",
+      "flId": 1107910,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "168949": {
+      "name": "Julio Enciso",
+      "flId": 1073742,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "169089": {
+      "name": "Nicolas Valentini",
+      "flId": 1249665,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "169191": {
+      "name": "Daniel Jebbison",
+      "flId": 1253827,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "169204": {
+      "name": "Lucas Beraldo",
+      "flId": 1255209,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "169295": {
+      "name": "Antonio Nusa",
+      "flId": 1248482,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "169324": {
+      "name": "William Osula",
+      "flId": 1258092,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "169326": {
+      "name": "Tim Iroegbunam",
+      "flId": 1203512,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "170281": {
+      "name": "Heung-min Son",
+      "flId": 212867,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "170378": {
+      "name": "Destiny Udogie",
+      "flId": 1052898,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "170391": {
+      "name": "Pape Sarr",
+      "flId": 1107280,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "170415": {
+      "name": "El Chadaille Bitshiabu",
+      "flId": 1173788,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "170440": {
+      "name": "Levi Colwill",
+      "flId": 1096400,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "170617": {
+      "name": "Andy Irving",
+      "flId": 863359,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "170857": {
+      "name": "Ameen Al Dakhil",
+      "flId": 1279764,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "171027": {
+      "name": "Jackson Tchatchoua",
+      "flId": 1210943,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "171141": {
+      "name": "Milos Kerkez",
+      "flId": 1195281,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "171405": {
+      "name": "Castello Lukeba",
+      "flId": 1253852,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "171455": {
+      "name": "Tommy Setford",
+      "flId": 1243239,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "171498": {
+      "name": "Carl Rushworth",
+      "flId": 1187236,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "171586": {
+      "name": "Gaetano Oristanio",
+      "flId": 1110045,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "171714": {
+      "name": "Nnamdi Collins",
+      "flId": 1176780,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "171759": {
+      "name": "Colin Kleine-Bekel",
+      "flId": 1282581,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "171851": {
+      "name": "Bertug Yildirim",
+      "flId": 1282765,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "171977": {
+      "name": "Mathys Tel",
+      "flId": 1288111,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "171995": {
+      "name": "Thierno Barry",
+      "flId": 1398392,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "172017": {
+      "name": "Julen Agirrezabala",
+      "flId": 1280020,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "172413": {
+      "name": "Mikael Egill Ellertsson",
+      "flId": 942193,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "172632": {
+      "name": "Jaden Philogene-Bidace",
+      "flId": 1089645,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "172704": {
+      "name": "Nasser Djiga",
+      "flId": 1273707,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "172723": {
+      "name": "Cieran Slicker",
+      "flId": 1107647,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "172738": {
+      "name": "Romeo Lavia",
+      "flId": 1190867,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "172762": {
+      "name": "Bradley Barcola",
+      "flId": 1297165,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "172839": {
+      "name": "Cristhian Mosquera",
+      "flId": 1298907,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "172899": {
+      "name": "Lamare Bogarde",
+      "flId": 1190033,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "172915": {
+      "name": "Louie Moulden",
+      "flId": 997557,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "172940": {
+      "name": "Emirhan Ilkhan",
+      "flId": 1301633,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "172956": {
+      "name": "James McAtee",
+      "flId": 1107648,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "175723": {
+      "name": "Dawda Camara",
+      "flId": 1305565,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "175845": {
+      "name": "Tyler Morton",
+      "flId": 1113724,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "175865": {
+      "name": "Conor Bradley",
+      "flId": 1113690,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "175894": {
+      "name": "Daniel Oyegoke",
+      "flId": 1098817,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "175919": {
+      "name": "Dailon Rocha Livramento",
+      "flId": 1309634,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "175994": {
+      "name": "Thiago Rodrigues",
+      "flId": 1302005,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "176202": {
+      "name": "Ilias Akhomach",
+      "flId": 1311915,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "176241": {
+      "name": "Matheus Franca",
+      "flId": 1316124,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "176307": {
+      "name": "Fabio Chiarodia",
+      "flId": 1276331,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "176711": {
+      "name": "Luca Jaquez",
+      "flId": 1270002,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "176718": {
+      "name": "Jarell Quansah",
+      "flId": 1107620,
+      "teamId": 64,
+      "flTeamId": 8650,
+      "leagueCode": "CL"
+    },
+    "176720": {
+      "name": "Diego Coppola",
+      "flId": 1321562,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "176747": {
+      "name": "Frank Magri",
+      "flId": 1324358,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "176777": {
+      "name": "Kasey McAteer",
+      "flId": 1113915,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "176852": {
+      "name": "Lewis Hall",
+      "flId": 1197655,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "177040": {
+      "name": "Archie Gray",
+      "flId": 1323305,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "177054": {
+      "name": "Jacopo Fazzini",
+      "flId": 1329487,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "177180": {
+      "name": "Javier Guerra",
+      "flId": 1284429,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "177250": {
+      "name": "Malcolm Ebiowei",
+      "flId": 1308370,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "177305": {
+      "name": "Dango Ouattara",
+      "flId": 1250253,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "177333": {
+      "name": "Gabriel Misehouy",
+      "flId": 1334575,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "177477": {
+      "name": "Omari Hutchinson",
+      "flId": 1215652,
+      "teamId": 349,
+      "flTeamId": 9902,
+      "leagueCode": "PL"
+    },
+    "177652": {
+      "name": "Amine Salama",
+      "flId": 1332549,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "177677": {
+      "name": "Johnny Kenny",
+      "flId": 1239600,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "177821": {
+      "name": "Christian McFarlane",
+      "flId": 1339595,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "177983": {
+      "name": "Yllan Okou",
+      "flId": 1320866,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "178107": {
+      "name": "Kike Salas",
+      "flId": 1327489,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "178361": {
+      "name": "Jhon Solis",
+      "flId": 1433032,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "178445": {
+      "name": "Daniel Mosquera",
+      "flId": 1130732,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "178604": {
+      "name": "Carlos Baleba",
+      "flId": 1352713,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "178669": {
+      "name": "Guillaume Restes",
+      "flId": 1524210,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "178718": {
+      "name": "Luiz Junior",
+      "flId": 1187044,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "178722": {
+      "name": "Vitinha",
+      "flId": 1061249,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "178769": {
+      "name": "Renato Veiga",
+      "flId": 1343750,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "179558": {
+      "name": "Cesare Casadei",
+      "flId": 1339372,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "179663": {
+      "name": "Lucas Bergström",
+      "flId": 1096396,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "179716": {
+      "name": "Oscar Bobb",
+      "flId": 1113790,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "180175": {
+      "name": "Ricard Artero",
+      "flId": 1287821,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "180289": {
+      "name": "Sergi Cardona",
+      "flId": 1059657,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "180389": {
+      "name": "Adam Wharton",
+      "flId": 1296650,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "180519": {
+      "name": "Warren Kamanzi",
+      "flId": 1145717,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "180563": {
+      "name": "Hugo Larsson",
+      "flId": 1339269,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "181158": {
+      "name": "Garang Kuol",
+      "flId": 1324022,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "181901": {
+      "name": "Alejandro Garnacho",
+      "flId": 1203665,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "181933": {
+      "name": "Leny Yoro",
+      "flId": 1358581,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "182080": {
+      "name": "Leandro Antonetti",
+      "flId": 1362632,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "182170": {
+      "name": "Krisztian Lisztes",
+      "flId": 1364056,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "182207": {
+      "name": "Umit Akdag",
+      "flId": 1366373,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "182280": {
+      "name": "Julien Duranville",
+      "flId": 1368304,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "182322": {
+      "name": "Tobias Slotsager",
+      "flId": 1367915,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "182589": {
+      "name": "Mehdi Loune",
+      "flId": 1382018,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "183018": {
+      "name": "Vasilije Adzic",
+      "flId": 1382375,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "183378": {
+      "name": "Cheick Conde",
+      "flId": 1132551,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "183583": {
+      "name": "Julio Soler",
+      "flId": 1358655,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "184146": {
+      "name": "Arthur Vermeeren",
+      "flId": 1387389,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "184273": {
+      "name": "Facundo Buonanotte",
+      "flId": 1336566,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "184533": {
+      "name": "Nathaniel Brown",
+      "flId": 1395447,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "184974": {
+      "name": "Yvandro Borges Sanches",
+      "flId": 1281971,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "184995": {
+      "name": "Arnau Solà",
+      "flId": 1389477,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "184999": {
+      "name": "Wilson Odobert",
+      "flId": 1341387,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "185882": {
+      "name": "Jean Bahoya",
+      "flId": 1393672,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "187078": {
+      "name": "David Torres",
+      "flId": 1395716,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "187110": {
+      "name": "Federico Magro",
+      "flId": 1398126,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "187202": {
+      "name": "Rico Lewis",
+      "flId": 1288450,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "187216": {
+      "name": "Mateus Fernandes",
+      "flId": 1356312,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "187273": {
+      "name": "Lukas Ullrich",
+      "flId": 1398483,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "187435": {
+      "name": "Richie Sagrado",
+      "flId": 1388039,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "187546": {
+      "name": "Matai Akinmboni",
+      "flId": 1347568,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "187977": {
+      "name": "Juan Larios",
+      "flId": 1195885,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "188082": {
+      "name": "Youssef Chermiti",
+      "flId": 1356310,
+      "teamId": 62,
+      "flTeamId": 8668,
+      "leagueCode": "PL"
+    },
+    "188476": {
+      "name": "Ethan Nwaneri",
+      "flId": 1254234,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "188487": {
+      "name": "Endrick",
+      "flId": 1406729,
+      "teamId": 86,
+      "flTeamId": 8633,
+      "leagueCode": "CL"
+    },
+    "188644": {
+      "name": "Alessandro Marcandalli",
+      "flId": 1436436,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "188816": {
+      "name": "Issa Doumbia",
+      "flId": 1339345,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "188900": {
+      "name": "Oliver Scarles",
+      "flId": 1315319,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "189482": {
+      "name": "Kaua",
+      "flId": 1418816,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "189534": {
+      "name": "Joel Schingtienne",
+      "flId": 1352744,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "189665": {
+      "name": "Hyun-jun Yang",
+      "flId": 1232560,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "189873": {
+      "name": "Bilal El Khannouss",
+      "flId": 1340895,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "190550": {
+      "name": "Romain Esse",
+      "flId": 1428401,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "190797": {
+      "name": "Kobbie Mainoo",
+      "flId": 1292810,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "190831": {
+      "name": "Gvidas Gineitis",
+      "flId": 1421505,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "190851": {
+      "name": "Jack Hinshelwood",
+      "flId": 1251334,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "190877": {
+      "name": "Joao Neves",
+      "flId": 1342757,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "191064": {
+      "name": "Mario Martin",
+      "flId": 1321605,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "191102": {
+      "name": "Brajan Gruda",
+      "flId": 1430151,
+      "teamId": 397,
+      "flTeamId": 10204,
+      "leagueCode": "PL"
+    },
+    "191106": {
+      "name": "Simon Walde",
+      "flId": 1430152,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "191127": {
+      "name": "Devis Vásquez",
+      "flId": 1186685,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "191186": {
+      "name": "Justin Diehl",
+      "flId": 1434478,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "191634": {
+      "name": "Jacopo Bacci",
+      "flId": 1697238,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "191705": {
+      "name": "Daniele Ghilardi",
+      "flId": 1386006,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "191727": {
+      "name": "Dean Huijsen",
+      "flId": 1367619,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "191939": {
+      "name": "Lewis Miley",
+      "flId": 1296763,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "192637": {
+      "name": "Murillo",
+      "flId": 1458711,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "192653": {
+      "name": "Luis Guilherme",
+      "flId": 1458757,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "193014": {
+      "name": "Enso Gonzalez",
+      "flId": 1458595,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "193605": {
+      "name": "Can Uzun",
+      "flId": 1367924,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "193622": {
+      "name": "Lucas Bergvall",
+      "flId": 1386775,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "202335": {
+      "name": "Unai Gomez",
+      "flId": 1436270,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "204342": {
+      "name": "Jacopo Seghetti",
+      "flId": 1414496,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "204348": {
+      "name": "Michael Kayode",
+      "flId": 1429912,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "204421": {
+      "name": "Yegor Yarmolyuk",
+      "flId": 1157236,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "205537": {
+      "name": "Oscar Højlund",
+      "flId": 1336529,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "206159": {
+      "name": "Trevan Sanusi",
+      "flId": 1474503,
+      "teamId": 67,
+      "flTeamId": 10261,
+      "leagueCode": "PL"
+    },
+    "206426": {
+      "name": "Shio Fukuda",
+      "flId": 1477956,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "206721": {
+      "name": "Dani Requena",
+      "flId": 1481503,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "206743": {
+      "name": "Nico O'Reilly",
+      "flId": 1300526,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "206832": {
+      "name": "Rodrigo Abajas",
+      "flId": 1443858,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "206908": {
+      "name": "Claudio Echeverri",
+      "flId": 1486264,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "207109": {
+      "name": "Marc Guiu",
+      "flId": 1412137,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "209125": {
+      "name": "Kaelan Casey",
+      "flId": 1302814,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "209130": {
+      "name": "Lewis Orford",
+      "flId": 1331666,
+      "teamId": 563,
+      "flTeamId": 8654,
+      "leagueCode": "PL"
+    },
+    "209148": {
+      "name": "Aaron Anselmino",
+      "flId": 1494947,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "209267": {
+      "name": "Phil Harres",
+      "flId": 1275291,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "209780": {
+      "name": "Lasse Rosenboom",
+      "flId": 1368049,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "209815": {
+      "name": "Tyler Dogan",
+      "flId": 1607481,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "211559": {
+      "name": "Patrick Dorgu",
+      "flId": 1526560,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "211747": {
+      "name": "Aurel Wagbe",
+      "flId": 1516009,
+      "teamId": 720,
+      "flTeamId": 8150,
+      "leagueCode": "BL1"
+    },
+    "211796": {
+      "name": "Tidiam Gomis",
+      "flId": 1482733,
+      "teamId": 721,
+      "flTeamId": 178475,
+      "leagueCode": "CL"
+    },
+    "212867": {
+      "name": "Justin Lacombe",
+      "flId": 1555493,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "212868": {
+      "name": "Abdukodir Khusanov",
+      "flId": 1362998,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "212975": {
+      "name": "Noah Edjouma",
+      "flId": 1603990,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "213018": {
+      "name": "Joachim Kayi Sanda",
+      "flId": 1487907,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "213217": {
+      "name": "Kang-in Lee",
+      "flId": 940976,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "213269": {
+      "name": "Jørgen Strand Larsen",
+      "flId": 821100,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "213278": {
+      "name": "Álex Baena",
+      "flId": 942372,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "213280": {
+      "name": "Adrià Pedrosa",
+      "flId": 927646,
+      "teamId": 559,
+      "flTeamId": 8302,
+      "leagueCode": "PD"
+    },
+    "213296": {
+      "name": "Gustavo Gomes",
+      "flId": 1516030,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "214417": {
+      "name": "Omari Kellyman",
+      "flId": 1315477,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "214546": {
+      "name": "Luca Marianucci",
+      "flId": 1529148,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "214562": {
+      "name": "Jorge Benito",
+      "flId": 1526855,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "215525": {
+      "name": "Saba Goglichidze",
+      "flId": 1507697,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "215549": {
+      "name": "Vladyslav Krapyvtsov",
+      "flId": 1526728,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "216478": {
+      "name": "Senan Mullen",
+      "flId": 1345315,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "217521": {
+      "name": "Pau Navarro",
+      "flId": 1531887,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "217541": {
+      "name": "Mathis Lambourde",
+      "flId": 1485169,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "217678": {
+      "name": "Samuel Mbangula",
+      "flId": 1402900,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "217688": {
+      "name": "Jonas Rouhi",
+      "flId": 1427017,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "218448": {
+      "name": "Chuki",
+      "flId": 1315344,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "218454": {
+      "name": "Luca Raimund",
+      "flId": 1552927,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "218525": {
+      "name": "Tyler Dibling",
+      "flId": 1292833,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    },
+    "221412": {
+      "name": "Yarek Gasiorowski",
+      "flId": 1506480,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "221768": {
+      "name": "Finn Jeltsch",
+      "flId": 1487877,
+      "teamId": 10,
+      "flTeamId": 10269,
+      "leagueCode": "CL"
+    },
+    "221783": {
+      "name": "Ji-soo Kim",
+      "flId": 1341538,
+      "teamId": 402,
+      "flTeamId": 9937,
+      "leagueCode": "PL"
+    },
+    "227007": {
+      "name": "Eric da Silva Moreira",
+      "flId": 1487909,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "228420": {
+      "name": "Antal Yaakobishvili",
+      "flId": 1600978,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "244120": {
+      "name": "Myles Lewis-Skelly",
+      "flId": 1406436,
+      "teamId": 57,
+      "flTeamId": 9825,
+      "leagueCode": "CL"
+    },
+    "244599": {
+      "name": "Mikel Jauregizar",
+      "flId": 1553099,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "244750": {
+      "name": "Mathis Amougou",
+      "flId": 1581053,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "244860": {
+      "name": "Willy Kambwala",
+      "flId": 1344550,
+      "teamId": 94,
+      "flTeamId": 10205,
+      "leagueCode": "PD"
+    },
+    "244988": {
+      "name": "Hamza Bellari",
+      "flId": 1607524,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "245050": {
+      "name": "Diego Pugno",
+      "flId": 1697406,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "245340": {
+      "name": "Michael Golding",
+      "flId": 1398484,
+      "teamId": 338,
+      "flTeamId": 8197,
+      "leagueCode": "PL"
+    },
+    "246066": {
+      "name": "Senny Mayulu",
+      "flId": 1574189,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "246276": {
+      "name": "Djordjije Medenica",
+      "flId": 1605815,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "246418": {
+      "name": "Joshua King",
+      "flId": 1422593,
+      "teamId": 63,
+      "flTeamId": 9879,
+      "leagueCode": "PL"
+    },
+    "246476": {
+      "name": "Adam Aznou",
+      "flId": 1573563,
+      "teamId": 250,
+      "flTeamId": 10281,
+      "leagueCode": "PD"
+    },
+    "246508": {
+      "name": "Alieu Njie",
+      "flId": 1607014,
+      "teamId": 586,
+      "flTeamId": 9804,
+      "leagueCode": "SA"
+    },
+    "246628": {
+      "name": "Kjell Wätjen",
+      "flId": 1482728,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "246633": {
+      "name": "Adama Boiro",
+      "flId": 1331249,
+      "teamId": 77,
+      "flTeamId": 8315,
+      "leagueCode": "PD"
+    },
+    "246711": {
+      "name": "Yoram Zague",
+      "flId": 1417079,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "247644": {
+      "name": "Ayden Heaven",
+      "flId": 1559639,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "248734": {
+      "name": "Toby Collyer",
+      "flId": 1421810,
+      "teamId": 66,
+      "flTeamId": 10260,
+      "leagueCode": "PL"
+    },
+    "249196": {
+      "name": "Vitor Reis",
+      "flId": 1580952,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "249320": {
+      "name": "Josh Acheampong",
+      "flId": 1400216,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "249354": {
+      "name": "Leon Chiwome",
+      "flId": 1396741,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "249435": {
+      "name": "Pedro Lima",
+      "flId": 1610952,
+      "teamId": 76,
+      "flTeamId": 8602,
+      "leagueCode": "PL"
+    },
+    "250399": {
+      "name": "Alberto Risco",
+      "flId": 1637438,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "250436": {
+      "name": "Tyrique George",
+      "flId": 1424875,
+      "teamId": 61,
+      "flTeamId": 8455,
+      "leagueCode": "PL"
+    },
+    "250994": {
+      "name": "Rafik Messali",
+      "flId": 1640973,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "251079": {
+      "name": "Mikey Moore",
+      "flId": 1407250,
+      "teamId": 73,
+      "flTeamId": 8586,
+      "leagueCode": "PL"
+    },
+    "252918": {
+      "name": "Junior Ajayi",
+      "flId": 1646353,
+      "teamId": 450,
+      "flTeamId": 9876,
+      "leagueCode": "SA"
+    },
+    "253524": {
+      "name": "Warren Madrigal",
+      "flId": 1431651,
+      "teamId": 95,
+      "flTeamId": 10267,
+      "leagueCode": "PD"
+    },
+    "260271": {
+      "name": "Jaydee Canvot",
+      "flId": 1664722,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "260909": {
+      "name": "Charles Herrmann",
+      "flId": 1486535,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "261351": {
+      "name": "Saad El Haddad",
+      "flId": 1674890,
+      "teamId": 454,
+      "flTeamId": 7881,
+      "leagueCode": "SA"
+    },
+    "261399": {
+      "name": "Noah Pesch",
+      "flId": 1664686,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "263672": {
+      "name": "Almugera Kabar",
+      "flId": 1479919,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "264160": {
+      "name": "Diego Ferrer",
+      "flId": 1669215,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "264401": {
+      "name": "Dayann Methalie",
+      "flId": 1664716,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "265182": {
+      "name": "Cole Campbell",
+      "flId": 1288195,
+      "teamId": 4,
+      "flTeamId": 9789,
+      "leagueCode": "CL"
+    },
+    "267897": {
+      "name": "Coba da Costa",
+      "flId": 1676905,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "269673": {
+      "name": "Joel Ndala",
+      "flId": 1288332,
+      "teamId": 351,
+      "flTeamId": 10203,
+      "leagueCode": "PL"
+    },
+    "270289": {
+      "name": "Ismael Konate",
+      "flId": 1679963,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "270300": {
+      "name": "Naoufel El Hannach",
+      "flId": 1697720,
+      "teamId": 524,
+      "flTeamId": 9847,
+      "leagueCode": "CL"
+    },
+    "270633": {
+      "name": "Jamaldeen Jimoh",
+      "flId": 1557236,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "270638": {
+      "name": "Niklas Swider",
+      "flId": 1700302,
+      "teamId": 18,
+      "flTeamId": 9788,
+      "leagueCode": "BL1"
+    },
+    "270859": {
+      "name": "Caleb Kporha",
+      "flId": 1418099,
+      "teamId": 354,
+      "flTeamId": 9826,
+      "leagueCode": "PL"
+    },
+    "271976": {
+      "name": "Filippo Pagnucco",
+      "flId": 1697407,
+      "teamId": 109,
+      "flTeamId": 9885,
+      "leagueCode": "CL"
+    },
+    "272307": {
+      "name": "Jahmai Simpson-Pusey",
+      "flId": 1463271,
+      "teamId": 65,
+      "flTeamId": 8456,
+      "leagueCode": "CL"
+    },
+    "272525": {
+      "name": "Aleksandar Andreev",
+      "flId": 1692204,
+      "teamId": 298,
+      "flTeamId": 7732,
+      "leagueCode": "CL"
+    },
+    "273124": {
+      "name": "Amil Siljevic",
+      "flId": 1696773,
+      "teamId": 19,
+      "flTeamId": 9810,
+      "leagueCode": "BL1"
+    },
+    "273152": {
+      "name": "Ben Winterburn",
+      "flId": 1697214,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "273282": {
+      "name": "Noah El Biache",
+      "flId": 1697967,
+      "teamId": 445,
+      "flTeamId": 8534,
+      "leagueCode": "SA"
+    },
+    "273612": {
+      "name": "Jude Bonnar",
+      "flId": 1701758,
+      "teamId": 732,
+      "flTeamId": 9925,
+      "leagueCode": "CL"
+    },
+    "273757": {
+      "name": "Remy Rees-Dottin",
+      "flId": 1702426,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "274024": {
+      "name": "Bradley Burrowes",
+      "flId": 1639163,
+      "teamId": 58,
+      "flTeamId": 10252,
+      "leagueCode": "CL"
+    },
+    "274174": {
+      "name": "Mathys Niflore",
+      "flId": 1487879,
+      "teamId": 511,
+      "flTeamId": 9941,
+      "leagueCode": "FL1"
+    },
+    "274175": {
+      "name": "Ismael Bekhoucha",
+      "flId": 1705340,
+      "teamId": 82,
+      "flTeamId": 8305,
+      "leagueCode": "PD"
+    },
+    "274246": {
+      "name": "Zain Silcott-Duberry",
+      "flId": 1290411,
+      "teamId": 1044,
+      "flTeamId": 8678,
+      "leagueCode": "PL"
+    },
+    "276819": {
+      "name": "Rento Takaoka",
+      "flId": 1580251,
+      "teamId": 340,
+      "flTeamId": 8466,
+      "leagueCode": "PL"
+    }
+  }
+}

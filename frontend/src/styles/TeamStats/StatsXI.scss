@@ -1,0 +1,284 @@
+.season-stats {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 40%;
+    background: linear-gradient(to bottom, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-top-right-radius: 16px;
+  }
+
+  h2 {
+    position: relative;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 20px;
+      height: 3px;
+      background: #6f42c1;
+      border-radius: 2px;
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    padding: 2rem;
+    background: rgba(0,0,0,0.03);
+    border-radius: 8px;
+  }
+
+  .football-field {
+    background: linear-gradient(to bottom, #4CAF50, #388E3C);
+    border-radius: 12px;
+    height: 400px;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+
+    // Field markings
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    // Center circle
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    // Field patterns
+    .field-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+              repeating-linear-gradient(
+                              to right,
+                              rgba(255,255,255,0.05),
+                              rgba(255,255,255,0.05) 5px,
+                              transparent 5px,
+                              transparent 20px
+              );
+    }
+
+    // Penalty area
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 25%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-bottom: none;
+      box-sizing: border-box;
+    }
+
+    .player-icon {
+      width: 60px;
+      height: 60px;
+      position: relative;
+      margin: auto;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        z-index: 10;
+
+        .player-image {
+          box-shadow: 0 0 20px rgba(111, 66, 193, 0.6);
+        }
+
+        .player-stats {
+          opacity: 1;
+        }
+      }
+
+      .player-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #6f42c1, #5a33a6);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+
+        .player-name {
+          font-size: 10px;
+          color: white;
+          text-align: center;
+          font-weight: 600;
+          padding: 3px;
+          letter-spacing: 0.02em;
+          text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+      }
+
+      .player-stats {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transition: opacity 0.3s ease;
+        opacity: 0.9;
+
+        .rating, .assists, .goals {
+          position: absolute;
+          background: rgba(255, 255, 255, 0.9);
+          border-radius: 50%;
+          width: 22px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: 700;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+          transition: all 0.3s ease;
+          border: 1px solid #fff;
+        }
+
+        .rating {
+          top: -8px;
+          right: -8px;
+          background: #ffc107;
+          color: #000;
+        }
+
+        .assists {
+          bottom: -8px;
+          left: -8px;
+          background: #2196f3;
+          color: #fff;
+        }
+
+        .goals {
+          bottom: -8px;
+          right: -8px;
+          background: #f44336;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// Dark mode styling
+.dark .season-stats {
+  background: #2a2b31;
+  color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  &::before {
+    background: linear-gradient(to bottom, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
+  h2 {
+    color: #fff;
+
+    &::after {
+      background: #8a63d2;
+    }
+  }
+
+  .no-data {
+    color: #aaa;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .football-field {
+    background: linear-gradient(to bottom, #388E3C, #2E7D32);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
+
+    .player-icon {
+      .player-image {
+        background: linear-gradient(145deg, #8a63d2, #6f42c1);
+      }
+
+      .player-stats {
+        .rating, .assists, .goals {
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+      }
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .season-stats {
+    padding: 1.25rem;
+
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    .football-field {
+      height: 350px;
+
+      &::after {
+        width: 40px;
+        height: 40px;
+      }
+
+      .player-icon {
+        width: 45px;
+        height: 45px;
+
+        .player-stats {
+          .rating, .assists, .goals {
+            width: 18px;
+            height: 18px;
+            font-size: 8px;
+          }
+        }
+      }
+    }
+  }
+}

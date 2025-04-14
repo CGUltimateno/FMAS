@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetLeagueDetailsQuery } from "../services/footballApi";
 import "../styles/LeagueDetails/LeagueDetailsPage.scss";
 import LeaguesMatches from "../components/LeaguePage/LeaguesMatches";
@@ -18,46 +18,76 @@ const LeagueDetailsPage = () => {
     if (error || !data) return <NotFoundPage />;
 
     const { details, matches, scorers, assists, rated } = data;
+    const tabs = ["Overview", "Matches", "Standings"];
 
     return (
         <div className="league-details-page">
             <header className="league-header">
                 <div className="league-header-inner">
-                    <img src={details.emblem} alt={`${details.name} Emblem`} className="league-emblem" />
+                    <img src={details.emblem} alt={`${details.name} Emblem`} className="league-emblem"/>
                     <div className="league-info">
                         <h1 className="league-name">{details.name}</h1>
                         <div className="league-meta">
-                            <img src={details.area.flag} alt={`${details.area.name} Flag`} className="league-flag" />
-                            <span className="area-name">{details.area.name}</span>
-                            <span className="season-dates">
-                                {details.currentSeason?.startDate} - {details.currentSeason?.endDate}
-                            </span>
+                            <div className="meta-item">
+                                <img src={details.area.flag} alt={`${details.area.name} Flag`} className="league-flag"/>
+                                <span className="area-name">{details.area.name}</span>
+                            </div>
+                            <div className="meta-item">
+                                <span className="season-dates">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                         strokeLinejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    {details.currentSeason?.startDate} - {details.currentSeason?.endDate}
+                                </span>
+                            </div>
+                            <div className="league-status active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
+                                     fill="currentColor">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                In Season
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div className="team-tabs">
+                    {tabs.map((tab) => (
+                        <button
+                            key={tab}
+                            className={`tab-btn ${activeTab === tab.toLowerCase() ? "active" : ""}`}
+                            onClick={() => setActiveTab(tab.toLowerCase())}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
             </header>
 
-            <nav className="league-tabs">
-                <button className={`tab-btn ${activeTab === "overview" ? "active" : ""}`} onClick={() => setActiveTab("overview")}>Overview</button>
-                <button className={`tab-btn ${activeTab === "standings" ? "active" : ""}`} onClick={() => setActiveTab("standings")}>Standings</button>
-                <button className={`tab-btn ${activeTab === "matches" ? "active" : ""}`} onClick={() => setActiveTab("matches")}>Matches</button>
-                {/*<button className={`tab-btn ${activeTab === "top-scorers" ? "active" : ""}`} onClick={() => setActiveTab("top-scorers")}>Top Scorers</button>*/}
-            </nav>
+            {/* Move tabs outside header and use team-tabs class */}
 
-            {activeTab === "overview" && (
-                <>
-                    <LeaguesMatches matches={matches} />
-                    <main className="league-content">
-                        <section className="standings-section">
-                            <LeagueTable leagueId={leagueId} leagueName={details.name} showTitle={false} />
-                        </section>
-                        <LeagueStats scorers={scorers} assists={assists} rated={rated} />
-                    </main>
-                </>
-            )}
 
-            {activeTab === "standings" && <StandingsPage leagueId={leagueId} />}
-            {activeTab === "matches" && <LeagueMatchesExpanded matches={matches} />}
+            <div className="league-content">
+                {activeTab === "overview" && (
+                    <>
+                        <LeaguesMatches matches={matches}/>
+                        <main className="league-content">
+                            <section className="standings-section">
+                                <LeagueTable leagueId={leagueId} leagueName={details.name} showTitle={false}/>
+                            </section>
+                            <LeagueStats state={leagueId}/>
+                        </main>
+                    </>
+                )}
+
+                {activeTab === "standings" && <StandingsPage leagueId={leagueId}/>}
+                {activeTab === "matches" && <LeagueMatchesExpanded matches={matches}/>}
+            </div>
         </div>
     );
 };

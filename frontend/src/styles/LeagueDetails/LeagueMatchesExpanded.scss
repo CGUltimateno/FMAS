@@ -1,202 +1,354 @@
 .expanded-matches {
-  display: flex;
-  flex-direction: column;
   background: #fff;
-  padding: 1rem;
-}
-
-body.dark .expanded-matches {
-  background: #2D2E34;
-}
-
-.expanded-week-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   position: relative;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 
-.expanded-week-header {
-  background-color: #f9f9f9;
-  color: #000000;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-weight: bold;
-  text-align: center;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #6f42c1, rgba(111, 66, 193, 0.2));
+    border-radius: 16px 16px 0 0;
+  }
 
-body.dark .expanded-week-header {
-  background-color: #2D2E34;
-  color: #ffffff;
-}
+  .expanded-week-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
 
-.expanded-scroll-btn {
-  background: #EAEAEA;
-  border-radius: 50%;
-  color: #000000;
-  font-size: 1.5rem;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-body.dark .expanded-scroll-btn {
-  background: #333;
-  color: #ffffff;
-}
-
-.expanded-scroll-btn.left {
-  left: 0;
-}
-
-.expanded-scroll-btn.right {
-  right: 0;
-}
-
-.expanded-scroll-btn:hover {
-  color: #555;
-  border-color: #555;
-}
-
-body.dark .expanded-scroll-btn:hover {
-  color: #aaaaaa;
-  border-color: #aaaaaa;
-}
-
-.expanded-day-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.expanded-day-header {
-  background-color: #eeeeee;
-  color: #000000;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-body.dark .expanded-day-header {
-  background-color: #444;
-  color: #ffffff;
-}
-
-.expanded-match-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem;
-  background: #fff;
-  border-radius: 4px;
-  border-bottom: 1px solid #eaeaea;
-  position: relative;
-  margin: 0.5rem 0;
-}
-
-body.dark .expanded-match-row {
-  background: #2a2b31;
-  border: 1px solid #333;
-}
-
-.match-left {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  flex: 1;
-  white-space: nowrap;
-
-    .expanded-team-link{
-        text-decoration: none;
+    .expanded-week-header {
+      background: #f5f5f7;
+      color: #333;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
-}
 
-.match-center {
-  flex: 0 0 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    .expanded-scroll-btn {
+      background: #fff;
+      border-radius: 50%;
+      color: #555;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 
-.match-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1;
-  white-space: nowrap;
+      &:hover:not(:disabled) {
+        background: #f0f0f7;
+        color: #6f42c1;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(111, 66, 193, 0.15);
+      }
 
-  .expanded-team-link{
-    text-decoration: none;
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .expanded-day-group {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .expanded-day-header {
+      background: #f5f5f7;
+      color: #444;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #6f42c1;
+        border-radius: 50%;
+        margin-right: 0.75rem;
+      }
+    }
+
+    .expanded-match-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      position: relative;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        background: #f0f0f7;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .match-left,
+      .match-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+
+        img {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          object-fit: contain;
+          transition: transform 0.2s ease;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+
+        .expanded-team-link {
+          text-decoration: none;
+
+          .expanded-home-team,
+          .expanded-away-team {
+            font-weight: 600;
+            color: #333;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #6f42c1;
+            }
+          }
+        }
+      }
+
+      .match-left {
+        justify-content: flex-end;
+      }
+
+      .match-center {
+        flex: 0 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+
+        .expanded-score {
+          background: #f0f0f7;
+          color: #333;
+          font-weight: 700;
+          padding: 0.5rem 1rem;
+          border-radius: 12px;
+          font-size: 1rem;
+          min-width: 90px;
+          text-align: center;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #e8e5f7;
+            color: #6f42c1;
+          }
+        }
+      }
+
+      .expanded-ft-bubble {
+        background: rgba(111, 66, 193, 0.1);
+        color: #6f42c1;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
   }
 }
 
-.expanded-score {
-  display: block;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #000;
-  white-space: nowrap;
-  text-align: center;
+// Dark Mode Styling
+.dark .expanded-matches {
+  background: #2a2b31;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  &::before {
+    background: linear-gradient(to right, #8a63d2, rgba(138, 99, 210, 0.2));
+  }
+
+  .expanded-week-navigation {
+    .expanded-week-header {
+      background: #323338;
+      color: #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .expanded-scroll-btn {
+      background: #2d2e34;
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #aaa;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+      &:hover:not(:disabled) {
+        background: #3a3b42;
+        color: #a98eda;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+
+  .expanded-day-group {
+    .expanded-day-header {
+      background: #323338;
+      color: #ccc;
+
+      &::before {
+        background: #8a63d2;
+      }
+    }
+
+    .expanded-match-row {
+      background: #323338;
+
+      &:hover {
+        background: #3a3b42;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .match-left,
+      .match-right {
+        .expanded-team-link {
+          .expanded-home-team,
+          .expanded-away-team {
+            color: #e0e0e0;
+
+            &:hover {
+              color: #a98eda;
+            }
+          }
+        }
+      }
+
+      .match-center {
+        .expanded-score {
+          background: #2d2e34;
+          color: #e0e0e0;
+
+          &:hover {
+            background: #363741;
+            color: #a98eda;
+          }
+        }
+      }
+
+      .expanded-ft-bubble {
+        background: rgba(138, 99, 210, 0.2);
+        color: #a98eda;
+      }
+    }
+  }
 }
 
-body.dark .expanded-score {
-  color: #e0e0e0;
+// Media Queries
+@media (max-width: 992px) {
+  .expanded-matches {
+    padding: 1.25rem;
+
+    .expanded-match-row {
+      padding: 0.75rem;
+
+      .match-left,
+      .match-right {
+        gap: 0.5rem;
+      }
+
+      .match-center {
+        padding: 0 1rem;
+
+        .expanded-score {
+          padding: 0.4rem 0.75rem;
+          min-width: 80px;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
 }
 
-.expanded-match-date {
-  display: block;
-  font-size: 0.8rem;
-  color: #8B8B8B;
-  text-align: center;
-  margin-top: 0.25rem;
-}
+@media (max-width: 768px) {
+  .expanded-matches {
+    padding: 1rem;
 
-body.dark .expanded-match-date {
-  color: #ccc;
-}
+    .expanded-week-navigation {
+      padding: 0;
 
-.expanded-home-team,
-.expanded-away-team {
-  font-weight: 600;
-  color: #333;
-  text-decoration: none;
-}
+      .expanded-week-header {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        flex: 1;
+        margin: 0 0.5rem;
+      }
 
-body.dark .expanded-home-team,
-body.dark .expanded-away-team {
-  color: #e0e0e0;
-  text-decoration: none;
-}
+      .expanded-scroll-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+    }
 
-.match-left img,
-.match-right img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 50%;
-}
+    .expanded-day-header {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+    }
 
-.expanded-ft-bubble {
-  background-color: #f1f1f1;
-  color: #000000;
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-weight: bold;
-  position: absolute;
-  left: 0.9rem;
-}
+    .expanded-match-row {
+      flex-direction: column;
+      padding: 0.75rem;
+      gap: 0.75rem;
 
-body.dark .expanded-ft-bubble {
-  background-color: #41434B;
-  color: #ffffff;
+      .match-left,
+      .match-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .match-center {
+        width: 100%;
+        padding: 0.5rem 0;
+
+        .expanded-score {
+          width: 100%;
+        }
+      }
+
+      .expanded-ft-bubble {
+        top: 0.5rem;
+        left: 0.5rem;
+        transform: none;
+      }
+    }
+  }
 }
