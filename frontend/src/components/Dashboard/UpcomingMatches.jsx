@@ -7,8 +7,27 @@ import {
   useGetLatestMatchQuery,
 } from "../../services/footballApi";
 
+const SUPPORTED_LEAGUES = [
+  2000, // World Cup
+  2001, // Champions League
+  2002, // Bundesliga
+  2003, // Eredivisie
+  2013, // Serie A Brazil
+  2014, // La Liga
+  2015, // Ligue 1
+  2016, // Championship
+  2019, // Serie A
+  2021  // Premier League
+];
+
 function transformMatches(apiMatches) {
-  return (apiMatches || []).map((m) => {
+  // First filter by supported leagues
+  const filteredMatches = (apiMatches || []).filter(match =>
+      SUPPORTED_LEAGUES.includes(match.competition?.id)
+  );
+
+  // Then transform the filtered matches
+  return filteredMatches.map((m) => {
     const homeTeam = m.homeTeam.name;
     const awayTeam = m.awayTeam.name;
 
@@ -34,14 +53,15 @@ function transformMatches(apiMatches) {
       id: m.id,
       homeTeam,
       homeTeamId: m.homeTeam.id,
-      homeTeamLogo:  m.homeTeam.crest,
+      homeTeamLogo: m.homeTeam.crest,
       awayTeam,
-        awayTeamId: m.awayTeam.id,
+      awayTeamId: m.awayTeam.id,
       awayTeamLogo: m.awayTeam.crest,
       score,
       status,
       date: dateStr,
       time: timeStr,
+      competitionId: m.competition?.id
     };
   });
 }
@@ -149,7 +169,11 @@ const UpcomingMatches = () => {
                       ) : (
                           <div className="no-logo"/>
                       )}
-                      <Link to={`/team/${match.homeTeamId}`} className="team-name-link">
+                      <Link
+                          to={`/teams/${match.homeTeamId}`}
+                          state={{ leagueId: match.competitionId }}
+                          className="team-name-link"
+                      >
                         <span>{match.homeTeam}</span>
                       </Link>
                     </div>
@@ -159,7 +183,11 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="team-col away-team">
-                      <Link to={`/team/${match.awayTeamId}`} className="team-name-link">
+                      <Link
+                          to={`/teams/${match.awayTeamId}`}
+                          state={{ leagueId: match.competitionId }}
+                          className="team-name-link"
+                      >
                         <span>{match.awayTeam}</span>
                       </Link>
                       {match.awayTeamLogo ? (

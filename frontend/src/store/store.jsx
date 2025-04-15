@@ -1,4 +1,3 @@
-// store.js
 import { configureStore } from "@reduxjs/toolkit";
 import { footballApi } from "../services/footballApi.jsx";
 import { userApi } from "../services/userApi.jsx";

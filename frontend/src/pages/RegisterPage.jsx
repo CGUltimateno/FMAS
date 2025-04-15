@@ -14,7 +14,6 @@ const RegisterPage = () => {
         username: "",
         email: "",
         password: "",
-        favoriteTeams: "",
     });
 
     const handleChange = (e) => {
@@ -44,7 +43,6 @@ const RegisterPage = () => {
                 username: "",
                 email: "",
                 password: "",
-                favoriteTeams: "",
             });
 
             // Navigate to the login page or dashboard
@@ -115,13 +113,6 @@ const RegisterPage = () => {
                             value={formData.password}
                             onChange={handleChange}
                             required
-                        />
-
-                        <textarea
-                            name="favoriteTeams"
-                            placeholder='Favorite Teams (optional) e.g. ["Manchester United","Chelsea"]'
-                            value={formData.favoriteTeams}
-                            onChange={handleChange}
                         />
 
                         <button type="submit" disabled={isLoading}>

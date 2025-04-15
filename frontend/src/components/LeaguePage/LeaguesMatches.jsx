@@ -82,7 +82,11 @@ const LeaguesMatches = ({ matches }) => {
                         return (
                             <div key={match.id} className="league-match-card">
                                 <div className="match-teams">
-                                    <Link to={`/team/${match.homeTeam.id}`} className="team-name-link">
+                                    <Link
+                                        to={`/teams/${match.homeTeam.id}`}
+                                        state={{ leagueId: matches?.competition?.id }}
+                                        className="team-name-link"
+                                    >
                                         <span className="home-team">{match.homeTeam.shortName || match.homeTeam.name}</span>
                                     </Link>
                                     <img src={match.homeTeam.crest} alt={match.homeTeam.shortName} />
@@ -92,7 +96,11 @@ const LeaguesMatches = ({ matches }) => {
                                             : `${match.score.fullTime.home ?? '-'} - ${match.score.fullTime.away ?? '-'}`}
                                     </span>
                                     <img src={match.awayTeam.crest} alt={match.awayTeam.shortName} />
-                                    <Link to={`/team/${match.awayTeam.id}`} className="team-name-link">
+                                    <Link
+                                        to={`/teams/${match.awayTeam.id}`}
+                                        state={{ leagueId: matches?.competition?.id }}
+                                        className="team-name-link"
+                                    >
                                         <span className="away-team">{match.awayTeam.shortName || match.awayTeam.name}</span>
                                     </Link>
                                 </div>

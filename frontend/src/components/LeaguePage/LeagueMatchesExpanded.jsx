@@ -122,7 +122,11 @@ const LeagueMatchesExpanded = ({ matches }) => {
                             <div key={match.id} className="expanded-match-row">
                                 {isFinished && <div className="expanded-ft-bubble">FT</div>}
                                 <div className="match-left">
-                                    <Link to={`/team/${match.homeTeam.id}`} className="expanded-team-link">
+                                    <Link
+                                        to={`/teams/${match.homeTeam.id}`}
+                                        state={{ leagueId: matches?.competition?.id }}
+                                        className="expanded-team-link"
+                                    >
                                         <span className="expanded-home-team">{match.homeTeam.shortName}</span>
                                     </Link>
                                     <img src={match.homeTeam.crest} alt={match.homeTeam.shortName} />
@@ -134,7 +138,11 @@ const LeagueMatchesExpanded = ({ matches }) => {
                                 </div>
                                 <div className="match-right">
                                     <img src={match.awayTeam.crest} alt={match.awayTeam.shortName} />
-                                    <Link to={`/team/${match.awayTeam.id}`} className="expanded-team-link">
+                                    <Link
+                                        to={`/teams/${match.awayTeam.id}`}
+                                        state={{ leagueId: matches?.competition?.id }}
+                                        className="expanded-team-link"
+                                    >
                                         <span className="expanded-away-team">{match.awayTeam.shortName}</span>
                                     </Link>
                                 </div>

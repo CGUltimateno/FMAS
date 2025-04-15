@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const UserTeam = require("../models/UserTeam");
 
 
 class AuthService {
@@ -43,12 +44,31 @@ class AuthService {
         const user = await User.findByPk(userId);
         if (!user) throw new Error("User not found");
 
-        const favoriteTeams = user.favoriteTeams || [];
-        if (!favoriteTeams.includes(teamId)) {
-        favoriteTeams.push(teamId);
-        user.favoriteTeams = favoriteTeams;
-        await user.save();
+        // Check if relationship already exists
+        const existingFollow = await UserTeam.findOne({
+            where: { userId, teamId }
+        });
+
+        if (!existingFollow) {
+            await UserTeam.create({
+                userId,
+                teamId,
+                teamName: teamData.name,
+                teamCrest: teamData.crest
+            });
         }
+
+        // Get all followed teams to return updated user object
+        const followedTeams = await UserTeam.findAll({
+            where: { userId }
+        });
+
+        // Return user with formatted teams - this is the missing part
+        user.favoriteTeams = followedTeams.map(team => ({
+            id: team.teamId,
+            name: team.teamName,
+            crest: team.teamCrest
+        }));
 
         return user;
     }
@@ -57,16 +77,26 @@ class AuthService {
         const user = await User.findByPk(userId);
         if (!user) throw new Error("User not found");
 
-        const favoriteTeams = user.favoriteTeams || [];
-        const teamIndex = favoriteTeams.indexOf(teamId);
-        if (teamIndex !== -1) {
-            favoriteTeams.splice(teamIndex, 1);
-            user.favoriteTeams = favoriteTeams;
-            await user.save();
-        }
+        // Delete from UserTeam table
+        await UserTeam.destroy({
+            where: { userId, teamId }
+        });
+
+        // Get all followed teams to return updated user object
+        const followedTeams = await UserTeam.findAll({
+            where: { userId }
+        });
+
+        // Return user with formatted teams
+        user.favoriteTeams = followedTeams.map(team => ({
+            id: team.teamId,
+            name: team.teamName,
+            crest: team.teamCrest
+        }));
 
         return user;
     }
+
 }
 
 

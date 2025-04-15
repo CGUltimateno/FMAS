@@ -20,5 +20,10 @@ router.get("/:teamId/fixtures", TeamController.getTeamFixtures);
 // GET team squad by team ID
 router.get("/:teamId/squad", TeamController.getTeamSquad);
 
+// GET all team matches by team ID
+router.get("/:teamId/matches", TeamController.getAllTeamMatches);
+
+// GET Player Image by player ID
+router.get("/player/:playerId/image", TeamController.getPlayerImage);
 
 module.exports = router;

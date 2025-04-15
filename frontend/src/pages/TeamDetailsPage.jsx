@@ -29,7 +29,7 @@ const TeamDetailsPage = () => {
 
     // Check if team is already followed
     const isFollowed = user?.favoriteTeams?.some(team =>
-        team.id === teamId || team === teamId
+        team.id === teamId
     );
 
     const [followTeam, { isLoading: isFollowing }] = useFollowTeamMutation();
@@ -42,38 +42,40 @@ const TeamDetailsPage = () => {
     const { details, matches, additionalDetails } = data;
     const handleFollowClick = async () => {
         if (!isLoggedIn) {
-
             alert("You need to be logged in to follow teams");
             return;
         }
+
         try {
             if (isFollowed) {
-                // Unfollow team
                 const result = await unfollowTeam(teamId).unwrap();
-                // Update auth state with new user data
                 dispatch(setCredentials({
-                    token: user.token,
-                    user: result.user || result
+                    token: user.token || sessionStorage.getItem("token"),
+                    user: {
+                        ...user,
+                        favoriteTeams: result.favoriteTeams || []
+                    }
                 }));
             } else {
-                // Follow team
                 const teamData = {
                     id: teamId,
                     name: details.name,
                     crest: details.crest
                 };
                 const result = await followTeam({ teamId, teamData }).unwrap();
-                // Update auth state with new user data
+
                 dispatch(setCredentials({
-                    token: user.token,
-                    user: result.user || result
+                    token: user.token || sessionStorage.getItem("token"),
+                    user: {
+                        ...user,
+                        favoriteTeams: result.favoriteTeams || []
+                    }
                 }));
             }
         } catch (err) {
             console.error("Error updating team follow status:", err);
         }
     };
-
     const tabs = ["Overview", "Fixtures", "Squad", "Stats"];
 
     return (

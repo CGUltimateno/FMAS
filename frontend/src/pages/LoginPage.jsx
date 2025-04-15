@@ -20,10 +20,13 @@ const LoginPage = () => {
         try {
             const result = await loginUser({ email, password }).unwrap();
             dispatch(setCredentials({ token: result.token, user: result.user }));
+            sessionStorage.setItem("token", result.token);
+            sessionStorage.setItem("user", JSON.stringify(result.user));
             if (keepLoggedIn) {
-                sessionStorage.setItem("token", result.token);
-                sessionStorage.setItem("user", JSON.stringify(result.user));
+                localStorage.setItem("token", result.token);
+                localStorage.setItem("user", JSON.stringify(result.user));
             }
+
             navigate("/");
         } catch (err) {
             console.error("Login error:", err);

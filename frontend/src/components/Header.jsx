@@ -50,6 +50,8 @@ const Header = () => {
         dispatch(logout());
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setIsDropdownOpen(false);
     };
 
@@ -71,7 +73,6 @@ const Header = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [darkMode]);
-
     const renderDropdown = () => {
         if (!user) {
             return (
@@ -87,7 +88,7 @@ const Header = () => {
         } else {
             return (
                 <div className="profile-dropdown" ref={dropdownRef}>
-                    <p>Welcome, {user.username}!</p>
+                    <p>Welcome, {user.firstName}!</p>
                     <button onClick={() => navigate("/profile")}>Profile</button>
                     <button onClick={() => navigate("/profile/edit")}>Edit Profile</button>
                     <button onClick={handleLogout}>Logout</button>

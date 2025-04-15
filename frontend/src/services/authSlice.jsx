@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Get stored user data and token on initial load
+const storedToken = sessionStorage.getItem("token") || null;
+const storedUser = JSON.parse(sessionStorage.getItem("user") || "null");
+
 const initialState = {
-    token: null,
-    user: null,
+    token: storedToken,
+    user: storedUser,
 };
 
 const authSlice = createSlice({
@@ -11,12 +15,20 @@ const authSlice = createSlice({
     reducers: {
         setCredentials: (state, action) => {
             const { token, user } = action.payload;
-            state.token = token;
             state.user = user;
+            state.token = token;
+
+            // Persist to sessionStorage
+            if (token) sessionStorage.setItem("token", token);
+            if (user) sessionStorage.setItem("user", JSON.stringify(user));
         },
         logout: (state) => {
             state.token = null;
             state.user = null;
+
+            // Clear from sessionStorage
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
         },
     },
 });

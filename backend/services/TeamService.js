@@ -331,6 +331,117 @@ class TeamService {
             throw new Error(`Error fetching team squad: ${error.message}`);
         }
     }
+
+    static async getAllTeamMatches(teamId) {
+        try {
+            const cacheKey = `teamMatches-${teamId}`;
+            await ensureCacheFolderExists();
+            const storedData = await readCacheFile(cacheKey);
+
+            if (storedData) {
+                return storedData;
+            }
+
+            const teamUrl = `${API_FD_BASE_URL}/teams/${teamId}`;
+            const teamResponse = await axios.get(teamUrl, FD_apiHeaders);
+            const teamLeagues = teamResponse.data.runningCompetitions || [];
+
+            if (teamLeagues.length === 0) {
+                throw new Error(`No leagues found for team ID: ${teamId}`);
+            }
+
+            const mappedTeamId = mapJson.teams[teamId]?.flId;
+            logger.info("Mapped Team ID:", { mappedTeamId });
+            if (!mappedTeamId) {
+                throw new Error(`No mapping found for team ID: ${teamId}`);
+            }
+
+            // Get the most relevant league ID
+            let primaryLeagueId = null;
+            for (const league of teamLeagues) {
+                const numericLeagueId = parseInt(league.id, 10);
+                for (const leagueKey in mapJson.leagues) {
+                    if (mapJson.leagues[leagueKey].fdId === numericLeagueId) {
+                        primaryLeagueId = mapJson.leagues[leagueKey].flId;
+                        break;
+                    }
+                }
+                if (primaryLeagueId) break;
+            }
+
+            if (!primaryLeagueId) {
+                throw new Error(`No mapping found for any of team ${teamId}'s leagues`);
+            }
+
+            // Fetch all matches for the league
+            const url = `${API_FL_BASE_URL}/football-get-all-matches-by-league?leagueid=${primaryLeagueId}`;
+            logger.info("Request URL:", { url });
+
+            const response = await axios.get(url, FL_apiHeaders);
+            const allMatches = response.data.response?.matches || [];
+
+            // Filter matches to only include those with the specified team
+            const teamMatches = allMatches.filter(match =>
+                String(match.home.id) === String(mappedTeamId) ||
+                String(match.away.id) === String(mappedTeamId)
+            );
+
+            // Add a flag to each match indicating whether the team is home or away
+            const processedMatches = teamMatches.map(match => ({
+                ...match,
+                isHomeTeam: String(match.home.id) === String(mappedTeamId)
+            }));
+
+            await writeCacheFile(cacheKey, processedMatches);
+            return processedMatches;
+        } catch (error) {
+            logger.error("Error details:", {error: error.response ? error.response.data : error.message});
+            throw new Error(`Error fetching all team matches: ${error.message}`);
+        }
+    }
+
+    static async getPlayerImage(playerId) {
+        try {
+            const cacheKey = `playerImage-${playerId}`;
+            await ensureCacheFolderExists();
+            const storedData = await readCacheFile(cacheKey);
+
+            if (storedData) {
+                return storedData;
+            }
+
+            // Determine which ID to use - either mapped or direct
+            let idToUse = playerId;
+
+            // If we have a mapping, use the mapped FL ID
+            if (mapJson.players && mapJson.players[playerId]) {
+                idToUse = mapJson.players[playerId].flId;
+                logger.info("Using mapped Player ID:", { originalId: playerId, mappedId: idToUse });
+            } else {
+                // No mapping found, try using the provided ID directly
+                logger.info("No mapping found, using provided ID directly:", { id: playerId });
+            }
+
+            const url = `${API_FL_BASE_URL}/football-get-player-logo?playerid=${idToUse}`;
+            logger.info("Request URL:", { url });
+
+            const response = await axios.get(url, FL_apiHeaders);
+
+            if (!response.data || !response.data.response || !response.data.response.url) {
+                logger.warn(`Player image data is missing for player ID: ${idToUse}`);
+                return "/images/player-placeholder.png";
+            }
+
+            const freshData = response.data.response.url;
+
+            await writeCacheFile(cacheKey, freshData);
+            return freshData;
+        } catch (error) {
+            logger.error("Error details:", {error: error.response ? error.response.data : error.message});
+            // Return a placeholder instead of throwing
+            return "/images/player-placeholder.png";
+        }
+    }
 }
 
 

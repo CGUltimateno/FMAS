@@ -21,9 +21,16 @@ class AuthController {
 
   static async FollowTeam(req, res) {
     try {
+      const { userId } = req.user;
       const { teamId, teamData } = req.body;
-      const user = await AuthService.FollowTeam(req.user.userId, teamId, teamData);
-      res.json({ message: "Team followed successfully", user });
+
+      const userData = await AuthService.FollowTeam(userId, teamId, teamData);
+
+      // Structure the response properly
+      res.json({
+        message: "Team followed successfully",
+        favoriteTeams: userData.favoriteTeams
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -31,9 +38,16 @@ class AuthController {
 
   static async UnfollowTeam(req, res) {
     try {
+      const { userId } = req.user;
       const { teamId } = req.body;
-      const user = await AuthService.UnfollowTeam(req.user.userId, teamId);
-      res.json({ message: "Team unfollowed successfully", user });
+
+      const userData = await AuthService.UnfollowTeam(userId, teamId);
+
+      // Structure the response properly
+      res.json({
+        message: "Team unfollowed successfully",
+        favoriteTeams: userData.favoriteTeams
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

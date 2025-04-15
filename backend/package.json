@@ -19,6 +19,7 @@
     "mysql2": "^3.13.0",
     "node-cache": "^5.1.2",
     "sequelize": "^6.37.6",
+    "string-similarity": "^4.0.4",
     "winston": "^3.17.0"
   }
 }

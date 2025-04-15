@@ -2,6 +2,21 @@ import React from "react";
 import "../../styles/LeagueDetails/LeagueStats.scss";
 import { Link, useParams } from "react-router-dom";
 import { useGetTopStatsQuery } from "../../services/footballApi";
+import { useGetPlayerImageQuery } from "../../services/footballApi.jsx";
+
+// PlayerImage component definition here
+const PlayerImage = ({ playerId }) => {
+    const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
+
+    if (isLoading) return <div className="player-image placeholder"></div>;
+    if (error) return <div className="player-image error"></div>;
+
+    return (
+        <div className="player-image">
+            <img src={imageUrl} alt="Player" />
+        </div>
+    );
+};
 
 const LeagueStats = () => {
     const { leagueId } = useParams();
@@ -18,7 +33,6 @@ const LeagueStats = () => {
 
     const { topScorers, topAssists, topCards } = data || {};
 
-    console.log(topCards)
     return (
         <section className="league-stats-section">
             <div className="league-stats-box">
@@ -28,6 +42,7 @@ const LeagueStats = () => {
                         {topScorers?.response?.players?.slice(0, 5).map((scorer, index) => (
                             <li key={`scorer-${index}`} className="stats-card">
                                 <div className="stats-info">
+                                    <PlayerImage playerId={scorer.id} />
                                     <div className="player-details">
                                         <span className="player-name">{scorer.name}</span>
                                         <div className="club-info">
@@ -49,6 +64,7 @@ const LeagueStats = () => {
                         {topAssists?.response?.players?.slice(0, 5).map((assist, index) => (
                             <li key={`assist-${index}`} className="stats-card">
                                 <div className="stats-info">
+                                    <PlayerImage playerId={assist.id} />
                                     <div className="player-details">
                                         <span className="player-name">{assist.name}</span>
                                         <div className="club-info">
@@ -70,6 +86,7 @@ const LeagueStats = () => {
                         {topCards?.response?.players?.slice(0, 5).map((card, index) => (
                             <li key={`card-${index}`} className="stats-card">
                                 <div className="stats-info">
+                                    <PlayerImage playerId={card.id} />
                                     <div className="player-details">
                                         <span className="player-name">{card.name}</span>
                                         <div className="club-info">

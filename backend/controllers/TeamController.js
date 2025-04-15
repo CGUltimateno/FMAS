@@ -61,6 +61,26 @@ class TeamController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async getAllTeamMatches(req, res) {
+        try {
+            const { teamId } = req.params;
+            const data = await TeamService.getAllTeamMatches(teamId);
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getPlayerImage(req, res) {
+        try {
+            const { playerId } = req.params;
+            const data = await TeamService.getPlayerImage(playerId);
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 

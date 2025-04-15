@@ -1,8 +1,22 @@
 import React from 'react';
-import { useGetTeamSquadQuery } from '../../services/footballApi';
+import { useGetTeamSquadQuery, useGetPlayerImageQuery } from '../../services/footballApi';
 import '../../styles/TeamStats/TeamSquad.scss';
 import { FaShirt } from 'react-icons/fa6';
 import { FaFlag } from 'react-icons/fa';
+
+// Player Image component
+const PlayerImage = ({ playerId }) => {
+    const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
+
+    if (isLoading) return <div className="player-image placeholder"></div>;
+    if (error) return <div className="player-image error"></div>;
+
+    return (
+        <div className="player-image">
+            <img src={imageUrl} alt="Player" />
+        </div>
+    );
+};
 
 const TeamSquad = ({ teamId }) => {
     const { data, isLoading, error } = useGetTeamSquadQuery(teamId);
@@ -19,6 +33,7 @@ const TeamSquad = ({ teamId }) => {
                     <div className="players-grid">
                         {category.members.map((player) => (
                             <div key={player.id} className={`player-card ${player.injured ? 'injured' : ''}`}>
+                                <PlayerImage playerId={player.id} />
                                 <div className="player-header">
                                     <h4 className="player-name">{player.name}</h4>
                                     <div className="player-country">

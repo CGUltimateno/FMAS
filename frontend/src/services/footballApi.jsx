@@ -66,6 +66,11 @@ export const footballApi = createApi({
         getTeamSquad: builder.query({
             query: (teamId) => `teams/${teamId}/squad`,
         }),
+
+        // Get player image
+        getPlayerImage: builder.query({
+            query: (playerId) => `teams/player/${playerId}/image`,
+        }),
             // Add more endpoints if you add more routes
     }),
 });
@@ -83,4 +88,5 @@ export const {
     useGetTeamCrestQuery,
     useGetTeamFixturesQuery,
     useGetTeamSquadQuery,
+    useGetPlayerImageQuery,
 } = footballApi;

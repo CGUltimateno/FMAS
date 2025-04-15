@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -12,10 +12,15 @@ import MatchDetails from "./pages/MatchDetails.jsx";
 import LeagueDetailsPage from "./pages/LeagueDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TeamDetailsPage from "./pages/TeamDetailsPage";
+import { loadUserFromStorage } from "./services/sessionPersistence";
+
 const App = () => {
     const location = useLocation();
     const isLoginPage = location.pathname === "/login";
     const isRegisterPage = location.pathname === "/register";
+    useEffect(() => {
+        loadUserFromStorage();
+    }, []);
     return (
         <div className="overlay">
             <div className="app">

@@ -1,9 +1,23 @@
 import React from 'react';
-import { useGetTeamSquadQuery } from '../../services/footballApi';
+import { useGetTeamSquadQuery, useGetPlayerImageQuery } from '../../services/footballApi';
 import '../../styles/TeamStats/TeamStats.scss';
 import { FaFutbol, FaHandsHelping, FaStar, FaTrophy } from 'react-icons/fa';
 import { BiSolidCard } from 'react-icons/bi';
 import { MdStars } from 'react-icons/md';
+
+// Player Image component
+const PlayerImage = ({ playerId }) => {
+    const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
+
+    if (isLoading) return <div className="player-image placeholder"></div>;
+    if (error) return <div className="player-image error"></div>;
+
+    return (
+        <div className="player-image">
+            <img src={imageUrl} alt="Player" />
+        </div>
+    );
+};
 
 const TeamStats = ({ teamId }) => {
     const { data, isLoading, error } = useGetTeamSquadQuery(teamId);
@@ -29,7 +43,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byRating.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value rating">{player.rating}</td>
                                 </tr>
                             ))}
@@ -47,7 +64,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byCards.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value yellow-card">{player.ycards || 0}</td>
                                 </tr>
                             ))}
@@ -69,7 +89,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byGoals.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value">{player.goals || 0}</td>
                                 </tr>
                             ))}
@@ -87,7 +110,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byCards.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value red-card">{player.rcards || 0}</td>
                                 </tr>
                             ))}
@@ -109,7 +135,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byAssists.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value">{player.assists || 0}</td>
                                 </tr>
                             ))}
@@ -127,7 +156,10 @@ const TeamStats = ({ teamId }) => {
                             <tbody>
                             {topPerformers.byMinutes?.slice(0, 3).map((player, index) => (
                                 <tr key={player.id || index}>
-                                    <td className="player-name">{player.name}</td>
+                                    <td className="player-cell">
+                                        <PlayerImage playerId={player.id} />
+                                        <span className="player-name">{player.name}</span>
+                                    </td>
                                     <td className="stat-value">{player.minutes || 0}</td>
                                 </tr>
                             ))}
