@@ -14,27 +14,35 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
                 for (const team of data.standings[0].table) {
                     try {
                         const response = await fetch(`http://localhost:5000/api/teams/${team.team.id}/form/${leagueId}`);
-                        const matchData = await response.json();
-                        // Process the response to convert to W/D/L format
-                        const formResults = matchData.map(match => {
-                            // Use the flags provided by the backend
-                            const isHome = match.isRequestedTeamHome;
-                            const isAway = !isHome;
 
-                            // Convert scores to numbers
+                        if (!response.ok) {
+                            console.error(`Server error for team ${team.team.id}: ${response.status}`);
+                            forms[team.team.id] = [];
+                            continue;
+                        }
+
+                        const matchData = await response.json();
+
+                        // Check if matchData is an array before mapping
+                        if (!Array.isArray(matchData)) {
+                            console.error(`Expected array but got:`, matchData);
+                            forms[team.team.id] = [];
+                            continue;
+                        }
+
+                        const formResults = matchData.map(match => {
+                            const isHome = match.isRequestedTeamHome;
                             const homeScore = Number(match.home.score);
                             const awayScore = Number(match.away.score);
-
-                            // Get the team's score and opponent's score
                             const teamScore = isHome ? homeScore : awayScore;
                             const opponentScore = isHome ? awayScore : homeScore;
 
                             if (teamScore > opponentScore) {
-                                return "W"; // Win
+                                return "W";
                             } else if (teamScore < opponentScore) {
-                                return "L"; // Loss
+                                return "L";
                             } else {
-                                return "D"; // Draw
+                                return "D";
                             }
                         });
                         forms[team.team.id] = formResults.slice(0, 5);

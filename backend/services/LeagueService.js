@@ -1,6 +1,7 @@
 const axios = require("axios");
 const fs = require("fs/promises");
 const path = require("path");
+const logger = require("../logger");
 const FOOTBALL_DATA_API_KEY = process.env.FOOTBALL_DATA_API_KEY;
 const LIVE_API_KEY = process.env.LIVE_API_KEY;
 const API_FD_BASE_URL = "https://api.football-data.org/v4";
@@ -291,17 +292,46 @@ class FootballDataService {
         return storedData;
       }
 
-      const url = `${API_FD_BASE_URL}/competitions/${leagueId}/standings`;
+      // Determine if leagueId is a code (PL, CL) or a numeric ID
+      let fdLeagueId = leagueId;
+
+      // If it's a numeric ID, it might be an flId that needs conversion
+      if (!isNaN(leagueId)) {
+        // Convert from flId to fdId using the mapping
+        const leagueCode = Object.keys(leagueIdMapping).find(
+            code => leagueIdMapping[code].flId === parseInt(leagueId)
+        );
+
+        if (leagueCode) {
+          fdLeagueId = leagueIdMapping[leagueCode].fdId;
+        } else {
+          // Check if it's already a valid fdId
+          const isValidFdId = Object.values(leagueIdMapping).some(
+              mapping => mapping.fdId === parseInt(leagueId)
+          );
+
+          if (!isValidFdId) {
+            throw new Error(`No mapping found for league ID: ${leagueId}`);
+          }
+        }
+      } else if (leagueIdMapping[leagueId]) {
+        // If it's a league code (PL, CL, etc.), get the fdId
+        fdLeagueId = leagueIdMapping[leagueId].fdId;
+      }
+
+      const url = `${API_FD_BASE_URL}/competitions/${fdLeagueId}/standings`;
+      logger.info(`Fetching standings with fdId: ${fdLeagueId}`);
+
       const response = await axios.get(url, FD_apiHeaders);
       const freshData = response.data;
 
       await writeCacheFile(cacheKey, freshData);
       return freshData;
     } catch (error) {
+      logger.error(`Error fetching league standings: ${error.message}`);
       throw new Error(`Error fetching league standings: ${error.message}`);
     }
   }
-
   static async getLeagueFullDetails(leagueId) {
     try {
       // Always fetch fresh data from the API

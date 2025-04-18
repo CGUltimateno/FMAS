@@ -54,7 +54,7 @@ const Standings = () => {
         </div>
 
         <div className="standings-table-wrapper">
-          <LeagueTable leagueId="PL" leagueName={competition.name} showTitle={true} />
+          <LeagueTable leagueId="2021" leagueName={competition.name} showTitle={true} />
         </div>
       </div>
   );

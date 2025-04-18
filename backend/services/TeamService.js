@@ -144,7 +144,7 @@ class TeamService {
 
     static async getTeamForm(teamId, leagueId) {
         try {
-            const cacheKey = `teamForm-${teamId}`;
+            const cacheKey = `teamForm-${teamId}-${leagueId}`;
             await ensureCacheFolderExists();
             const storedData = await readCacheFile(cacheKey);
 
@@ -152,7 +152,7 @@ class TeamService {
                 return storedData;
             }
 
-            // Map the teamId and leagueId to their corresponding flId
+            // Map the teamId to its corresponding flId
             let mappedTeamId = teamId;
             let mappedLeagueId = null;
 
@@ -164,10 +164,25 @@ class TeamService {
 
             const numericLeagueId = parseInt(leagueId, 10);
 
+            // First check if leagueId is already an flId
+            let foundAsFlId = false;
             for (const leagueKey in mapJson.leagues) {
-                if (mapJson.leagues[leagueKey].fdId === numericLeagueId) {
-                    mappedLeagueId = mapJson.leagues[leagueKey].flId;
+                if (mapJson.leagues[leagueKey].flId === numericLeagueId) {
+                    mappedLeagueId = numericLeagueId; // It's already an flId
+                    foundAsFlId = true;
+                    logger.info(`League ID ${leagueId} is already an flId`);
                     break;
+                }
+            }
+
+            // If not found as flId, check if it's an fdId
+            if (!foundAsFlId) {
+                for (const leagueKey in mapJson.leagues) {
+                    if (mapJson.leagues[leagueKey].fdId === numericLeagueId) {
+                        mappedLeagueId = mapJson.leagues[leagueKey].flId;
+                        logger.info(`Converted fdId ${leagueId} to flId ${mappedLeagueId}`);
+                        break;
+                    }
                 }
             }
 

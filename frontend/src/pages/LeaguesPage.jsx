@@ -10,25 +10,27 @@ const LeaguesPage = () => {
     if (isLoading) return <div className="leagues-wrapper"><h2>Loading leagues...</h2></div>;
     if (error) return <div className="leagues-wrapper"><h2>Error loading leagues</h2></div>;
 
+    const leagues = data?.competitions?.response?.popular || [];
+
     // Set initial selected league if not already set
-    if (data?.competitions?.length && selectedLeague === null) {
-        setSelectedLeague(data.competitions[0].id);
+    if (leagues.length && selectedLeague === null) {
+        setSelectedLeague(leagues[0].id);
     }
 
-    const currentLeague = data?.competitions?.find(league => league.id === selectedLeague);
+    const currentLeague = leagues.find(league => league.id === selectedLeague);
 
     return (
         <div className="leagues-wrapper">
             <h2>Leagues</h2>
 
             <div className="leagues-nav">
-                {data && data.competitions && data.competitions.map((league) => (
+                {leagues.map((league) => (
                     <div
-                        key={league.code}
+                        key={league.id}
                         className={`league-tab ${selectedLeague === league.id ? 'active' : ''}`}
                         onClick={() => setSelectedLeague(league.id)}
                     >
-                        {league.emblem && <img src={league.emblem} alt={league.name} className="league-emblem" />}
+                        {league.logo && <img src={league.logo} alt={league.name} className="league-emblem" />}
                         <span>{league.name}</span>
                     </div>
                 ))}
@@ -37,7 +39,7 @@ const LeaguesPage = () => {
             <div className="league-content">
                 {currentLeague && (
                     <LeagueTable
-                        key={currentLeague.code}
+                        key={currentLeague.id}
                         leagueId={currentLeague.id}
                         leagueName={currentLeague.name}
                     />
