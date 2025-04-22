@@ -1,0 +1,43 @@
+.season-performance {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 733px fit-content; 
+    height: 174px fit-content;
+    top: 578px fit-content;
+    left: 300px fit-content;
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        .stat-value {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #383838;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+    }
+}

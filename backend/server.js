@@ -5,6 +5,7 @@ const sequelize = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const leagueRoutes = require("./routes/leagueRoutes");
 const teamRoutes = require("./routes/teamRoutes");
+const playerStatsRoutes = require("./routes/playerStatsRoutes");
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/leagues", leagueRoutes);
 app.use("/api/teams", teamRoutes);
+app.use("/api/players", playerStatsRoutes);
 
 console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);

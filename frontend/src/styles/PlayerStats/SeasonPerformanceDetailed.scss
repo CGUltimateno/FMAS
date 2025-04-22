@@ -1,0 +1,66 @@
+.season-detailed {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 733px fit-content;
+    height: 1468px;
+    top: 762px fit-content;
+    left: 300px fit-content;
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .matches-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #fff;
+            color: white;
+        }
+
+        .match-row {
+            &:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+        }
+    }
+}
+
+.dark {
+    .season-detailed {
+        background-color: #2a2a2a;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        color: #ddd;
+
+        h3 {
+            color: #ddd;
+        }
+
+        .matches-table {
+            th {
+                background-color: #2a2a2a;
+                color: #ccc;
+            }
+
+            td {
+                border-color: #444;
+            }
+
+            .match-row {
+                &:nth-child(even) {
+                    background-color: #2a2a2a;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+.player-career {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    max-width: 700px;
+    margin: 2rem auto;
+
+    &__title {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+      border-left: 4px solid #007bff;
+      padding-left: 0.75rem;
+    }
+
+    &__timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    &__empty {
+      text-align: center;
+      font-style: italic;
+      color: #777;
+      padding: 1rem;
+    }
+
+    .career-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      border-left: 3px solid #007bff;
+      padding-left: 1rem;
+
+      &__period {
+        min-width: 80px;
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      &__details {
+        h4 {
+          margin: 0;
+          font-size: 1.1rem;
+          color: #222;
+        }
+
+        p {
+          margin: 0.2rem 0;
+          color: #444;
+        }
+
+        &__honors {
+          color: #888;
+          font-style: italic;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+.dark {
+  .player-career {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    color: #ddd;
+
+    &__title {
+      color: #ccc;
+      border-left-color: #3399ff;
+    }
+
+    .career-item {
+      border-left-color: #3399ff;
+
+      &__period {
+        color: #3399ff;
+      }
+
+      &__details {
+        h4 {
+          color: #eee;
+        }
+
+        p {
+          color: #bbb;
+        }
+
+        &__honors {
+          color: #999;
+        }
+      }
+    }
+
+    &__empty {
+      color: #999;
+    }
+  }
+}

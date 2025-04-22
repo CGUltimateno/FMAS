@@ -38,7 +38,6 @@ const leagueIdMapping = {
   "CL": { "fdId": 2001, "flId": 42 }
 };
 
-// Helper function to convert between API IDs
 function getFLLeagueId(fdLeagueId) {
   const mapping = Object.values(leagueIdMapping).find(m => m.fdId === parseInt(fdLeagueId));
   return mapping ? mapping.flId : null;

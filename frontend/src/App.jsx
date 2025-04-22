@@ -12,6 +12,7 @@ import MatchDetails from "./pages/MatchDetails.jsx";
 import LeagueDetailsPage from "./pages/LeagueDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TeamDetailsPage from "./pages/TeamDetailsPage";
+import PlayerStatsPage from "./pages/PlayerStatsPage";
 import { loadUserFromStorage } from "./services/sessionPersistence";
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
                             <Route path="/leagues/:leagueId" element={<LeagueDetailsPage />} />
                             <Route path="/teams/:teamId" element={<TeamDetailsPage />} />
                             <Route path="/leagues/:leagueId/matches" element={<MatchDetails />} />
+                            <Route path="/player/:playerId" element={<PlayerStatsPage />} />
                             <Route path="/leagues/:*" element={<NotFoundPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>

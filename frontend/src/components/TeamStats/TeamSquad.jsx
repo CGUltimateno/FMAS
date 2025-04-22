@@ -3,6 +3,7 @@ import { useGetTeamSquadQuery, useGetPlayerImageQuery } from '../../services/foo
 import '../../styles/TeamStats/TeamSquad.scss';
 import { FaShirt } from 'react-icons/fa6';
 import { FaFlag } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 // Player Image component
 const PlayerImage = ({ playerId }) => {
@@ -20,7 +21,7 @@ const PlayerImage = ({ playerId }) => {
 
 const TeamSquad = ({ teamId }) => {
     const { data, isLoading, error } = useGetTeamSquadQuery(teamId);
-
+    console.log("Team Squad Data:", data);
     if (isLoading) return <div className="loading-squad">Loading squad...</div>;
     if (error) return <div className="error-squad">Error loading squad data.</div>;
     if (!data || !data.length) return <div className="no-squad">No squad information available.</div>;
@@ -33,9 +34,13 @@ const TeamSquad = ({ teamId }) => {
                     <div className="players-grid">
                         {category.members.map((player) => (
                             <div key={player.id} className={`player-card ${player.injured ? 'injured' : ''}`}>
-                                <PlayerImage playerId={player.id} />
+                                <Link to={`/player/${player.id}`}>
+                                    <PlayerImage playerId={player.id} />
+                                </Link>
                                 <div className="player-header">
-                                    <h4 className="player-name">{player.name}</h4>
+                                    <Link to={`/player/${player.id}`} className="player-name-link">
+                                        <h4 className="player-name">{player.name}</h4>
+                                    </Link>
                                     <div className="player-country">
                                         <FaFlag />
                                         <span>{player.cname}</span>

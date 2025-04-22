@@ -1,0 +1,89 @@
+.player-trophies {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 405px fit-content;
+    height: 640px ;
+    top: 1299px fit-content;
+    left: 1041px fit-content;
+
+    h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .trophies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .trophy-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        .trophy-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: gold;
+        }
+
+        .trophy-details {
+            h4 {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            p {
+                margin: 3px 0;
+                font-size: 14px;
+                color: #666;
+            }
+
+            .trophy-desc {
+                font-style: italic;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.dark{
+    .player-trophies {
+        background-color: #1e1e1e;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        color: #ddd;
+
+        h3 {
+            color: #ddd;
+        }
+
+        .trophy-item {
+            background-color: #2a2a2a;
+            box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+
+            .trophy-icon {
+                color: #ffcc00;
+            }
+
+            .trophy-details {
+                h4 {
+                    color: #eee;
+                }
+
+                p {
+                    color: #bbb;
+                }
+
+                .trophy-desc {
+                    color: #ccc;
+                }
+            }
+        }
+    }
+}

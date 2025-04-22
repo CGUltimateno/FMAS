@@ -1,0 +1,35 @@
+<svg width="300" height="250" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- Green background -->
+    <rect width="300" height="250" fill="#3a6c34" />
+
+    <!-- White field markings -->
+    <g fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2">
+        <!-- Outer border -->
+        <rect x="10" y="10" width="280" height="230" />
+
+        <!-- Center line (now top line) -->
+        <line x1="10" y1="10" x2="290" y2="10" />
+
+        <!-- Half-circle at center line -->
+        <path d="M 110,10 A 40,40 0 0,1 190,10" />
+
+        <!-- Penalty area -->
+        <rect x="70" y="170" width="160" height="70" />
+
+        <!-- Goal area -->
+        <rect x="105" y="210" width="90" height="30" />
+
+        <!-- Goal line -->
+        <line x1="10" y1="240" x2="290" y2="240" />
+
+        <!-- Penalty spot -->
+        <circle cx="150" cy="190" r="2" fill="rgba(255,255,255,0.8)" />
+
+        <!-- Penalty arc -->
+        <path d="M 110,170 A 40,40 0 0,0 190,170" />
+
+        <!-- Corner arcs -->
+        <path d="M 10,240 A 5,5 0 0,0 15,235" />
+        <path d="M 290,240 A 5,5 0 0,1 285,235" />
+    </g>
+</svg>
