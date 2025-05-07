@@ -1,27 +1,12 @@
 const axios = require("axios");
-const fs = require("fs/promises");
 const path = require("path");
 const logger = require("../logger");
-const FOOTBALL_DATA_API_KEY = process.env.FOOTBALL_DATA_API_KEY;
-const LIVE_API_KEY = process.env.LIVE_API_KEY;
-const API_FD_BASE_URL = "https://api.football-data.org/v4";
-const API_FL_BASE_URL = "https://free-api-live-football-data.p.rapidapi.com";
-
-const FD_apiHeaders = {
-  headers: {
-    "X-Auth-Token": FOOTBALL_DATA_API_KEY,
-  },
-};
-
-const FL_apiHeaders = {
-  headers: {
-    "x-rapidapi-key": LIVE_API_KEY,
-    "x-rapidapi-host": "free-api-live-football-data.p.rapidapi.com",
-  }
-}
-
-const CACHE_FOLDER = path.join(__dirname, "..", "cache");
+const cache = require("../config/CacheService");
 const Mapping = require('../cache/apiMappings.json');
+const apiConfig = require("../config/apiConfig");
+const { headers, API_FD_BASE_URL, API_FL_BASE_URL } = apiConfig;
+const FD_apiHeaders = headers.footballData;
+const FL_apiHeaders = headers.liveFootball;
 
 const leagueIdMapping = {
   // Premier League
@@ -43,51 +28,21 @@ function getFLLeagueId(fdLeagueId) {
   return mapping ? mapping.flId : null;
 }
 
-async function ensureCacheFolderExists() {
-  try {
-    await fs.mkdir(CACHE_FOLDER, { recursive: true });
-  } catch (err) {
-    console.error("Error creating cache folder:", err);
-  }
+function formatDate(dateObj) {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
-
-async function readCacheFile(cacheKey) {
-  const filePath = path.join(CACHE_FOLDER, `${cacheKey}.json`);
-  try {
-    const data = await fs.readFile(filePath, "utf8");
-    return JSON.parse(data);
-  } catch (err) {
-    return null;
-  }
-}
-
-// Helper: Write JSON file to cache
-async function writeCacheFile(cacheKey, data) {
-  const filePath = path.join(CACHE_FOLDER, `${cacheKey}.json`);
-  try {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
-  } catch (err) {
-    console.error("Error writing cache file:", err);
-  }
-}
-
-const deepEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 class FootballDataService {
   static async getLeagueAdditionalData(flLeagueId) {
     try {
       const cacheKey = `flLeague-${flLeagueId}`;
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey, { maxAgeHours: 24 });
 
-      // Return cached data if it exists and is less than 24 hours old
-      if (storedData && storedData.timestamp) {
-        const cachedTime = new Date(storedData.timestamp);
-        const now = new Date();
-        const hoursDiff = (now - cachedTime) / (1000 * 60 * 60);
-
-        if (hoursDiff < 24) {
-          return storedData.data;
-        }
+      if (cachedData) {
+        return cachedData;
       }
 
       // Fetch data from RapidAPI
@@ -104,11 +59,7 @@ class FootballDataService {
         teams: teamsRes.data
       };
 
-      await writeCacheFile(cacheKey, {
-        timestamp: new Date().toISOString(),
-        data: freshData
-      });
-
+      await cache.write(cacheKey, freshData);
       return freshData;
     } catch (error) {
       throw new Error(`Error fetching additional league data: ${error.message}`);
@@ -123,23 +74,15 @@ class FootballDataService {
       }
 
       const cacheKey = `topStats-${leagueId}`;
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey, { maxAgeHours: 6 });
 
-      // Return cached data if it exists and is less than 6 hours old
-      if (storedData && storedData.timestamp) {
-        const cachedTime = new Date(storedData.timestamp);
-        const now = new Date();
-        const hoursDiff = (now - cachedTime) / (1000 * 60 * 60);
-
-        if (hoursDiff < 6) {
-          return storedData.data;
-        }
+      if (cachedData) {
+        return cachedData;
       }
 
       const topScorersUrl = `${API_FL_BASE_URL}/football-get-top-players-by-goals?leagueid=${flLeagueId}`;
       const topAssistsUrl = `${API_FL_BASE_URL}/football-get-top-players-by-assists?leagueid=${flLeagueId}`;
       const topCardsUrl = `${API_FL_BASE_URL}/football-get-top-players-by-rating?leagueid=${flLeagueId}`;
-
 
       const [scorersRes, assistsRes, cardsRes] = await Promise.all([
         axios.get(topScorersUrl, FL_apiHeaders),
@@ -147,18 +90,13 @@ class FootballDataService {
         axios.get(topCardsUrl, FL_apiHeaders),
       ]);
 
-
       const freshData = {
         topScorers: scorersRes.data,
         topAssists: assistsRes.data,
         topCards: cardsRes.data
       };
 
-      await ensureCacheFolderExists();
-      await writeCacheFile(cacheKey, {
-        timestamp: new Date().toISOString(),
-        data: freshData
-      });
+      await cache.write(cacheKey, freshData);
       return freshData;
     } catch (error) {
       throw new Error(`Error fetching top stats: ${error.message}`);
@@ -168,11 +106,10 @@ class FootballDataService {
   static async getPopularLeagues() {
     try {
       const cacheKey = `popularLeagues`;
-      await ensureCacheFolderExists();
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey);
 
-      if (storedData) {
-        return storedData;
+      if (cachedData) {
+        return cachedData;
       }
 
       const url = `${API_FL_BASE_URL}/football-popular-leagues`;
@@ -180,7 +117,7 @@ class FootballDataService {
       const popularLeagues = response.data;
 
       const freshData = {competitions: popularLeagues};
-      await writeCacheFile(cacheKey, freshData);
+      await cache.write(cacheKey, freshData);
       return freshData;
     } catch (error) {
       throw new Error(`Error fetching popular leagues: ${error.message}`);
@@ -190,17 +127,10 @@ class FootballDataService {
   static async getCombinedLeagueData(leagueId) {
     try {
       const cacheKey = `combinedLeague-${leagueId}`;
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey, { maxAgeHours: 6 });
 
-      // Return cached data if it exists and is less than 6 hours old
-      if (storedData && storedData.timestamp) {
-        const cachedTime = new Date(storedData.timestamp);
-        const now = new Date();
-        const hoursDiff = (now - cachedTime) / (1000 * 60 * 60);
-
-        if (hoursDiff < 6) {
-          return storedData.data;
-        }
+      if (cachedData) {
+        return cachedData;
       }
 
       // Get data from both APIs
@@ -222,12 +152,7 @@ class FootballDataService {
         rapidApiData: flData
       };
 
-      await ensureCacheFolderExists();
-      await writeCacheFile(cacheKey, {
-        timestamp: new Date().toISOString(),
-        data: combinedData
-      });
-
+      await cache.write(cacheKey, combinedData);
       return combinedData;
     } catch (error) {
       throw new Error(`Error getting combined league data: ${error.message}`);
@@ -247,11 +172,10 @@ class FootballDataService {
   static async getLatestFinishedMatches() {
     try {
       const cacheKey = `latestFinishedMatches`;
-      await ensureCacheFolderExists();
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey);
 
-      if (storedData) {
-        return storedData;
+      if (cachedData) {
+        return cachedData;
       }
 
       const today = new Date();
@@ -270,7 +194,7 @@ class FootballDataService {
         const response = await axios.get(url, FD_apiHeaders);
         const matches = response.data.matches || [];
         if (matches.length > 0) {
-          await writeCacheFile(cacheKey, matches);
+          await cache.write(cacheKey, matches);
           return matches;
         }
       }
@@ -284,11 +208,10 @@ class FootballDataService {
   static async getLeagueStandings(leagueId) {
     try {
       const cacheKey = `leagueStandings-${leagueId}`;
-      await ensureCacheFolderExists();
-      const storedData = await readCacheFile(cacheKey);
+      const cachedData = await cache.read(cacheKey);
 
-      if (storedData) {
-        return storedData;
+      if (cachedData) {
+        return cachedData;
       }
 
       // Determine if leagueId is a code (PL, CL) or a numeric ID
@@ -324,13 +247,14 @@ class FootballDataService {
       const response = await axios.get(url, FD_apiHeaders);
       const freshData = response.data;
 
-      await writeCacheFile(cacheKey, freshData);
+      await cache.write(cacheKey, freshData);
       return freshData;
     } catch (error) {
       logger.error(`Error fetching league standings: ${error.message}`);
       throw new Error(`Error fetching league standings: ${error.message}`);
     }
   }
+
   static async getLeagueFullDetails(leagueId) {
     try {
       // Always fetch fresh data from the API
@@ -365,32 +289,19 @@ class FootballDataService {
         // Continue without the additional data
       }
 
-      await ensureCacheFolderExists();
-
       const cacheKey = `leagueFullDetails-${leagueId}`;
-      const storedData = await readCacheFile(cacheKey);
+      const storedData = await cache.read(cacheKey);
 
-      if (storedData && deepEqual(freshData, storedData)) {
+      if (storedData && cache.deepEqual(freshData, storedData)) {
         return storedData;
       } else {
-        await writeCacheFile(cacheKey, freshData);
+        await cache.write(cacheKey, freshData);
         return freshData;
       }
     } catch (error) {
       throw new Error(`Error fetching full league details: ${error.message}`);
     }
   }
-
-
-
-}
-
-
-function formatDate(dateObj) {
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
 }
 
 module.exports = FootballDataService;

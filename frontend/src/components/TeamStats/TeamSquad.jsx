@@ -5,7 +5,6 @@ import { FaShirt } from 'react-icons/fa6';
 import { FaFlag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-// Player Image component
 const PlayerImage = ({ playerId }) => {
     const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
 
@@ -22,13 +21,17 @@ const PlayerImage = ({ playerId }) => {
 const TeamSquad = ({ teamId }) => {
     const { data, isLoading, error } = useGetTeamSquadQuery(teamId);
     console.log("Team Squad Data:", data);
+
+    // Use data?.squad instead of data
+    const squad = data?.squad;
+
     if (isLoading) return <div className="loading-squad">Loading squad...</div>;
     if (error) return <div className="error-squad">Error loading squad data.</div>;
-    if (!data || !data.length) return <div className="no-squad">No squad information available.</div>;
+    if (!squad || !Array.isArray(squad) || squad.length === 0) return <div className="no-squad">No squad information available.</div>;
 
     return (
         <div className="squad-container">
-            {data.map((category) => (
+            {squad.map((category) => (
                 <div key={category.title} className="team-squad">
                     <h3 className="category-title">{category.title.charAt(0).toUpperCase() + category.title.slice(1)}</h3>
                     <div className="players-grid">
@@ -63,5 +66,4 @@ const TeamSquad = ({ teamId }) => {
         </div>
     );
 };
-
 export default TeamSquad;

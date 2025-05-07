@@ -1,0 +1,77 @@
+.winning-guess {
+  background: var(--background-secondary);
+  border-radius: 8px;
+  padding: 20px;
+  
+  .guess-title {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 25px;
+  }
+
+  .probabilities {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+    padding: 0 40px;
+    gap: 40px;
+
+    .probability {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      position: relative;
+
+      .team-logo {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+        object-fit: contain;
+      }
+
+      .prob-value {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+      }
+
+      .prob-bar {
+        width: 100%;
+        background: var(--accent-color);
+        border-radius: 4px;
+        transition: height 0.3s ease;
+      }
+
+      .prob-label {
+        margin-top: 10px;
+        color: var(--text-secondary);
+        font-size: 0.9em;
+      }
+
+      &.home .prob-bar {
+        background: var(--team-home-color);
+      }
+
+      &.away .prob-bar {
+        background: var(--team-away-color);
+      }
+
+      &.draw .prob-bar {
+        background: var(--accent-color);
+      }
+    }
+  }
+
+  &.loading,
+  &.error {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+  }
+}

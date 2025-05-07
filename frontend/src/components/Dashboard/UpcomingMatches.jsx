@@ -206,7 +206,13 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="action-col">
-                      <ArrowRight size={18} />
+                        <Link
+                            to={`/matches/${match.id}`}
+                            state={{ leagueId: match.competitionId }}
+                            className="action-link"
+                            >
+                          <ArrowRight size={18} />
+                        </Link>
                     </div>
                   </div>
               ))

@@ -32,14 +32,14 @@ export const footballApi = createApi({
             query: (leagueId) => `leagues/${leagueId}`,
         }),
 
-       //  GET /api/teams/:teamId
+        //  GET /api/teams/:teamId
         getTeamDetails: builder.query({
             query: (teamId) => `teams/${teamId}`,
         }),
 
         // GET /api/leagues/:leagueid/top-stats
         getTopStats: builder.query({
-    query: (leagueId) => `leagues/${leagueId}/top-stats`
+            query: (leagueId) => `leagues/${leagueId}/top-stats`
         }),
 
         // GET /api/teams/news
@@ -74,7 +74,39 @@ export const footballApi = createApi({
         getPlayerStats: builder.query({
             query: (playerId) => `players/${playerId}`,
         }),
-            // Add more endpoints if you add more routes
+        // Add more endpoints if you add more routes
+        getHeadToHead: builder.query({
+            query: ({ team1Id, team2Id }) => ({
+                url: `teams/${team1Id}/matches?otherTeam=${team2Id}&limit=5&status=FINISHED`,
+                method: 'GET',
+            }),
+        }),
+        getMatchLineups: builder.query({
+            query: (matchId) => ({
+                url: `match/${matchId}/lineups`,
+                method: 'GET',
+            }),
+        }),
+
+        // GET /api/matches/:matchId/formation
+        getMatchFormation: builder.query({
+            query: (matchId) => ({
+                url: `match/${matchId}/formation`,
+                method: 'GET',
+            }),
+        }),
+        getMatchStats: builder.query({
+            query: (matchId) => ({
+                url: `match/${matchId}/statistics`,
+                method: 'GET',
+            }),
+        }),
+        getMatchDetails: builder.query({
+            query: (matchId) => `match/${matchId}`,
+        }),
+        getMatchTimeline: builder.query({
+            query: (matchId) => `match/${matchId}/timeline`,
+        }),
     }),
 });
 
@@ -93,4 +125,10 @@ export const {
     useGetTeamSquadQuery,
     useGetPlayerImageQuery,
     useGetPlayerStatsQuery,
+    useGetHeadToHeadQuery,
+    useGetMatchLineupsQuery,
+    useGetMatchFormationQuery,
+    useGetMatchStatsQuery,
+    useGetMatchDetailsQuery,
+    useGetMatchTimelineQuery,
 } = footballApi;

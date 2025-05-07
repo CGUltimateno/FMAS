@@ -1,0 +1,97 @@
+.lineup {
+    padding: 20px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+
+    &__title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+    }
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    &__team {
+        flex: 1;
+    }
+
+    &__team-name {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+
+    &__player {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background: var(--background-hover);
+        }
+
+        &--substitute {
+            opacity: 0.8;
+        }
+    }
+
+    &__player-number {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent-color);
+        color: var(--text-inverse);
+        border-radius: 50%;
+        margin-right: 10px;
+        font-size: 0.9em;
+    }
+
+    &__player-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__player-name {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+
+    &__player-position {
+        font-size: 0.8em;
+        color: var(--text-secondary);
+        
+        &.gk { color: var(--position-gk); }
+        &.df { color: var(--position-df); }
+        &.mf { color: var(--position-mf); }
+        &.fw { color: var(--position-fw); }
+    }
+
+    &__substitutes-title {
+        margin: 20px 0 10px;
+        color: var(--text-secondary);
+        font-size: 0.9em;
+    }
+
+    &__divider {
+        width: 1px;
+        background: var(--border-color);
+    }
+
+    &.loading,
+    &.error,
+    &.empty {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-secondary);
+    }
+}

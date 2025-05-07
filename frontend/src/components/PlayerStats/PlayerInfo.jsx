@@ -144,8 +144,8 @@ const PlayerInfo = ({ player }) => {
             </div>
 
             <div className="stat">
-              <span className="value">{calculateAge(info.dateOfBirth)} yrs</span>
               <span className="secondary">{formatDate(info.dateOfBirth)}</span>
+              <span className="value">{calculateAge(info.dateOfBirth)} years</span>
             </div>
             <div className="stat">
               <span className="label">Preferred foot</span>

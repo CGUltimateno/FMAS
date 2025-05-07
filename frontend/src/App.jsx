@@ -34,10 +34,9 @@ const App = () => {
                             <Route path="/register" element={<RegisterPage />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/leagues" element={<LeaguesPage />} />
-                            <Route path="/MatchDetails" element={<MatchDetails />} />
                             <Route path="/leagues/:leagueId" element={<LeagueDetailsPage />} />
                             <Route path="/teams/:teamId" element={<TeamDetailsPage />} />
-                            <Route path="/leagues/:leagueId/matches" element={<MatchDetails />} />
+                            <Route path="/matches/:matchId" element={<MatchDetails />} />
                             <Route path="/player/:playerId" element={<PlayerStatsPage />} />
                             <Route path="/leagues/:*" element={<NotFoundPage />} />
                             <Route path="*" element={<NotFoundPage />} />

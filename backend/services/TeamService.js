@@ -1,73 +1,18 @@
 const axios = require("axios");
-const fs = require("fs/promises");
 const path = require("path");
-const mapJson = require("../cache/apiMappings.json"); // Adjust path if needed
-const winston = require("winston");
-const FOOTBALL_DATA_API_KEY = process.env.FOOTBALL_DATA_API_KEY;
-const LIVE_API_KEY = process.env.LIVE_API_KEY;
-const API_FD_BASE_URL = "https://api.football-data.org/v4";
-const API_FL_BASE_URL = "https://free-api-live-football-data.p.rapidapi.com";
+const logger = require("../logger");
+const cache = require("../config/CacheService");
+const mapJson = require('../cache/apiMappings.json');
+const apiConfig = require("../config/apiConfig");
+const { headers, API_FD_BASE_URL, API_FL_BASE_URL } = apiConfig;
+const FD_apiHeaders = headers.footballData;
+const FL_apiHeaders = headers.liveFootball;
 
-const FL_apiHeaders = {
-    headers: {
-        "x-rapidapi-key": LIVE_API_KEY,
-        "x-rapidapi-host": "free-api-live-football-data.p.rapidapi.com",
-    }
-};
-
-const FD_apiHeaders = {
-    headers: {
-        "X-Auth-Token": FOOTBALL_DATA_API_KEY,
-    },
-};
-
-const logger = winston.createLogger({
-    level: "info",
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-    ),
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: "combined.log" })
-    ]
-});
-
-
-const CACHE_FOLDER = path.join(__dirname, "..", "cache");
-
-async function ensureCacheFolderExists() {
-    try {
-        await fs.mkdir(CACHE_FOLDER, { recursive: true });
-    } catch (err) {
-        console.error("Error creating cache folder:", err);
-    }
-}
-
-async function readCacheFile(cacheKey) {
-    const filePath = path.join(CACHE_FOLDER, `${cacheKey}.json`);
-    try {
-        const data = await fs.readFile(filePath, "utf8");
-        return JSON.parse(data);
-    } catch (err) {
-        return null;
-    }
-}
-
-async function writeCacheFile(cacheKey, data) {
-    const filePath = path.join(CACHE_FOLDER, `${cacheKey}.json`);
-    try {
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
-    } catch (err) {
-        console.error("Error writing cache file:", err);
-    }
-}
 class TeamService {
     static async getTeamFullDetails(teamId) {
         try {
             const cacheKey = `teamFullDetails-${teamId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 24 });
 
             if (storedData) {
                 return storedData;
@@ -80,7 +25,6 @@ class TeamService {
                 axios.get(teamUrl, FD_apiHeaders),
                 axios.get(matchesUrl, FD_apiHeaders),
             ]);
-
             const fdData = {
                 details: {
                     name: teamRes.data.name,
@@ -93,7 +37,6 @@ class TeamService {
                 matches: matchesRes.data.matches || [],
                 stats: {}
             };
-
             let additionalData = null;
             if (mapJson.teams && mapJson.teams[teamId] && mapJson.teams[teamId].flId) {
                 const flTeamId = mapJson.teams[teamId].flId;
@@ -101,6 +44,7 @@ class TeamService {
                     const flTeamUrl = `${API_FL_BASE_URL}/football-league-team?teamid=${flTeamId}`;
                     const flRes = await axios.get(flTeamUrl, FL_apiHeaders);
                     additionalData = flRes.data;
+                    logger.info("FL Team Data:", { additionalData });
                 } catch (error) {
                     console.error("Error fetching RapidAPI team details:", error.message);
                 }
@@ -111,8 +55,10 @@ class TeamService {
             if (additionalData) {
                 freshData.additionalDetails = additionalData;
             }
-
-            await writeCacheFile(cacheKey, freshData);
+            logger.info("Fresh Data:", { freshData });
+            console.log("Fresh Data:", freshData);
+            await cache.write(cacheKey, freshData);
+            logger.info(freshData)
             return freshData;
         } catch (error) {
             throw new Error(`Error fetching team details: ${error.message}`);
@@ -122,8 +68,7 @@ class TeamService {
     static async getTrendingNews() {
         try {
             const cacheKey = `trendingNews`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 6 });
 
             if (storedData) {
                 return storedData;
@@ -134,7 +79,7 @@ class TeamService {
             const response = await axios.get(url, FL_apiHeaders);
             const freshData = response.data;
 
-            await writeCacheFile(cacheKey, freshData);
+            await cache.write(cacheKey, freshData);
             return freshData;
         } catch (error) {
             logger.error("Error details:", {error: error.response ? error.response.data : error.message});
@@ -145,8 +90,7 @@ class TeamService {
     static async getTeamForm(teamId, leagueId) {
         try {
             const cacheKey = `teamForm-${teamId}-${leagueId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 12 });
 
             if (storedData) {
                 return storedData;
@@ -223,7 +167,7 @@ class TeamService {
                 };
             });
 
-            await writeCacheFile(cacheKey, matchesWithTeamFlag);
+            await cache.write(cacheKey, matchesWithTeamFlag);
             return matchesWithTeamFlag;
         } catch (error) {
             logger.error("Error details:", {error: error.response ? error.response.data : error.message});
@@ -234,8 +178,7 @@ class TeamService {
     static async getTeamCrest(teamId) {
         try {
             const cacheKey = `teamCrest-${teamId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 48 });
 
             if (storedData) {
                 return storedData;
@@ -258,7 +201,7 @@ class TeamService {
 
             const freshData = response.data.response.url;
 
-            await writeCacheFile(cacheKey, freshData);
+            await cache.write(cacheKey, freshData);
             return freshData;
         } catch (error) {
             console.error("Error fetching team crest:", error.message);
@@ -277,8 +220,7 @@ class TeamService {
             if (status) cacheKey += `-status${status}`;
             if (limit) cacheKey += `-limit${limit}`;
 
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 6 });
 
             if (storedData) {
                 return storedData;
@@ -306,7 +248,7 @@ class TeamService {
                 };
             });
 
-            await writeCacheFile(cacheKey, processedMatches);
+            await cache.write(cacheKey, processedMatches);
             return processedMatches;
         } catch (error) {
             logger.error("Error details:", {error: error.response ? error.response.data : error.message});
@@ -315,34 +257,105 @@ class TeamService {
     }
 
     static async getTeamSquad(teamId) {
+        logger.info(`SQUAD: Function called with teamId: ${teamId}`);
         try {
             const cacheKey = `teamSquad-${teamId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            logger.debug(`SQUAD: Created cache key: ${cacheKey}`);
+
+            let storedData = null;
+            try {
+                storedData = await cache.read(cacheKey, { maxAgeHours: 24 });
+                logger.debug(`SQUAD: Cache check result: ${storedData ? 'HIT' : 'MISS'}`);
+            } catch (cacheError) {
+                logger.error(`SQUAD: Cache read error:`, { error: cacheError.message });
+            }
 
             if (storedData) {
+                logger.info(`SQUAD: Returning cached data for team ${teamId}`);
                 return storedData;
             }
 
+            logger.info(`SQUAD: No cached data found, proceeding to API request`);
+
+            // Check if mapJson exists and has required structure
+            logger.debug(`SQUAD: mapJson check - exists: ${!!mapJson}, hasTeams: ${mapJson && !!mapJson.teams}`);
+
             // Map the teamId to its corresponding flId
-            const mappedTeamId = mapJson.teams[teamId]?.flId;
-            logger.info("Mapped Team ID:", { mappedTeamId });
+            const teamMapping = mapJson?.teams?.[teamId];
+            logger.debug(`SQUAD: Team mapping object:`, { teamMapping });
+
+            const mappedTeamId = teamMapping?.flId;
+            logger.info(`SQUAD: Mapped Team ID lookup:`, {
+                originalId: teamId,
+                mappedId: mappedTeamId,
+                mappingFound: !!mappedTeamId
+            });
+
             if (!mappedTeamId) {
+                logger.error(`SQUAD: No mapping found for team ID: ${teamId}`);
                 throw new Error(`No mapping found for team ID: ${teamId}`);
             }
 
             const url = `${API_FL_BASE_URL}/football-get-list-player?teamid=${mappedTeamId}`;
-            logger.info("Request URL:", { url });
+            logger.info(`SQUAD: Preparing API request to: ${url}`);
+            logger.debug(`SQUAD: Using headers:`, {
+                headerKeys: Object.keys(FL_apiHeaders),
+                hasAuth: !!FL_apiHeaders.headers?.['X-RapidAPI-Key']
+            });
 
-            const response = await axios.get(url, FL_apiHeaders);
+            logger.info(`SQUAD: Sending API request...`);
+            let response;
+            try {
+                response = await axios.get(url, FL_apiHeaders);
+                logger.info(`SQUAD: API request successful, status: ${response.status}`);
+                logger.debug(`SQUAD: Response structure:`, {
+                    hasData: !!response.data,
+                    dataKeys: response.data ? Object.keys(response.data) : [],
+                    hasResponse: !!response.data?.response,
+                    responseType: response.data?.response ? typeof response.data.response : 'undefined',
+                    hasList: !!response.data?.response?.list
+                });
+            } catch (apiError) {
+                logger.error(`SQUAD: API request failed:`, {
+                    message: apiError.message,
+                    status: apiError.response?.status,
+                    statusText: apiError.response?.statusText,
+                    responseData: apiError.response?.data
+                });
+                throw apiError;
+            }
 
             // Updated path to match the actual response structure
-            const squad = response.data.response?.list || [];
+            let squad = [];
+            try {
+                squad = response.data.response?.list || [];
+                logger.info(`SQUAD: Extracted ${squad.length} players from response`);
+                if (squad.length > 0) {
+                    logger.debug(`SQUAD: First player sample:`, squad[0]);
+                }
+            } catch (parseError) {
+                logger.error(`SQUAD: Failed to parse response:`, { error: parseError.message });
+                throw parseError;
+            }
 
-            await writeCacheFile(cacheKey, squad);
+            try {
+                logger.info(`SQUAD: Writing data to cache...`);
+                await cache.write(cacheKey, squad);
+                logger.info(`SQUAD: Successfully cached team squad data`);
+            } catch (cacheError) {
+                logger.error(`SQUAD: Failed to write to cache:`, { error: cacheError.message });
+                // Continue despite cache write failure
+            }
+
+            logger.info(`SQUAD: Successfully completed getTeamSquad for team ${teamId}`);
             return squad;
         } catch (error) {
-            logger.error("Error details:", {error: error.response ? error.response.data : error.message});
+            logger.error(`SQUAD: Error in getTeamSquad:`, {
+                message: error.message,
+                stack: error.stack,
+                responseStatus: error.response?.status,
+                responseData: error.response?.data
+            });
             throw new Error(`Error fetching team squad: ${error.message}`);
         }
     }
@@ -350,8 +363,7 @@ class TeamService {
     static async getAllTeamMatches(teamId) {
         try {
             const cacheKey = `teamMatches-${teamId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 12 });
 
             if (storedData) {
                 return storedData;
@@ -365,19 +377,20 @@ class TeamService {
                 throw new Error(`No leagues found for team ID: ${teamId}`);
             }
 
-            const mappedTeamId = mapJson.teams[teamId]?.flId;
+            const mappedTeamId = Mapping.teams[teamId]?.flId;
             logger.info("Mapped Team ID:", { mappedTeamId });
             if (!mappedTeamId) {
                 throw new Error(`No mapping found for team ID: ${teamId}`);
             }
 
-            // Get the most relevant league ID
             let primaryLeagueId = null;
+            let leagueCode = null;
             for (const league of teamLeagues) {
                 const numericLeagueId = parseInt(league.id, 10);
-                for (const leagueKey in mapJson.leagues) {
-                    if (mapJson.leagues[leagueKey].fdId === numericLeagueId) {
-                        primaryLeagueId = mapJson.leagues[leagueKey].flId;
+                for (const leagueKey in Mapping.leagues) {
+                    if (Mapping.leagues[leagueKey].fdId === numericLeagueId) {
+                        primaryLeagueId = Mapping.leagues[leagueKey].flId;
+                        leagueCode = Mapping.leagues[leagueKey].code;
                         break;
                     }
                 }
@@ -388,26 +401,32 @@ class TeamService {
                 throw new Error(`No mapping found for any of team ${teamId}'s leagues`);
             }
 
-            // Fetch all matches for the league
+            // Get Football Data API matches for the team
+            const fdMatchesUrl = `${API_FD_BASE_URL}/teams/${teamId}/matches?status=SCHEDULED`;
+            const fdMatchesResponse = await axios.get(fdMatchesUrl, FD_apiHeaders);
+            const fdMatches = fdMatchesResponse.data.matches || [];
+
+            // Get LiveFootball API matches for the league
             const url = `${API_FL_BASE_URL}/football-get-all-matches-by-league?leagueid=${primaryLeagueId}`;
             logger.info("Request URL:", { url });
 
             const response = await axios.get(url, FL_apiHeaders);
             const allMatches = response.data.response?.matches || [];
 
-            // Filter matches to only include those with the specified team
             const teamMatches = allMatches.filter(match =>
                 String(match.home.id) === String(mappedTeamId) ||
                 String(match.away.id) === String(mappedTeamId)
             );
 
-            // Add a flag to each match indicating whether the team is home or away
             const processedMatches = teamMatches.map(match => ({
                 ...match,
                 isHomeTeam: String(match.home.id) === String(mappedTeamId)
             }));
 
-            await writeCacheFile(cacheKey, processedMatches);
+            // Update mappings for new matches
+            await this.updateMatchMappings(fdMatches, teamMatches, leagueCode);
+
+            await cache.write(cacheKey, processedMatches);
             return processedMatches;
         } catch (error) {
             logger.error("Error details:", {error: error.response ? error.response.data : error.message});
@@ -415,25 +434,98 @@ class TeamService {
         }
     }
 
+    static async updateMatchMappings(fdMatches, flMatches, leagueCode) {
+        try {
+            // Load current mappings
+            const mappingsPath = path.resolve(__dirname, '../cache/apiMappings.json');
+            const mappingsData = JSON.parse(JSON.stringify(Mapping));
+
+            let updateNeeded = false;
+
+            // Go through FD matches and find corresponding FL matches
+            for (const fdMatch of fdMatches) {
+                const fdMatchId = fdMatch.id.toString();
+
+                // Skip if already mapped
+                if (mappingsData.matches && mappingsData.matches[fdMatchId]) {
+                    continue;
+                }
+
+                // Find corresponding FL match by comparing date and teams
+                const fdDate = new Date(fdMatch.utcDate);
+                const fdHomeTeamId = fdMatch.homeTeam.id;
+                const fdAwayTeamId = fdMatch.awayTeam.id;
+
+                // Map team IDs
+                const flHomeTeamId = Mapping.teams[fdHomeTeamId]?.flId;
+                const flAwayTeamId = Mapping.teams[fdAwayTeamId]?.flId;
+
+                if (!flHomeTeamId || !flAwayTeamId) {
+                    logger.warn(`Missing team mapping for match ${fdMatchId}`);
+                    continue;
+                }
+
+                // Find matching FL match
+                const matchingFlMatch = flMatches.find(flMatch => {
+                    const flDate = new Date(flMatch.status.utcTime);
+                    const timeDiff = Math.abs(fdDate - flDate) / (1000 * 60 * 60); // Diff in hours
+
+                    return (
+                        timeDiff < 24 && // Within 24 hours
+                        String(flMatch.home.id) === String(flHomeTeamId) &&
+                        String(flMatch.away.id) === String(flAwayTeamId)
+                    );
+                });
+
+                if (matchingFlMatch) {
+                    // Create new mapping entry
+                    if (!mappingsData.matches) {
+                        mappingsData.matches = {};
+                    }
+
+                    mappingsData.matches[fdMatchId] = {
+                        flId: matchingFlMatch.id.toString(),
+                        homeTeamId: fdHomeTeamId,
+                        awayTeamId: fdAwayTeamId,
+                        flHomeTeamId: parseInt(matchingFlMatch.home.id),
+                        flAwayTeamId: parseInt(matchingFlMatch.away.id),
+                        date: fdMatch.utcDate,
+                        flDate: matchingFlMatch.status.utcTime,
+                        leagueCode: leagueCode
+                    };
+
+                    updateNeeded = true;
+                    logger.info(`Added new match mapping: ${fdMatchId} → ${matchingFlMatch.id}`);
+                }
+            }
+
+            // Save updated mappings if changes were made
+            if (updateNeeded) {
+                await fs.writeFile(mappingsPath, JSON.stringify(mappingsData, null, 2), 'utf8');
+                // Update in-memory mappings
+                Object.assign(Mapping, mappingsData);
+                logger.info('Updated match mappings in apiMappings.json');
+            }
+        } catch (error) {
+            logger.error(`Error updating match mappings: ${error.message}`);
+            // Don't throw error to prevent API call failure
+        }
+    }
     static async getPlayerImage(playerId) {
         try {
             const cacheKey = `playerImage-${playerId}`;
-            await ensureCacheFolderExists();
-            const storedData = await readCacheFile(cacheKey);
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 72 });
 
             if (storedData) {
                 return storedData;
             }
 
-            // Determine which ID to use - either mapped or direct
             let idToUse = playerId;
 
-            // If we have a mapping, use the mapped FL ID
             if (mapJson.players && mapJson.players[playerId]) {
                 idToUse = mapJson.players[playerId].flId;
                 logger.info("Using mapped Player ID:", { originalId: playerId, mappedId: idToUse });
             } else {
-                // No mapping found, try using the provided ID directly
                 logger.info("No mapping found, using provided ID directly:", { id: playerId });
             }
 
@@ -449,15 +541,13 @@ class TeamService {
 
             const freshData = response.data.response.url;
 
-            await writeCacheFile(cacheKey, freshData);
+            await cache.write(cacheKey, freshData);
             return freshData;
         } catch (error) {
             logger.error("Error details:", {error: error.response ? error.response.data : error.message});
-            // Return a placeholder instead of throwing
             return "/images/player-placeholder.png";
         }
     }
 }
-
 
 module.exports = TeamService;

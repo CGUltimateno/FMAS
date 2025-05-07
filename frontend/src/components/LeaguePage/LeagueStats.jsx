@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetTopStatsQuery } from "../../services/footballApi";
 import { useGetPlayerImageQuery } from "../../services/footballApi.jsx";
 
-// PlayerImage component definition here
+// PlayerImage component
 const PlayerImage = ({ playerId }) => {
     const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
 
@@ -36,6 +36,7 @@ const LeagueStats = () => {
     return (
         <section className="league-stats-section">
             <div className="league-stats-box">
+                {/* Top Scorers */}
                 <div className="stats-section">
                     <h2>Top Scorers</h2>
                     <ul className="stats-list">
@@ -44,7 +45,9 @@ const LeagueStats = () => {
                                 <div className="stats-info">
                                     <PlayerImage playerId={scorer.id} />
                                     <div className="player-details">
-                                        <span className="player-name">{scorer.name}</span>
+                                        <Link to={`/player/${scorer.id}`} className="player-name">
+                                            {scorer.name}
+                                        </Link>
                                         <div className="club-info">
                                             <Link to={`/team/${scorer.teamId}`} className="team-name-link">
                                                 <span className="club-name">{scorer.teamName}</span>
@@ -58,6 +61,7 @@ const LeagueStats = () => {
                     </ul>
                 </div>
 
+                {/* Top Assists */}
                 <div className="stats-section">
                     <h2>Top Assists</h2>
                     <ul className="stats-list">
@@ -66,7 +70,9 @@ const LeagueStats = () => {
                                 <div className="stats-info">
                                     <PlayerImage playerId={assist.id} />
                                     <div className="player-details">
-                                        <span className="player-name">{assist.name}</span>
+                                        <Link to={`/player/${assist.id}`} className="player-name">
+                                            {assist.name}
+                                        </Link>
                                         <div className="club-info">
                                             <Link to={`/team/${assist.teamId}`} className="team-name-link">
                                                 <span className="club-name">{assist.teamName}</span>
@@ -80,6 +86,7 @@ const LeagueStats = () => {
                     </ul>
                 </div>
 
+                {/* Top Rating */}
                 <div className="stats-section">
                     <h2>Top Rating</h2>
                     <ul className="stats-list">
@@ -88,16 +95,16 @@ const LeagueStats = () => {
                                 <div className="stats-info">
                                     <PlayerImage playerId={card.id} />
                                     <div className="player-details">
-                                        <span className="player-name">{card.name}</span>
+                                        <Link to={`/player/${card.id}`} className="player-name">
+                                            {card.name}
+                                        </Link>
                                         <div className="club-info">
                                             <Link to={`/team/${card.teamId}`} className="team-name-link">
                                                 <span className="club-name">{card.teamName}</span>
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="player-stats">
-                                        {card.rating}
-                                    </span>
+                                    <span className="player-stats">{card.rating}</span>
                                 </div>
                             </li>
                         ))}

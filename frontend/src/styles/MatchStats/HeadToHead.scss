@@ -1,0 +1,95 @@
+.head-to-head {
+    padding: 20px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+    
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+    }
+
+    .teams-comparison {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+
+            .team-crest {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+
+            .wins {
+                font-size: 24px;
+                font-weight: bold;
+                color: var(--text-primary);
+            }
+        }
+
+        .draws {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+
+            span:first-child {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            span:last-child {
+                font-size: 14px;
+                color: var(--text-secondary);
+            }
+        }
+    }
+
+    .previous-matches {
+        h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .match {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .date {
+                color: var(--text-secondary);
+            }
+
+            .score {
+                span {
+                    font-weight: bold;
+                }
+
+                .separator {
+                    margin: 0 10px;
+                    color: var(--text-secondary);
+                }
+            }
+        }
+    }
+
+    &.loading,
+    &.error,
+    &.empty {
+        text-align: center;
+        padding: 40px;
+        color: var(--text-secondary);
+    }
+}

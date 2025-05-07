@@ -1,95 +1,93 @@
-import React from 'react';
-import '../styles/LeagueDetails/MatchDetails.scss';
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import { useGetMatchDetailsQuery } from "../services/footballApi";
+import "../styles/MatchStats/MatchDetails.scss";
+import { FaArrowLeft, FaCalendarAlt, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import Formation from "../components/MatchStats/Lineup";
+import HeadToHead from "../components/MatchStats/HeadToHead";
+import Lineup from "../components/MatchStats/Lineup";
+import PerformanceGraphs from "../components/MatchStats/PerformanceGraphs";
+import Stats from "../components/MatchStats/Stats";
+import TeamForm from "../components/MatchStats/TeamForm";
+import WinningGuess from "../components/MatchStats/WinningGuess";
 
-const MatchDetails = ({ team1, team2 }) => {
-  const getTeamStats = (team) => ({
-    logo: team === "Manchester United" 
-      ? "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"
-      : "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
-    score: Math.floor(Math.random() * 5),
-    shots: Math.floor(Math.random() * 20),
-    saves: Math.floor(Math.random() * 10),
-    passes: Math.floor(Math.random() * 500),
-    possession: Math.floor(Math.random() * 60),
-    playerRatings: Array.from({ length: 11 }, () => (Math.random() * 3 + 6).toFixed(1))
-  });
+const MatchDetails = () => {
+  const { matchId } = useParams();
+  const { data: matchData, isLoading, error } = useGetMatchDetailsQuery(matchId);
 
-  const team1Stats = getTeamStats(team1);
-  const team2Stats = getTeamStats(team2);
+  // For testing without API, use static data
+  const useStaticData = !matchData || error;
+  const match = useStaticData ? {
+    homeTeam: { name: "Manchester United", id: 66, logo: "https://resources.premierleague.com/premierleague/badges/t1.svg" },
+    awayTeam: { name: "Liverpool", id: 64, logo: "https://resources.premierleague.com/premierleague/badges/t14.svg" },
+    score: { fullTime: { home: 2, away: 1 } },
+    utcDate: new Date().toISOString(),
+    venue: "Old Trafford",
+    status: "FINISHED",
+    competition: { id: 2021, name: "Premier League", emblem: "https://crests.football-data.org/PL.png" }
+  } : matchData;
+
+  if (isLoading) {
+    return <div className="loading-container">Loading match details...</div>;
+  }
+
+  const homeTeamId = match.homeTeam?.id;
+  const awayTeamId = match.awayTeam?.id;
+  const leagueId = match.competition?.id || null;
+  const matchDate = new Date(match.utcDate);
 
   return (
-    <div className="match-details">
-      <h2>Match Details</h2>
-      <div className="match-card">
-        <div className="teams-header">
-          <div className="team-header">
-            <img src={team1Stats.logo} alt={`${team1} Logo`} />
-            <h3>{team1}</h3>
-            <p className="score">{team1Stats.score}</p>
-          </div>
-          <div className="vs">VS</div>
-          <div className="team-header">
-            <img src={team2Stats.logo} alt={`${team2} Logo`} />
-            <h3>{team2}</h3>
-            <p className="score">{team2Stats.score}</p>
+      <div className="match-details-container">
+        <div className="match-details-header">
+          <div className="match-card">
+            {/* Top bar */}
+            <div className="match-status-bar aligned-bar">
+              <div className="bar-col left">
+                <FaCalendarAlt className="bar-icon"/>
+                <span>2024-06-30</span>
+              </div>
+              <div className="bar-col center">
+                <FaMapMarkerAlt className="bar-icon"/>
+                <span>Old Trafford</span>
+              </div>
+              <div className="bar-col right">
+                <span>Referee: Michael Oliver</span>
+              </div>
+            </div>
+
+            {/* Main display */}
+            <div className="teams-aligned-row">
+              <div className="team-col left">
+                <img src={match.homeTeam?.logo} alt={match.homeTeam?.name} className="team-logo"/>
+                <span className="team-name">{match.homeTeam?.name}</span>
+              </div>
+              <div className="score-col center">
+                <span className="score">{match.score?.fullTime?.home ?? "-"}</span>
+                <span className="separator">:</span>
+                <span className="score">{match.score?.fullTime?.away ?? "-"}</span>
+                <div className="match-time">{matchDate.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}</div>
+              </div>
+              <div className="team-col right">
+                <img src={match.awayTeam?.logo} alt={match.awayTeam?.name} className="team-logo"/>
+                <span className="team-name">{match.awayTeam?.name}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="stats-section">
-          <div className="stat-row">
-            <span className={`team1-value ${team1Stats.shots > team2Stats.shots ? 'higher' : ''}`}>
-              {team1Stats.shots}
-            </span>
-            <span className="stat-label">Shots</span>
-            <span className={`team2-value ${team2Stats.shots > team1Stats.shots ? 'higher' : ''}`}>
-              {team2Stats.shots}
-            </span>
-          </div>
-          <div className="stat-row">
-            <span className={`team1-value ${team1Stats.saves > team2Stats.saves ? 'higher' : ''}`}>
-              {team1Stats.saves}
-            </span>
-            <span className="stat-label">Saves</span>
-            <span className={`team2-value ${team2Stats.saves > team1Stats.saves ? 'higher' : ''}`}>
-              {team2Stats.saves}
-            </span>
-          </div>
-          <div className="stat-row">
-            <span className={`team1-value ${team1Stats.passes > team2Stats.passes ? 'higher' : ''}`}>
-              {team1Stats.passes}
-            </span>
-            <span className="stat-label">Passes</span>
-            <span className={`team2-value ${team2Stats.passes > team1Stats.passes ? 'higher' : ''}`}>
-              {team2Stats.passes}
-            </span>
-          </div>
-          <div className="stat-row">
-            <span className={`team1-value ${team1Stats.possession > team2Stats.possession ? 'higher' : ''}`}>
-              {team1Stats.possession}%
-            </span>
-            <span className="stat-label">Possession</span>
-            <span className={`team2-value ${team2Stats.possession > team1Stats.possession ? 'higher' : ''}`}>
-              {team2Stats.possession}%
-            </span>
-          </div>
-        </div>
-
-        <div className="ratings-section">
-          <div className="team-ratings">
-            <h4>Player Ratings</h4>
-            {team1Stats.playerRatings.map((rating, index) => (
-              <p key={index}>Player {index + 1}: {rating}</p>
-            ))}
-          </div>
-          <div className="team-ratings">
-            <h4>Player Ratings</h4>
-            {team2Stats.playerRatings.map((rating, index) => (
-              <p key={index}>Player {index + 1}: {rating}</p>
-            ))}
-          </div>
+        {/* Add associated components here */}
+        <div className="match-details-content">
+          {/*<HeadToHead team1Id={homeTeamId} team2Id={awayTeamId} />*/}
+          {/*<Formation matchId={matchId} />*/}
+          {/* <PerformanceGraphs matchId={matchId} />
+        <Stats matchId={matchId} />
+        <TeamForm teamAId={homeTeamId} teamBId={awayTeamId} leagueId={leagueId} />
+        <WinningGuess matchId={matchId} /> */}
         </div>
       </div>
-    </div>
   );
 };
 
