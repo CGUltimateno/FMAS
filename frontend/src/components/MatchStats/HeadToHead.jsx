@@ -1,53 +1,65 @@
 import React from "react";
-import { useGetHeadToHeadQuery, useGetTeamCrestQuery } from "../../services/footballApi";
 import "../../styles/MatchStats/HeadToHead.scss";
-import apiMappings from "../../../../backend/cache/apiMappings.json";
+
+// Static data for teams (PSG vs Arsenal)
+const staticData = {
+    team1: {
+        id: 1,
+        name: "PSG",
+        crest: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Paris_Saint-Germain_F.C..svg/120px-Paris_Saint-Germain_F.C..svg.png", // Static crest URL for PSG
+        wins: 5,
+    },
+    team2: {
+        id: 2,
+        name: "Arsenal",
+        crest: "https://upload.wikimedia.org/wikipedia/commons/5/53/Arsenal_FC.svg", // Static crest URL for Arsenal
+        wins: 3,
+    },
+    matches: [
+        {
+            date: "2023-11-15",
+            home: {
+                id: 1,
+                score: 2,
+            },
+            away: {
+                id: 2,
+                score: 1,
+            },
+        },
+        {
+            date: "2023-05-20",
+            home: {
+                id: 2,
+                score: 1,
+            },
+            away: {
+                id: 1,
+                score: 1,
+            },
+        },
+        {
+            date: "2022-12-10",
+            home: {
+                id: 1,
+                score: 3,
+            },
+            away: {
+                id: 2,
+                score: 0,
+            },
+        },
+    ],
+};
 
 const HeadToHead = ({ team1Id, team2Id }) => {
-    // Get mapped IDs for API calls
-    const mappedTeam1Id = apiMappings.teams[team1Id]?.flId;
-    const mappedTeam2Id = apiMappings.teams[team2Id]?.flId;
+    const team1 = staticData.team1;
+    const team2 = staticData.team2;
+    const h2hMatches = staticData.matches;
 
-    // Fetch team crests
-    const { data: team1Crest, error: team1CrestError } = useGetTeamCrestQuery(team1Id);
-    const { data: team2Crest, error: team2CrestError } = useGetTeamCrestQuery(team2Id);
-
-    // Fetch head to head matches
-    const { data: h2hMatches, isLoading, error: h2hError } = useGetHeadToHeadQuery(
-        { team1Id: mappedTeam1Id, team2Id: mappedTeam2Id },
-        { skip: !mappedTeam1Id || !mappedTeam2Id }
-    );
-
-    if (isLoading) return <div className="head-to-head loading">Loading head to head data...</div>;
-
-    // Handle errors
-    if (h2hError) {
-        console.error('Error loading head-to-head data:', h2hError); // Log detailed error for debugging
-        return (
-            <div className="head-to-head error">
-                <p>Error loading head-to-head data. Please try again later.</p>
-                <pre>{JSON.stringify(h2hError, null, 2)}</pre> {/* Show detailed error for debugging */}
-            </div>
-        );
-    }
-
-    if (team1CrestError || team2CrestError) {
-        console.error('Error loading team crests:', team1CrestError || team2CrestError); // Log team crest error
-        return (
-            <div className="head-to-head error">
-                <p>Error loading team crests. Please try again later.</p>
-            </div>
-        );
-    }
-
-    if (!h2hMatches || h2hMatches.length === 0) {
-        return <div className="head-to-head empty">No previous matches found</div>;
-    }
-
-    // Calculate statistics
     const stats = h2hMatches.reduce(
         (acc, match) => {
-            const team1IsHome = String(match.home.id) === String(mappedTeam1Id);
+            const team1IsHome = String(match.home.id) === String(team1.id);
             const team1Score = team1IsHome ? match.home.score : match.away.score;
             const team2Score = team1IsHome ? match.away.score : match.home.score;
 
@@ -66,8 +78,8 @@ const HeadToHead = ({ team1Id, team2Id }) => {
 
             <div className="teams-comparison">
                 <div className="team team1">
-                    {team1Crest ? (
-                        <img src={team1Crest} alt="Team 1 crest" className="team-crest" />
+                    {team1.crest ? (
+                        <img src={team1.crest} alt="Team 1 crest" className="team-crest" />
                     ) : (
                         <div className="team-crest-placeholder">No Crest</div>
                     )}
@@ -80,8 +92,8 @@ const HeadToHead = ({ team1Id, team2Id }) => {
                 </div>
 
                 <div className="team team2">
-                    {team2Crest ? (
-                        <img src={team2Crest} alt="Team 2 crest" className="team-crest" />
+                    {team2.crest ? (
+                        <img src={team2.crest} alt="Team 2 crest" className="team-crest" />
                     ) : (
                         <div className="team-crest-placeholder">No Crest</div>
                     )}
@@ -92,14 +104,18 @@ const HeadToHead = ({ team1Id, team2Id }) => {
             <div className="previous-matches">
                 <h3>Previous Matches</h3>
                 {h2hMatches.map((match, index) => {
-                    const team1IsHome = String(match.home.id) === String(mappedTeam1Id);
+                    const team1IsHome = String(match.home.id) === String(team1.id);
                     const team1Score = team1IsHome ? match.home.score : match.away.score;
                     const team2Score = team1IsHome ? match.away.score : match.home.score;
 
                     return (
                         <div key={index} className="match">
                             <span className="date">
-                                {new Date(match.date).toLocaleDateString()}
+                                {new Date(match.date).toLocaleDateString("en-GB", {
+                                    day: "2-digit",
+                                    month: "2-digit",
+                                    year: "numeric",
+                                })}
                             </span>
                             <div className="score">
                                 <span className="team1-score">{team1Score}</span>

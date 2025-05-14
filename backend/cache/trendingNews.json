@@ -1,0 +1,62 @@
+{
+  "status": "success",
+  "response": {
+    "news": [
+      {
+        "id": "1ot62v4y39x51iks8snrgy30k",
+        "imageUrl": "https://images.performgroup.com/di/library/omnisport/ab/3d/xabi-alonso_qg4l3c2rp8u4133pscudl4qc5.png?t=1558776198&w=1040&h=566",
+        "title": "Alonso has 'gentleman's agreement' on exit, says Leverkusen CEO",
+        "gmtTime": "2025-04-21T17:29:53.000Z",
+        "sourceStr": "FotMob",
+        "sourceIconUrl": "https://images.fotmob.com/image_resources/news/fotmob.png",
+        "page": {
+          "url": "/news/1ot62v4y39x51iks8snrgy30k-alonso-has-gentlemans-agreement-exit-says-leverkusen-ceo"
+        }
+      },
+      {
+        "id": "ftbpro_01jscjxt9wz3",
+        "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,w_4584,h_2578,x_0,y_0/c_fill,w_912,h_516,f_auto,q_auto,g_auto/images/GettyImages/mmsport/90min_en_international_web/01jsck6h2czdqrgct6bm.jpg",
+        "title": "'S**tshow' - Jamie Vardy vents on social media after Leicester's relegation",
+        "gmtTime": "2025-04-21T19:30:00.000Z",
+        "sourceStr": "90min",
+        "sourceIconUrl": "https://images.fotmob.com/image_resources/news/small90min.png",
+        "page": {
+          "url": "/embed/news/01jscjxt9wz3/stshow-jamie-vardy-vents-social-media-after-leicesters-relegation"
+        }
+      },
+      {
+        "id": "ftbpro_01jscnh8qf0z",
+        "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,w_2555,h_1437,x_298,y_701/c_fill,w_912,h_516,f_auto,q_auto,g_auto/images/GettyImages/mmsport/90min_en_international_web/01jscrw734kbhptn8k5w.jpg",
+        "title": "Leeds and Burnley promoted to Premier League with two games to spare",
+        "gmtTime": "2025-04-21T18:27:45.000Z",
+        "sourceStr": "90min",
+        "sourceIconUrl": "https://images.fotmob.com/image_resources/news/small90min.png",
+        "page": {
+          "url": "/embed/news/01jscnh8qf0z/leeds-burnley-promoted-premier-league-two-games-spare"
+        }
+      },
+      {
+        "id": "ftbpro_01jsc618vmy8",
+        "imageUrl": "https://images2.minutemediacdn.com/image/upload/c_crop,w_3722,h_2093,x_0,y_68/c_fill,w_912,h_516,f_auto,q_auto,g_auto/images/GettyImages/mmsport/90min_en_international_web/01jsc6ee7yyv26ew3vrs.jpg",
+        "title": "Man Utd & Man City-linked Tyler Dibling responds to £100m price tag rumours",
+        "gmtTime": "2025-04-21T18:00:00.000Z",
+        "sourceStr": "90min",
+        "sourceIconUrl": "https://images.fotmob.com/image_resources/news/small90min.png",
+        "page": {
+          "url": "/embed/news/01jsc618vmy8/man-utd-man-city-linked-tyler-dibling-responds-100m-price-tag-rumours"
+        }
+      },
+      {
+        "id": "1ugtp19u3ytqb1lmynjhnpsn2e",
+        "imageUrl": "https://images.performgroup.com/di/library/omnisport/ca/ee/tony-mowbray_no4o0wmvrn2d10ixl2ssdxcfc.jpg?t=1574637718&w=520&h=300",
+        "title": "West Brom sack Mowbray after Derby defeat",
+        "gmtTime": "2025-04-21T19:35:05.000Z",
+        "sourceStr": "FotMob",
+        "sourceIconUrl": "https://images.fotmob.com/image_resources/news/fotmob.png",
+        "page": {
+          "url": "/news/1ugtp19u3ytqb1lmynjhnpsn2e-west-brom-sack-mowbray-after-derby-defeat"
+        }
+      }
+    ]
+  }
+}

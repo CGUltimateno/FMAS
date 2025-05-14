@@ -50,9 +50,9 @@
           height: 12px;
           border-radius: 50%;
 
-          &.w { background: var(--success-color); }
-          &.d { background: var(--warning-color); }
-          &.l { background: var(--error-color); }
+          &.w { background: green; }
+          &.d { background: gray; }
+          &.l { background: red; }
         }
       }
     }
@@ -80,15 +80,15 @@
           font-size: 0.8em;
 
           &.win { 
-            background: var(--success-color);
+            background: green;
             color: white;
           }
           &.draw { 
-            background: var(--warning-color);
-            color: black;
+            background: gray;
+            color: white;
           }
           &.loss { 
-            background: var(--error-color);
+            background: red;
             color: white;
           }
         }
@@ -104,7 +104,8 @@
 
             .match-date {
               color: var(--text-primary);
-              font-size: 0.9em;
+              font-size: 1rem;
+              
             }
 
             .match-competition {

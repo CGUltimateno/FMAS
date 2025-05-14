@@ -83,14 +83,9 @@ const Sidebar = () => {
                 <li onClick={() => navigate("/")}>
                     <FaHome /> {isSidebarExpanded && "Dashboard"}
                 </li>
-                <li>
-                    <FaFutbol /> {isSidebarExpanded && "Live Football"}
-                </li>
+
                 <li onClick={() => navigate("/leagues")}>
                     <FaTable /> {isSidebarExpanded && "Standings"}
-                </li>
-                <li>
-                    <FaStar /> {isSidebarExpanded && "Highlights"}
                 </li>
             </ul>
 

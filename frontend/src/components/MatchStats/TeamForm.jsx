@@ -1,32 +1,35 @@
 import React from 'react';
-import { useGetTeamFormQuery } from '../../services/footballApi';
 import '../../styles/MatchStats/TeamForm.scss';
 
-const TeamForm = ({ teamAId, teamBId, leagueId }) => {
-  const { data: teamAForm, isLoading: loadingA, error: errorA } = useGetTeamFormQuery({ 
-    teamId: teamAId, 
-    leagueId 
-  });
-  const { data: teamBForm, isLoading: loadingB, error: errorB } = useGetTeamFormQuery({ 
-    teamId: teamBId, 
-    leagueId 
-  });
+const TeamForm = () => {
+  const staticTeamAForm = {
+    team: {
+      name: "Paris Saint-Germain FC",
+      crest: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1200px-Paris_Saint-Germain_F.C..svg.png"
+    },
+    matches: [
+      { result: "W", date: "2025-04-30", competition: "Ligue 1", score: "3-1", opponent: "Marseille" },
+      { result: "W", date: "2025-04-24", competition: "Ligue 1", score: "2-0", opponent: "Lyon" },
+      { result: "D", date: "2025-04-20", competition: "Ligue 1", score: "1-1", opponent: "Rennes" },
+      { result: "W", date: "2025-04-16", competition: "UCL", score: "2-1", opponent: "Real Madrid" },
+      { result: "L", date: "2025-04-10", competition: "UCL", score: "0-1", opponent: "Bayern" }
+    ]
+  };
 
-  if (loadingA || loadingB) {
-    return <div className="team-form-section loading">Loading team forms...</div>;
-  }
+  const staticTeamBForm = {
+    team: {
+      name: "Arsenal FC",
+      crest: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"
+    },
+    matches: [
+      { result: "L", date: "2025-04-30", competition: "Premier League", score: "0-2", opponent: "Man City" },
+      { result: "W", date: "2025-04-25", competition: "Premier League", score: "4-1", opponent: "Chelsea" },
+      { result: "D", date: "2025-04-20", competition: "Premier League", score: "2-2", opponent: "Liverpool" },
+      { result: "W", date: "2025-04-15", competition: "UCL", score: "3-2", opponent: "Inter" },
+      { result: "W", date: "2025-04-09", competition: "UCL", score: "1-0", opponent: "Dortmund" }
+    ]
+  };
 
-  // Handle errors for both teams
-  if (errorA || errorB) {
-    return (
-      <div className="team-form-section error">
-        <p>Error loading team forms. Please try again later.</p>
-        <pre>{JSON.stringify({ errorA, errorB }, null, 2)}</pre>
-      </div>
-    );
-  }
-
-  // Render result indicator with styling based on the result (Win, Draw, Loss)
   const renderResultIndicator = (result) => {
     let className = 'result-indicator ';
     switch(result) {
@@ -38,12 +41,7 @@ const TeamForm = ({ teamAId, teamBId, leagueId }) => {
     return <div className={className}>{result}</div>;
   };
 
-  // Render the team form panel with match history and results
   const renderTeamPanel = (teamData) => {
-    if (!teamData || !teamData.matches) {
-      return <div className="team-form-panel empty">No data available for this team.</div>;
-    }
-
     return (
       <div className="team-form-panel">
         <div className="team-header">
@@ -59,7 +57,6 @@ const TeamForm = ({ teamAId, teamBId, leagueId }) => {
             ))}
           </div>
         </div>
-        
         <div className="match-list">
           {teamData.matches.map((match, index) => (
             <div key={index} className="match-item">
@@ -67,7 +64,11 @@ const TeamForm = ({ teamAId, teamBId, leagueId }) => {
               <div className="match-details">
                 <div className="match-date-comp">
                   <span className="match-date">
-                    {new Date(match.date).toLocaleDateString()}
+                    {new Date(match.date).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })}
                   </span>
                   <span className="match-competition">{match.competition}</span>
                 </div>
@@ -87,8 +88,8 @@ const TeamForm = ({ teamAId, teamBId, leagueId }) => {
     <section className="team-form-section">
       <h2>Team Form</h2>
       <div className="team-form-container">
-        {renderTeamPanel(teamAForm)}
-        {renderTeamPanel(teamBForm)}
+        {renderTeamPanel(staticTeamAForm)}
+        {renderTeamPanel(staticTeamBForm)}
       </div>
     </section>
   );

@@ -1,142 +1,342 @@
-.match-details {
-  padding: 40px;
+.match-details-container {
   max-width: 1200px;
   margin: 0 auto;
-
-  h2 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(45deg, #312f2f, #b63a40);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    padding: 10px;
-    text-shadow: none;
-    font-weight: bold;
-  }
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
-.match-card {
-  background: linear-gradient(135deg, #010618, #1f1f1f);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
+.competition-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
 
-.teams-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
-}
-
-.team-header {
-  text-align: center;
-  flex: 1;
-
-  img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 15px;
-  }
-
-  h3 {
+  &.dark {
+    background: linear-gradient(135deg, #010618, #1f1f1f);
     color: #fff;
-    margin: 10px 0;
-    font-size: 1.4em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
-.score, .vs {
-  font-weight: bold;
-  color: #15abd1;
+.match-details-page {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.score {
-  font-size: 2.5em;
-  margin: 10px 0;
-}
+.match-header {
+  background: #FFF;
+  color: #333;
+  margin-bottom: 20px;
 
-.vs {
-  font-size: 2em;
-  margin: 0 20px;
-}
-
-.stats-section {
-  margin: 30px 0;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  margin: 10px 0;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: rgba(255,255,255,0.1);
-  }
-}
-
-.stat-label, .team1-value, .team2-value {
-  color: #fff;
-  font-size: 1.2em;
-  flex: 1;
-  text-align: center;
-}
-
-.team1-value, .team2-value {
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-
-  &.higher {
-    background-color: #DA291C;
-    color: white;
-  }
-}
-
-.team2-value.higher {
-  background-color: #C8102E;
-}
-
-.ratings-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 2px solid rgba(255,255,255,0.1);
-}
-
-.team-ratings {
-  flex: 1;
-
-  h4 {
-    color: #fff;
-    font-size: 1.4em;
-    margin-bottom: 15px;
-    text-align: center;
+  .match-header-inner {
+    padding: 20px;
   }
 
-  p {
-    color: #fff;
-    padding: 10px;
-    margin: 5px 0;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    transition: background 0.3s ease;
+  .competition-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 
-    &:hover {
-      background: rgba(255,255,255,0.1);
+    .competition-emblem {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      object-fit: contain;
+      transition: filter 0.3s ease;
     }
+
+    .competition-meta {
+      text-align: center;
+
+      .competition-name {
+        font-size: 1.5rem;
+        margin: 0;
+        font-weight: 600;
+        color: #222;
+
+      }
+
+      .match-status {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center the status */
+        font-size: 0.9rem;
+        margin-top: 5px;
+
+        svg {
+          margin-right: 6px;
+          fill: #15abd1;
+        }
+      }
+    }
+  }
+
+  .match-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+    .teams-aligned-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .team-col {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1;
+
+        .team-logo {
+          width: 60px;
+          height: 60px;
+          object-fit: contain;
+          margin-right: 10px;
+        }
+
+        .team-name {
+          font-weight: 600;
+          text-align: left;
+          font-size: 1rem;
+        }
+
+        &.left {
+          flex-direction: row-reverse;
+          .team-name {
+            margin-right: 10px; /* Add spacing between the name and the logo */
+          }
+        }
+
+        &.right {
+          justify-content: flex-start; /* Align content to the left */
+          .team-name {
+            margin-left: 10px; /* Add spacing between the logo and the name */
+          }
+        }
+      }
+
+      .score-col {
+        padding: 0 20px;
+        text-align: center;
+
+        .score {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #15abd1;
+        }
+      }
+    }
+
+    .match-meta {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+
+        .meta-icon {
+          margin-right: 6px;
+          color: #15abd1;
+        }
+      }
+    }
+  }
+
+  .team-tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+
+    .tab-btn {
+      padding: 15px 20px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex: 1;
+      text-align: center;
+
+      &:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 -2px 0 #15abd1;
+      }
+    }
+  }
+  &.dark {
+    background: linear-gradient(135deg, #010618, #1f1f1f);
+    color: #fff;
+
+    .competition-info {
+      .competition-emblem {
+        filter: brightness(1.2);
+      }
+
+      .competition-meta {
+        .competition-name {
+          color: #ffffff;
+        }
+
+        .match-status svg {
+          fill: #2bb9db;
+        }
+      }
+    }
+
+    .match-card {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+      .teams-aligned-row {
+        .score-col .score {
+          color: #2bb9db;
+        }
+      }
+
+      .match-meta {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        .meta-item .meta-icon {
+          color: #2bb9db;
+        }
+      }
+    }
+
+    .team-tabs {
+      background: rgba(0, 0, 0, 0.2);
+
+      .tab-btn {
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          color: white;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+          color: white;
+          background: rgba(255, 255, 255, 0.15);
+          box-shadow: inset 0 -2px 0 #2bb9db;
+        }
+      }
+    }
+  }
+}
+
+// Match Events
+.match-events {
+  padding: 20px;
+  background-color: white;
+  border-bottom: 1px solid #eee;
+
+  .events-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .events-grid {
+    .event-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+
+      .event-col {
+        flex: 1;
+        font-size: 0.9rem;
+
+        &.event-time {
+          flex: 0 0 80px;
+          text-align: center;
+          font-weight: 600;
+          color: #666;
+        }
+
+        &.home-event {
+          text-align: right;
+          padding-right: 10px;
+        }
+
+        &.away-event {
+          text-align: left;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+// Match content
+.match-content {
+  padding: 20px;
+  background-color: white;
+
+  .overview-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
+
+
+// Media queries for responsive design
+@media (max-width: 768px) {
+  .match-content .overview-content {
+    grid-template-columns: 1fr;
+  }
+
+  .match-header .match-card .teams-aligned-row {
+    flex-direction: column;
+
+    .team-col {
+      margin: 10px 0;
+
+      &.left, &.right {
+        align-items: center;
+        padding: 0;
+      }
+    }
+  }
+
+  .match-header .match-card .match-meta {
+    flex-direction: column;
+    gap: 10px;
+
+    .meta-item {
+      justify-content: center;
+    }
+  }
+
+  .team-tabs .tab-btn {
+    padding: 10px;
+    font-size: 0.9rem;
   }
 }
