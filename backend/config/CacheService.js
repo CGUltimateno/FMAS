@@ -24,7 +24,7 @@ class CacheService {
             // Check if cache has expired
             if (options.maxAgeHours && parsed.timestamp) {
                 const cachedTime = new Date(parsed.timestamp);
-                const hoursDiff = (new Date() - cachedTime) / (100000000 * 60 * 60);
+                const hoursDiff = (new Date() - cachedTime) / (100 * 60 * 60);
 
                 if (hoursDiff > options.maxAgeHours) {
                     return null; // Cache expired
