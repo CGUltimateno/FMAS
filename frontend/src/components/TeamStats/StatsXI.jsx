@@ -21,7 +21,6 @@ const StatsXI = ({ teamId }) => {
         return <div className="season-stats">No lineup data available for this team in the last match</div>;
     }
 
-    // Destructure with checks for startXI and formation
     const { formation, startXI, team, coach } = teamLineup;
 
     if (!startXI || !Array.isArray(startXI) || startXI.length === 0) {
@@ -33,37 +32,41 @@ const StatsXI = ({ teamId }) => {
     }
 
     const getCoordinatesByGrid = (grid, currentFormation) => {
-        if (!grid) return { top: '50%', left: '50%' }; // Default if grid is missing
+        if (!grid) return { top: '50%', left: '50%' };
 
         const [row, column] = grid.split(':').map(Number);
-        const formationParts = currentFormation.split('-'); // currentFormation is guaranteed to be non-null here
-        const maxRows = formationParts.length + 1; // Including goalkeeper row
+        const formationParts = currentFormation.split('-');
+        const maxRows = formationParts.length + 1;
 
-        const verticalSpread = 80; // Percentage of pitch height for player distribution
-        const topOffset = 10;      // Top offset for the highest player row
+        const verticalSpread = 80;
+        const topOffset = 10;
 
-        // Calculate top position: Higher row number means lower on the pitch (closer to own goal)
-        // Row 1 is goalkeeper, Row (maxRows) is furthest forward.
-        // We want to map row 1 (GK) to near the bottom (e.g., 90%) and last row (strikers) near the top (e.g., 10%)
-        // Let's adjust to: topPercentage = topOffset + ((row - 1) / Math.max(1, maxRows -1)) * verticalSpread;
-        // This makes row 1 at topOffset, and last row at topOffset + verticalSpread.
-        // For a half-pitch view, this is fine.
-        let topPercentage = topOffset + (((row - 1) / Math.max(1, maxRows - 1)) * verticalSpread);
-        if (maxRows === 1 && row ===1) { // Only GK
-            topPercentage = 90; // Place GK at the bottom for a single row
-        } else if (row === 1) { // Goalkeeper specifically
-            topPercentage = 90; // Place GK at the bottom
+        let topPercentage;
+        if (maxRows === 1 && row === 1) {
+            topPercentage = 90;
+        } else if (row === 1) {
+            topPercentage = 90;
         } else {
-            // Adjust other rows to be above GK
-            // (row - 1) because formationParts doesn't include GK. So row 2 is formationParts[0]
-            topPercentage = topOffset + (((row - 2) / Math.max(1, maxRows - 2)) * (verticalSpread - 20)); // use a smaller spread for field players
+            // For field players (row > 1)
+            // Normalizes player's line index (0 for first field line, 1 for last field line)
+            const playerLineIndex = row - 2;
+            // Total number of segments between field player lines. Min 1 to avoid div by zero.
+            const numFieldLineSegments = Math.max(1, maxRows - 2);
+            const progressRatio = playerLineIndex / numFieldLineSegments;
+
+            // Invert progress: 1 for first field line (e.g. defenders), 0 for last field line (e.g. attackers)
+            const invertedProgressRatio = 1 - progressRatio;
+
+            const fieldPlayerVerticalRange = verticalSpread - 20; // e.g. 60%
+
+            // Attackers (invertedProgressRatio=0) get topOffset.
+            // Defenders (invertedProgressRatio=1) get topOffset + fieldPlayerVerticalRange.
+            topPercentage = topOffset + (invertedProgressRatio * fieldPlayerVerticalRange);
         }
 
+        const formationArray = ['1', ...formationParts];
+        const playersInCurrentActualRow = parseInt(formationArray[row - 1] || 1);
 
-        const formationArray = ['1', ...formationParts]; // GK + field players
-        const playersInCurrentActualRow = parseInt(formationArray[row - 1] || 1); // Number of players in this grid row
-
-        // Calculate left position: Distribute players horizontally within their row
         const leftPercentage = (column / (playersInCurrentActualRow + 1)) * 100;
 
         return {
@@ -74,11 +77,11 @@ const StatsXI = ({ teamId }) => {
 
     const getPositionColor = (pos) => {
         switch(pos) {
-            case 'G': return "#f39c12"; // Orange
-            case 'D': return "#3498db"; // Blue
-            case 'M': return "#2ecc71"; // Green
-            case 'F': return "#e74c3c"; // Red
-            default: return "#95a5a6";  // Grey
+            case 'G': return "#f39c12";
+            case 'D': return "#3498db";
+            case 'M': return "#2ecc71";
+            case 'F': return "#e74c3c";
+            default: return "#95a5a6";
         }
     };
 
@@ -110,10 +113,9 @@ const StatsXI = ({ teamId }) => {
                 <div className="center-spot"></div>
 
                 {startXI.map(({ player }) => {
-                    // Ensure player and player.grid exist before calling getCoordinatesByGrid
                     if (!player || !player.grid) {
                         console.warn("Player data or grid is missing for player:", player);
-                        return null; // Skip rendering this player if essential data is missing
+                        return null;
                     }
                     const coords = getCoordinatesByGrid(player.grid, formation);
                     const playerTopPercent = parseFloat(coords.top);

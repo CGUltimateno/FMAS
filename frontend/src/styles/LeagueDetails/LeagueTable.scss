@@ -46,9 +46,7 @@
             color: inherit;
             transition: color 0.2s ease;
 
-            &:hover {
-              color: #6f42c1;
-            }
+
           }
         }
       }
@@ -66,9 +64,7 @@
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
           transition: transform 0.2s ease;
 
-          &:hover {
-            transform: scale(1.1);
-          }
+
         }
 
         .league-emblem {
@@ -78,9 +74,7 @@
           border-radius: 8px;
           transition: transform 0.2s ease;
 
-          &:hover {
-            transform: scale(1.05);
-          }
+
         }
       }
     }
@@ -88,7 +82,7 @@
 
   .league-table-content {
     padding: 0;
-    overflow-x: auto; /* Add this to enable horizontal scrolling */
+    overflow-x: auto; /* Keep this to handle genuinely oversized tables on small screens */
 
     .standings-table {
       width: 100%;
@@ -134,13 +128,14 @@
         tr {
           background: #fafafa;
           border-radius: 8px;
-          transition: transform 0.2s ease, background 0.2s ease;
-          padding: 0.75rem 0.7rem; /* Reduced padding */
+          /* Removed transform from transition, keep background transition */
+          transition: background 0.2s ease;
+          padding: 0.75rem 0.7rem;
           font-size: 0.95rem;
           vertical-align: middle;
           &:hover {
             background: #f0f0f7;
-            transform: translateX(3px);
+            /* transform: translateX(3px); */ /* Removed this line */
           }
 
           &.highlighted-row {
@@ -153,7 +148,7 @@
           }
 
           td {
-            padding: 0.75rem 0.7rem; /* Reduced padding */
+            padding: 0.75rem 0.7rem;
             font-size: 0.95rem;
             vertical-align: middle;
 
@@ -186,10 +181,6 @@
                 transition: transform 0.2s ease;
                 filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
 
-                &:hover {
-                  transform: scale(1.15);
-                  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.15));
-                }
               }
 
               .team-name-link {
@@ -287,6 +278,7 @@
 
           &:hover {
             background: #363741;
+            /* transform: translateX(3px); */ /* Ensure consistency if it was here too */
           }
 
           &.highlighted-row {
@@ -356,7 +348,7 @@
     }
 
     .league-table-content {
-      overflow-x: auto;
+      /* overflow-x: auto; */ /* Already defined above */
 
       .standings-table {
         min-width: 600px;
