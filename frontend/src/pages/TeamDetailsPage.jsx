@@ -11,10 +11,10 @@ import "../styles/TeamStats/TeamDetailsPage.scss";
 import UpcomingFixtures from "../components/TeamStats/UpcomingFixtures.jsx";
 import TeamSquad from "../components/TeamStats/TeamSquad.jsx";
 import TeamStats from "../components/TeamStats/TeamStats.jsx";
-import {useFollowTeamMutation, useUnfollowTeamMutation} from "../services/userApi.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {FaHeart, FaRegHeart} from "react-icons/fa";
-import {setCredentials} from "../services/authSlice.jsx";
+import { useFollowTeamMutation, useUnfollowTeamMutation } from "../services/userApi.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { setCredentials } from "../services/authSlice.jsx";
 
 const TeamDetailsPage = () => {
     const { teamId } = useParams();
@@ -28,54 +28,52 @@ const TeamDetailsPage = () => {
     const isLoggedIn = !!user;
 
     // Check if team is already followed
-    const isFollowed = user?.favoriteTeams?.some(team =>
-        team.id === teamId
-    );
+    const isFollowed = user?.favoriteTeams?.some(team => team.id === teamId);
 
     const [followTeam, { isLoading: isFollowing }] = useFollowTeamMutation();
     const [unfollowTeam, { isLoading: isUnfollowing }] = useUnfollowTeamMutation();
-
+    const [followError, setFollowError] = useState(null);
     const { data, isLoading, error } = useGetTeamDetailsQuery(teamId);
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading team details.</div>;
 
-    const { details, matches, additionalDetails } = data;
+    if (isLoading) return <div className="loading-container">Loading team details...</div>;
+    if (error) return <div className="error-container">Error loading team details: {error.message}</div>;
+    if (!data) return <div className="error-container">No team data available</div>;
+
+    const teamData = data?.details?.response?.[0]?.team;
+    const venueData = data?.details?.response?.[0]?.venue;
+    const matchesData = data?.matches?.response || [];
+    if (!teamData) return <div className="error-container">Team information not available</div>;
     const handleFollowClick = async () => {
+        // Clear any previous errors
+        setFollowError(null);
+
+        // Check if user is logged in first
         if (!isLoggedIn) {
-            alert("You need to be logged in to follow teams");
+            setFollowError("You must be logged in to follow teams");
             return;
         }
 
         try {
             if (isFollowed) {
                 const result = await unfollowTeam(teamId).unwrap();
-                dispatch(setCredentials({
-                    token: user.token || sessionStorage.getItem("token"),
-                    user: {
-                        ...user,
-                        favoriteTeams: result.favoriteTeams || []
-                    }
-                }));
+                dispatch(setCredentials({ user: result }));
             } else {
-                const teamData = {
-                    id: teamId,
-                    name: details.name,
-                    crest: details.crest
-                };
-                const result = await followTeam({ teamId, teamData }).unwrap();
-
-                dispatch(setCredentials({
-                    token: user.token || sessionStorage.getItem("token"),
-                    user: {
-                        ...user,
-                        favoriteTeams: result.favoriteTeams || []
+                const result = await followTeam({
+                    teamId,
+                    teamData: {
+                        name: teamData.name,
+                        crest: teamData.logo
                     }
-                }));
+                }).unwrap();
+                dispatch(setCredentials({ user: result }));
             }
         } catch (err) {
             console.error("Error updating team follow status:", err);
+            setFollowError(err.data?.message || "Failed to update team follow status");
         }
     };
+
+
     const tabs = ["Overview", "Fixtures", "Squad", "Stats"];
 
     return (
@@ -83,30 +81,23 @@ const TeamDetailsPage = () => {
             <div className="team-header">
                 <div className="team-header-inner">
                     <div className="team-identity">
-                        <img src={details.crest} alt={`${details.shortName} Crest`} className="team-crest"/>
+                        <img src={teamData.logo} alt={`${teamData.name} Logo`} className="team-crest"/>
                         <div className="team-info">
-                            <h1 className="team-name">{details.name}</h1>
+                            <h1 className="team-name">{teamData.name}</h1>
                             <span className="team-meta">
-                                {additionalDetails?.response?.details?.sportsTeamJSONLD?.location?.address?.addressCountry || "xd"}
+                                {teamData.country} {teamData.founded && `• Est. ${teamData.founded}`}
                             </span>
                         </div>
                     </div>
                     <button
-                        className={`follow-button ${isFollowed ? 'following' : ''}`}
                         onClick={handleFollowClick}
                         disabled={isFollowing || isUnfollowing}
+                        className={`follow-button ${isFollowed ? 'followed' : ''}`}
                     >
-                        {isFollowed ? (
-                            <>
-                                <FaHeart/> Following
-                            </>
-                        ) : (
-                            <>
-                                <FaRegHeart/> Follow
-                            </>
-                        )}
+                        {isFollowed ? <FaHeart/> : <FaRegHeart/>}
+                        {isFollowed ? 'Following' : 'Follow'}
                     </button>
-
+                    {followError && <div className="follow-error">{followError}</div>}
                 </div>
                 <div className="team-tabs">
                     {tabs.map((tab) => (
@@ -125,23 +116,19 @@ const TeamDetailsPage = () => {
                     <>
                         <div className="row">
                             <TeamForm
-                                details={{
-                                    ...details,
-                                    id: teamId,
-                                    leagueId: leagueId,
-                                    runningCompetitions: [{ id: leagueId }]
-                                }}
+                                teamId={teamId}
+                                leagueId={leagueId}
+                                matches={matchesData}
                             />
-                            <NextMatch matches={matches} />
+                            <NextMatch matches={matchesData} />
                         </div>
                         <div className="row">
                             {leagueId && <MiniLeagueTable leagueId={leagueId} selectedTeamId={teamId}/>}
                         </div>
                         <div className="row">
-                            <StadiumInfo details={details} additionalDetails={additionalDetails} />
-                            <UpcomingFixtures matches={matches} />
-                            <SeasonStats />
-
+                            <StadiumInfo venue={venueData} team={teamData} />
+                            <UpcomingFixtures matches={matchesData} />
+                            <SeasonStats teamId={teamId} leagueId={leagueId} />
                         </div>
                     </>
                 )}
@@ -160,7 +147,7 @@ const TeamDetailsPage = () => {
 
                 {activeTab === "Stats" && (
                     <>
-                        <TeamStats teamId={teamId} />
+                        <TeamStats teamId={teamId} leagueId={leagueId} />
                     </>
                 )}
             </div>

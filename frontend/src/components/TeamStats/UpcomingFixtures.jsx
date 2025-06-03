@@ -3,26 +3,20 @@ import "../../styles/TeamStats/UpcomingFixtures.scss";
 
 const UpcomingFixtures = ({ matches }) => {
     const [currentPage, setCurrentPage] = useState(0);
-
-    // Decide how many matches per page
     const matchesPerPage = 5;
 
-    // Filter only future matches
-    const upcomingMatches = matches.filter((match) => new Date(match.utcDate) > new Date());
-    if (!upcomingMatches || upcomingMatches.length === 0) {
-        return <p>No upcoming fixtures.</p>;
-    }
+    const upcomingMatches = matches.filter((match) =>
+        new Date(match.fixture?.date || match.date) > new Date()
+    ).sort((a, b) =>
+        new Date(a.fixture?.date || a.date) - new Date(b.fixture?.date || b.date)
+    );
 
-    // Calculate total pages
     const totalPages = Math.ceil(upcomingMatches.length / matchesPerPage);
-
-    // Slice out the matches for the current page
     const currentMatches = upcomingMatches.slice(
         currentPage * matchesPerPage,
         (currentPage + 1) * matchesPerPage
     );
 
-    // Page nav
     const handlePageChange = (direction) => {
         setCurrentPage((prevPage) => {
             if (direction === "next") {
@@ -33,9 +27,9 @@ const UpcomingFixtures = ({ matches }) => {
         });
     };
 
-    // A small helper for each fixture’s layout
     const FixtureCard = ({ match }) => {
-        const matchDate = new Date(match.utcDate);
+        // Adapt to new API structure
+        const matchDate = new Date(match.fixture?.date || match.date);
         const today = new Date();
         const tomorrow = new Date();
         tomorrow.setDate(today.getDate() + 1);
@@ -55,9 +49,9 @@ const UpcomingFixtures = ({ matches }) => {
             dayLabel = "Tomorrow";
         } else {
             dayLabel = matchDate.toLocaleDateString([], {
-                weekday: "long", // e.g., "Monday"
-                month: "short",  // e.g., "Jan"
-                day: "numeric",  // e.g., "1"
+                weekday: "long",
+                month: "short",
+                day: "numeric",
             });
         }
 
@@ -67,15 +61,15 @@ const UpcomingFixtures = ({ matches }) => {
             hour12: true,
         });
 
-        const homeName = match.homeTeam.shortName || "Home";
-        const awayName = match.awayTeam.shortName || "Away";
-        const homeCrest = match.homeTeam.crest;
-        const awayCrest = match.awayTeam.crest;
-        const competition = match.competition?.name || "League";
+        // Extract team data adapting to new API structure
+        const homeName = match.teams?.home?.name || match.homeTeam?.shortName || "Home";
+        const awayName = match.teams?.away?.name || match.awayTeam?.shortName || "Away";
+        const homeCrest = match.teams?.home?.logo || match.homeTeam?.crest;
+        const awayCrest = match.teams?.away?.logo || match.awayTeam?.crest;
+        const competition = match.league?.name || match.competition?.name || "League";
 
         return (
             <div className="fixture-card">
-                {/* Top Row */}
                 <div className="fixture-row top-row">
                     <span className="fixture-day">{dayLabel}</span>
 
@@ -91,7 +85,6 @@ const UpcomingFixtures = ({ matches }) => {
                     <span className="fixture-competition">{competition}</span>
                 </div>
 
-                {/* Bottom Row */}
                 <div className="fixture-row bottom-row">
                     <span className="team-name">{homeName}</span>
                     <span className="team-name">{awayName}</span>
@@ -102,11 +95,11 @@ const UpcomingFixtures = ({ matches }) => {
 
     return (
         <div className="fixtures">
-             <div className="fixtures-header">
+            <div className="fixtures-header">
                 <button
                     className="arrow-button"
                     onClick={() => handlePageChange("prev")}
-                    disabled={currentPage === 0}
+                    disabled={upcomingMatches.length === 0 || currentPage === 0}
                 >
                     &#10094;
                 </button>
@@ -114,17 +107,22 @@ const UpcomingFixtures = ({ matches }) => {
                 <button
                     className="arrow-button"
                     onClick={() => handlePageChange("next")}
-                    disabled={currentPage === totalPages - 1}
+                    disabled={upcomingMatches.length === 0 || currentPage === totalPages - 1}
                 >
                     &#10095;
                 </button>
             </div>
 
-            {/* List of fixture cards */}
             <div className="fixtures-list">
-                {currentMatches.map((match) => (
-                    <FixtureCard key={match.id} match={match} />
-                ))}
+                {upcomingMatches.length > 0 ? (
+                    currentMatches.map((match) => (
+                        <FixtureCard key={match.id || match.fixture?.id} match={match} />
+                    ))
+                ) : (
+                    <div className="no-fixtures-message">
+                        <p>No upcoming fixtures scheduled</p>
+                    </div>
+                )}
             </div>
         </div>
     );

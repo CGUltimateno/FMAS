@@ -1,206 +1,246 @@
-.stadium-wrapper {
+.stadium-card {
   background: #fff;
   border-radius: 16px;
-  padding: 1.75rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  width: 413px;
-  height: 230px;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 413px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 40%;
-    background: linear-gradient(to bottom, #6f42c1, rgba(111, 66, 193, 0.2));
-    border-top-left-radius: 16px;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   }
 
-  .stadium-title {
-    position: relative;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 1.25rem;
-    padding-bottom: 0.5rem;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: -0.01em;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 20px;
-      height: 3px;
-      background: #6f42c1;
-      border-radius: 2px;
-    }
-  }
-
-  .stadium-info {
-    margin-bottom: 1.25rem;
-
-    .stadium-venue {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0 0 0.5rem;
-      color: #222;
-      font-family: 'Inter', sans-serif;
-      transition: color 0.2s ease;
-    }
-
-    .stadium-location {
-      font-size: 0.9rem;
-      color: #666;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #6f42c1;
-        opacity: 0.7;
-      }
-    }
-  }
-
-  .stadium-divider {
-    margin: 1.25rem 0;
-    border: none;
-    height: 1px;
-    background: linear-gradient(to right, rgba(111, 66, 193, 0.2), rgba(111, 66, 193, 0.05));
-  }
-
-  .stadium-stats-row {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-
-    .stadium-stats-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-      padding: 0.75rem;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-color: rgba(111, 66, 193, 0.05);
-        transform: translateY(-3px);
-      }
-
-      .stat-value {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin: 0 0 0.5rem;
-        color: #333;
-        font-family: 'Inter', sans-serif;
-      }
-
-      .stat-label {
-        font-size: 0.8rem;
-        color: #666;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-      }
-    }
-  }
-}
-
-// Dark mode styling
-.dark .stadium-wrapper {
-  background: #2a2b31;
-  color: #e0e0e0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-
-  &::before {
-    background: linear-gradient(to bottom, #8a63d2, rgba(138, 99, 210, 0.2));
-  }
-
-  .stadium-title {
-    color: #fff;
-
-    &::after {
-      background: #8a63d2;
-    }
-  }
-
-  .stadium-info {
-    .stadium-venue {
-      color: #fff;
-    }
-
-    .stadium-location {
-      color: #aaa;
-
-      &::before {
-        background-color: #8a63d2;
-      }
-    }
-  }
-
-  .stadium-divider {
-    background: linear-gradient(to right, rgba(138, 99, 210, 0.3), rgba(138, 99, 210, 0.05));
-  }
-
-  .stadium-stats-row {
-    .stadium-stats-item {
-      &:hover {
-        background-color: rgba(138, 99, 210, 0.15);
-      }
-
-      .stat-value {
-        color: #ddd;
-      }
-
-      .stat-label {
-        color: #aaa;
-      }
-    }
-  }
-}
-
-// Media queries
-@media (max-width: 768px) {
-  .stadium-wrapper {
+  // Stadium image section
+  .stadium-image-container {
     width: 100%;
-    padding: 1.25rem;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
 
-    .stadium-title {
-      font-size: 1.1rem;
+    .stadium-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
     }
 
-    .stadium-info {
-      .stadium-venue {
-        font-size: 1.1rem;
+    .stadium-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #8a63d2, #6f42c1);
+
+      .placeholder-icon {
+        font-size: 3rem;
+        color: rgba(255, 255, 255, 0.6);
       }
     }
 
-    .stadium-stats-row {
-      flex-wrap: wrap;
+    .stadium-image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 1.5rem 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 
-      .stadium-stats-item {
-        padding: 0.5rem;
-        min-width: 100px;
+      .stadium-name {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      }
+    }
 
-        .stat-value {
+    &:hover .stadium-image {
+      transform: scale(1.05);
+    }
+  }
+
+  // Stadium details section
+  .stadium-details {
+    padding: 1.5rem;
+
+    .section-title {
+      margin: 0 0 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      position: relative;
+      padding-bottom: 0.5rem;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 30px;
+        height: 3px;
+        background: #6f42c1;
+        border-radius: 2px;
+      }
+    }
+
+    .info-row {
+      margin-bottom: 1.25rem;
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+
+        .info-icon {
+          color: #6f42c1;
+          margin-right: 0.75rem;
+          margin-top: 0.25rem;
+        }
+
+        .info-content {
+          display: flex;
+          flex-direction: column;
+
+          .info-label {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+          }
+
+          .info-value {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .info-stats {
+      display: flex;
+      justify-content: space-between;
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75rem;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+
+        .stat-icon {
+          color: #6f42c1;
+          margin-bottom: 0.5rem;
           font-size: 1.1rem;
         }
 
+        .stat-value {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #333;
+          margin-bottom: 0.25rem;
+        }
+
         .stat-label {
-          font-size: 0.7rem;
+          font-size: 0.75rem;
+          color: #666;
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+
+        &:hover {
+          background-color: rgba(111, 66, 193, 0.08);
+        }
+      }
+    }
+  }
+
+  // Dark mode styling
+  .dark & {
+    background: #2a2b31;
+
+    .stadium-details {
+      .section-title {
+        color: #e0e0e0;
+
+        &:after {
+          background: #8a63d2;
+        }
+      }
+
+      .info-row {
+        .info-item {
+          .info-icon {
+            color: #8a63d2;
+          }
+
+          .info-content {
+            .info-label {
+              color: #aaa;
+            }
+
+            .info-value {
+              color: #e0e0e0;
+            }
+          }
+        }
+      }
+
+      .info-stats {
+        .stat-item {
+          .stat-icon {
+            color: #8a63d2;
+          }
+
+          .stat-value {
+            color: #e0e0e0;
+          }
+
+          .stat-label {
+            color: #aaa;
+          }
+
+          &:hover {
+            background-color: rgba(138, 99, 210, 0.15);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 768px) {
+    width: 100%;
+
+    .stadium-image-container {
+      height: 150px;
+
+      .stadium-image-overlay {
+        padding: 1rem 1rem 0.75rem;
+
+        .stadium-name {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .stadium-details {
+      padding: 1.25rem;
+
+      .info-stats {
+        flex-wrap: wrap;
+
+        .stat-item {
+          padding: 0.5rem;
+          min-width: 90px;
+          flex: 1;
+
+          .stat-value {
+            font-size: 1.1rem;
+          }
         }
       }
     }

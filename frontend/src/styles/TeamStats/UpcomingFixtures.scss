@@ -94,6 +94,21 @@
     gap: 0.75rem;
   }
 
+  .no-fixtures-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; // Approximate height of 5 fixture cards
+    border-radius: 8px;
+    background-color: rgba(245, 245, 245, 0.7);
+    text-align: center;
+
+    p {
+      font-size: 1rem;
+      color: #666;
+      padding: 1rem;
+    }
+  }
   .fixture-card {
     background: #fafafa;
     border-radius: 12px;

@@ -1,85 +1,106 @@
-import React, { useMemo } from "react";
-import { useGetTeamFormQuery, useGetTeamCrestQuery } from "../../services/footballApi";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../../styles/TeamStats/TeamForm.scss";
-import apiMappings from "../../../../backend/cache/apiMappings.json";
+import { FaHistory } from "react-icons/fa";
 
-const MatchResult = ({ match, mappedTeamId, opponentId }) => {
-    const { data: crest } = useGetTeamCrestQuery(opponentId, { skip: !opponentId });
+const TeamForm = ({ teamId, matches = [] }) => {
+    const location = useLocation();
+    const leagueId = location.state?.leagueId;
 
-    const isTeamHome = String(match.home.id) === String(mappedTeamId);
-    const homeScore = match.home.score;
-    const awayScore = match.away.score;
-    const opponent = isTeamHome ? match.away : match.home;
+    const recentMatches = [...matches]
+        .sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date))
+        .slice(0, 5); // Take only the last 5 matches
 
-    let result;
-    if (isTeamHome) {
-        if (homeScore > awayScore) result = "W";
-        else if (homeScore < awayScore) result = "L";
-        else result = "D";
-    } else {
-        if (awayScore > homeScore) result = "W";
-        else if (awayScore < homeScore) result = "L";
-        else result = "D";
+    if (!recentMatches.length) {
+        return (
+            <div className="team-form-row">
+                <div className="team-form-header">
+                    <h2><FaHistory className="icon" /> Recent Form</h2>
+                </div>
+                <div className="no-matches">No recent matches available</div>
+            </div>
+        );
     }
 
-    return (
-        <div className={`match-result ${result}`}>
-            <span className="score">{`${homeScore}-${awayScore}`}</span>
-            {crest ? (
-                <img src={crest} alt={`${opponent.name} Crest`} className="opponent-crest" />
-            ) : (
-                <span className="loading-crest">Loading crest...</span>
-            )}
-        </div>
-    );
-};
+    // Determine results for the team
+    const getMatchResult = (match) => {
+        const { home, away } = match.teams;
+        const { home: homeGoals, away: awayGoals } = match.goals;
 
-const TeamForm = ({ details }) => {
-    const teamId = details?.id;
-    const leagueId = details?.runningCompetitions?.[0]?.id;
-    const mappedTeamId = apiMappings.teams[teamId]?.flId;
-
-    const { data: matches, isLoading, error } =
-        useGetTeamFormQuery({ teamId, leagueId }, { skip: !mappedTeamId || !leagueId });
-
-    // Utility function to map flId to the normalized team ID
-    const getNormalIdFromFlId = (flId) => {
-        for (const [id, team] of Object.entries(apiMappings.teams)) {
-            if (String(team.flId) === String(flId)) {
-                return id;
-            }
+        // Skip if we don't have scores yet
+        if (homeGoals === null || awayGoals === null) {
+            return { result: 'U', resultText: 'Upcoming' };
         }
-        return null;
+
+        const isTeamHome = home.id === parseInt(teamId);
+        const teamGoals = isTeamHome ? homeGoals : awayGoals;
+        const opponentGoals = isTeamHome ? awayGoals : homeGoals;
+
+        if (teamGoals > opponentGoals) {
+            return { result: 'W', resultText: 'Win' };
+        } else if (teamGoals < opponentGoals) {
+            return { result: 'L', resultText: 'Loss' };
+        } else {
+            return { result: 'D', resultText: 'Draw' };
+        }
     };
 
-    // Precompute opponent IDs using a memoized array for performance
-    const opponentIds = useMemo(() => {
-        if (!matches) return [];
-        return matches.map((match) => {
-            const isTeamHome = String(match.home.id) === String(mappedTeamId);
-            const opponent = isTeamHome ? match.away : match.home;
-            return getNormalIdFromFlId(opponent.id);
-        });
-    }, [matches, mappedTeamId]);
-
-    if (isLoading) return <div>Loading form data...</div>;
-    if (error) return <div>Error loading form data</div>;
-    if (!matches || matches.length === 0) return <div>No recent matches</div>;
+    // Count W/D/L records
+    const formSummary = recentMatches.reduce((acc, match) => {
+        const { result } = getMatchResult(match);
+        if (result === 'W') acc.wins++;
+        else if (result === 'D') acc.draws++;
+        else if (result === 'L') acc.losses++;
+        return acc;
+    }, { wins: 0, draws: 0, losses: 0 });
 
     return (
-        <div className="team-form">
-            <div className="team-performance">
-                <h2 className="team-form-h2">Team Form</h2>
-                <div className="form-results">
-                    {matches.map((match, index) => (
-                        <MatchResult
-                            key={index}
-                            match={match}
-                            mappedTeamId={mappedTeamId}
-                            opponentId={opponentIds[index]}
-                        />
-                    ))}
+        <div className="team-form-row">
+            <div className="team-form-header">
+                <h2><FaHistory className="icon" /> Recent Form</h2>
+                <div className="form-record">
+                    <span className="wins">{formSummary.wins}W</span>
+                    <span className="draws">{formSummary.draws}D</span>
+                    <span className="losses">{formSummary.losses}L</span>
                 </div>
+            </div>
+
+            <div className="form-bubbles-container">
+                {recentMatches.map((match, index) => {
+                    const isTeamHome = match.teams.home.id === parseInt(teamId);
+                    const opponent = isTeamHome ? match.teams.away : match.teams.home;
+                    const { result } = getMatchResult(match); // Removed unused resultText
+                    const { home: homeGoals, away: awayGoals } = match.goals;
+                    const teamGoals = isTeamHome ? homeGoals : awayGoals;
+                    const opponentGoals = isTeamHome ? awayGoals : homeGoals;
+
+                    const matchLeagueId = match.league?.id;
+
+                    return (
+                        <div key={index} className="form-bubble-wrapper">
+                            <Link to={`/match/${match.fixture.id}`} className="match-score clickable">
+                                {teamGoals !== null ? teamGoals : '-'} : {opponentGoals !== null ? opponentGoals : '-'}
+                            </Link>
+                            <div className={`form-bubble ${result.toLowerCase()}`}
+                                 title={`${isTeamHome ? 'vs' : '@'} ${opponent.name}, ${new Date(match.fixture.date).toLocaleDateString()}`}>
+                                <Link
+                                    to={`/teams/${opponent.id}`}
+                                    state={{leagueId: matchLeagueId}}  // Pass the specific match's leagueId
+                                    className="opponent-logo"
+                                >
+                                    <img src={opponent.logo} alt={opponent.name}/>
+                                </Link>
+                                <div className="result-indicator">{result}</div>
+                            </div>
+                            <div className="match-date">
+                                {new Date(match.fixture.date).toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: 'short'
+                                })}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );

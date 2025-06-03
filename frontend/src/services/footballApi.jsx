@@ -42,21 +42,6 @@ export const footballApi = createApi({
             query: (leagueId) => `leagues/${leagueId}/top-stats`
         }),
 
-        // GET /api/teams/news
-        getTrendingNews: builder.query({
-            query: () => `teams/news`,
-        }),
-
-        // GET /api/teams/:teamId/form/:leagueId
-        getTeamForm: builder.query({
-            query: ({ teamId, leagueId }) => `teams/${teamId}/form/${leagueId}`,
-        }),
-
-        // GET /api/teams/crest/:teamId
-        getTeamCrest: builder.query({
-            query: (teamId) => `teams/crest/${teamId}`,
-        }),
-
         // GET /api/teams/:teamId/fixtures
         getTeamFixtures: builder.query({
             query: (teamId) => `teams/${teamId}/fixtures`,
@@ -67,14 +52,24 @@ export const footballApi = createApi({
             query: (teamId) => `teams/${teamId}/squad`,
         }),
 
+        // GET /api/teams/:teamid/last-match
+        getLastMatch: builder.query({
+            query: (teamId) => `teams/${teamId}/last-match`,
+        }),
+
+        // GET /api/teams/:teamid/stats/:leagueid
+        getTeamStats: builder.query({
+            query: ({ teamId, leagueId }) => `teams/${teamId}/stats/${leagueId}`,
+        }),
         // Get player image
         getPlayerImage: builder.query({
             query: (playerId) => `teams/player/${playerId}/image`,
         }),
+
         getPlayerStats: builder.query({
             query: (playerId) => `players/${playerId}`,
         }),
-        // Add more endpoints if you add more routes
+
         getHeadToHead: builder.query({
             query: ({ team1Id, team2Id }) => ({
                 url: `teams/${team1Id}/matches?otherTeam=${team2Id}&limit=5&status=FINISHED`,
@@ -118,9 +113,8 @@ export const {
     useGetLeagueDetailsQuery,
     useGetTeamDetailsQuery,
     useGetTopStatsQuery,
-    useGetTrendingNewsQuery,
-    useGetTeamFormQuery,
-    useGetTeamCrestQuery,
+    useGetLastMatchQuery,
+    useGetTeamStatsQuery,
     useGetTeamFixturesQuery,
     useGetTeamSquadQuery,
     useGetPlayerImageQuery,

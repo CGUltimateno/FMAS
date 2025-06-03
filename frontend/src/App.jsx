@@ -38,7 +38,7 @@ const App = () => {
                             <Route path="/teams/:teamId" element={<TeamDetailsPage />} />
                             <Route path="/matches/:matchId" element={<MatchDetails />} />
                             <Route path="/player/:playerId" element={<PlayerStatsPage />} />
-                            <Route path="/leagues/:*" element={<NotFoundPage />} />
+                            <Route path="/leagues/:/*" element={<NotFoundPage />} />
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </div>

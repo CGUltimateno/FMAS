@@ -56,7 +56,6 @@ export const userApi = createApi({
 export const {
     useLoginUserMutation,
     useRegisterUserMutation,
-    useGetProfileQuery,
     useFollowTeamMutation,
     useUnfollowTeamMutation,
 } = userApi;

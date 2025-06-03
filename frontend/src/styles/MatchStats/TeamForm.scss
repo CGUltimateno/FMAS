@@ -1,143 +1,264 @@
-.team-form-section {
-  background: var(--background-secondary);
-  border-radius: 8px;
-  padding: 20px;
+// TeamForm.scss - updated styles
+.team-form-row {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 
-  h2 {
-    text-align: center;
-    color: var(--text-primary);
-    margin-bottom: 20px;
-  }
+  .team-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
 
-  .team-form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .team-form-panel {
-    background: var(--background-tertiary);
-    border-radius: 6px;
-    padding: 15px;
-
-    .team-header {
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
-      gap: 15px;
+      color: #1f2937;
 
-      .team-logo {
-        width: 40px;
-        height: 40px;
-        object-fit: contain;
+      .icon {
+        margin-right: 0.5rem;
+        color: #4b5563;
       }
+    }
 
-      h3 {
-        color: var(--text-primary);
-        flex: 1;
-      }
+    .form-record {
+      display: flex;
+      gap: 0.5rem;
 
-      .form-summary {
-        display: flex;
-        gap: 5px;
+      span {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
 
-        .form-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
+        &.wins {
+          background: rgba(16, 185, 129, 0.1);
+          color: #10b981;
+        }
 
-          &.w { background: green; }
-          &.d { background: gray; }
-          &.l { background: red; }
+        &.draws {
+          background: rgba(107, 114, 128, 0.1);
+          color: #6b7280;
+        }
+
+        &.losses {
+          background: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
         }
       }
     }
+  }
 
-    .match-list {
-      .match-item {
+  .form-bubbles-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .form-bubble-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 70px;
+      max-width: 100px;
+
+      .match-score {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #1f2937;
+        text-decoration: none;
+
+        &.clickable:hover {
+          color: #2563eb;
+          text-decoration: underline;
+        }
+      }
+
+      .form-bubble {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid var(--border-color);
-        gap: 15px;
+        justify-content: center;
+        margin-bottom: 0.5rem;
 
-        &:last-child {
-          border-bottom: none;
+        &.w {
+          background: rgba(16, 185, 129, 0.15);
+          border: 2px solid #10b981;
+        }
+
+        &.d {
+          background: rgba(107, 114, 128, 0.15);
+          border: 2px solid #6b7280;
+        }
+
+        &.l {
+          background: rgba(239, 68, 68, 0.15);
+          border: 2px solid #ef4444;
+        }
+
+        &.u {
+          background: rgba(59, 130, 246, 0.15);
+          border: 2px solid #3b82f6;
+        }
+
+        .opponent-logo {
+          display: block;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          overflow: hidden;
+          background: white;
+          transition: transform 0.2s ease;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+
+          &:hover {
+            transform: scale(1.1);
+          }
         }
 
         .result-indicator {
-          width: 24px;
-          height: 24px;
+          position: absolute;
+          bottom: -2px;
+          right: -2px;
+          width: 22px;
+          height: 22px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: bold;
-          font-size: 0.8em;
+          font-weight: 700;
+          font-size: 0.7rem;
+          color: white;
 
-          &.win { 
-            background: green;
-            color: white;
+          &.W {
+            background: #10b981;
           }
-          &.draw { 
-            background: gray;
-            color: white;
+
+          &.D {
+            background: #6b7280;
           }
-          &.loss { 
-            background: red;
-            color: white;
+
+          &.L {
+            background: #ef4444;
+          }
+
+          &.U {
+            background: #3b82f6;
           }
         }
+      }
 
-        .match-details {
-          flex: 1;
-          display: flex;
-          justify-content: space-between;
+      .match-date {
+        font-size: 0.8rem;
+        color: #6b7280;
+        text-align: center;
+      }
+    }
+  }
 
-          .match-date-comp {
-            display: flex;
-            flex-direction: column;
+  .no-matches {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-style: italic;
+  }
+}
 
-            .match-date {
-              color: var(--text-primary);
-              font-size: 1rem;
-              
-            }
+// Dark mode styles
+.dark .team-form-row {
+  background: #1f2937;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 
-            .match-competition {
-              color: var(--text-secondary);
-              font-size: 0.8em;
-            }
-          }
+  .team-form-header {
+    h2 {
+      color: #f3f4f6;
 
-          .match-score-opponent {
-            text-align: right;
+      .icon {
+        color: #9ca3af;
+      }
+    }
+  }
 
-            .match-score {
-              color: var(--text-primary);
-              font-weight: bold;
-            }
+  .form-bubbles-container {
+    .form-bubble-wrapper {
+      .match-score {
+        color: #e5e7eb;
 
-            .match-opponent {
-              display: block;
-              color: var(--text-secondary);
-              font-size: 0.9em;
-            }
+        &.clickable:hover {
+          color: #60a5fa;
+        }
+      }
+
+      .form-bubble {
+        .opponent-logo {
+          background: #374151;
+        }
+      }
+
+      .match-date {
+        color: #9ca3af;
+      }
+    }
+  }
+
+  .no-matches {
+    color: #9ca3af;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .team-form-row {
+    .form-bubbles-container {
+      .form-bubble-wrapper {
+        min-width: 60px;
+        max-width: 85px;
+
+        .form-bubble {
+          width: 50px;
+          height: 50px;
+
+          .opponent-logo {
+            width: 30px;
+            height: 30px;
           }
         }
       }
     }
   }
+}
 
-  &.loading {
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
+@media (max-width: 480px) {
+  .team-form-row {
+    .team-form-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .form-bubbles-container {
+      gap: 0.25rem;
+
+      .form-bubble-wrapper {
+        min-width: 50px;
+        max-width: 70px;
+      }
+    }
   }
 }

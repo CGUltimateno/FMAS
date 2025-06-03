@@ -1,62 +1,67 @@
 import React from 'react';
-import { useGetTeamSquadQuery, useGetPlayerImageQuery } from '../../services/footballApi';
+import { useGetTeamSquadQuery } from '../../services/footballApi';
 import '../../styles/TeamStats/TeamSquad.scss';
 import { FaShirt } from 'react-icons/fa6';
 import { FaFlag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const PlayerImage = ({ playerId }) => {
-    const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
-
-    if (isLoading) return <div className="player-image placeholder"></div>;
-    if (error) return <div className="player-image error"></div>;
-
-    return (
-        <div className="player-image">
-            <img src={imageUrl} alt="Player" />
-        </div>
-    );
-};
-
 const TeamSquad = ({ teamId }) => {
     const { data, isLoading, error } = useGetTeamSquadQuery(teamId);
-    console.log("Team Squad Data:", data);
-
-    // Use data?.squad instead of data
-    const squad = data?.squad;
 
     if (isLoading) return <div className="loading-squad">Loading squad...</div>;
     if (error) return <div className="error-squad">Error loading squad data.</div>;
-    if (!squad || !Array.isArray(squad) || squad.length === 0) return <div className="no-squad">No squad information available.</div>;
+    if (!data?.response?.[0]?.players || data.response[0].players.length === 0) {
+        return <div className="no-squad">No squad information available.</div>;
+    }
+
+    // Extract players from the new API structure
+    const players = data.response[0].players;
+
+    // Group players by position
+    const groupedPlayers = players.reduce((groups, player) => {
+        if (!groups[player.position]) {
+            groups[player.position] = [];
+        }
+        groups[player.position].push(player);
+        return groups;
+    }, {});
+
+    // Define position order
+    const positionOrder = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
+
+    // Sort positions in the desired order
+    const sortedPositions = Object.keys(groupedPlayers).sort(
+        (a, b) => positionOrder.indexOf(a) - positionOrder.indexOf(b)
+    );
 
     return (
         <div className="squad-container">
-            {squad.map((category) => (
-                <div key={category.title} className="team-squad">
-                    <h3 className="category-title">{category.title.charAt(0).toUpperCase() + category.title.slice(1)}</h3>
+            {sortedPositions.map((position) => (
+                <div key={position} className="team-squad">
+                    <h3 className="category-title">{position}s</h3>
                     <div className="players-grid">
-                        {category.members.map((player) => (
-                            <div key={player.id} className={`player-card ${player.injured ? 'injured' : ''}`}>
+                        {groupedPlayers[position].map((player) => (
+                            <div key={player.id} className="player-card">
                                 <Link to={`/player/${player.id}`}>
-                                    <PlayerImage playerId={player.id} />
+                                    <div className="player-image">
+                                        <img src={player.photo} alt={player.name} />
+                                    </div>
                                 </Link>
                                 <div className="player-header">
                                     <Link to={`/player/${player.id}`} className="player-name-link">
                                         <h4 className="player-name">{player.name}</h4>
                                     </Link>
+                                    {/* We don't have country name in the new API */}
                                     <div className="player-country">
                                         <FaFlag />
-                                        <span>{player.cname}</span>
+                                        <span>Age: {player.age}</span>
                                     </div>
                                 </div>
-                                {player.shirtNumber && (
+                                {player.number && (
                                     <div className="player-number">
                                         <FaShirt />
-                                        <span>{player.shirtNumber}</span>
+                                        <span>{player.number}</span>
                                     </div>
-                                )}
-                                {player.injured && (
-                                    <span className="injured-badge">Injured</span>
                                 )}
                             </div>
                         ))}
@@ -66,4 +71,5 @@ const TeamSquad = ({ teamId }) => {
         </div>
     );
 };
+
 export default TeamSquad;

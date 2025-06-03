@@ -1,42 +1,72 @@
 import React from "react";
 import "../../styles/TeamStats/StadiumInfo.scss";
+import { FaMapMarkerAlt, FaBuilding, FaCalendarAlt, FaLayerGroup } from "react-icons/fa";
 
-const StadiumInfo = ({ details, additionalDetails }) => {
-    const stadiumDetails = additionalDetails?.response?.details?.faqJSONLD?.mainEntity || [];
-    const stadiumCapacityText = stadiumDetails.find(item => item.name.includes("capacity"))?.acceptedAnswer?.text;
-    const stadiumOpenedText = stadiumDetails.find(item => item.name.includes("opened"))?.acceptedAnswer?.text;
-    const stadiumCapacity = stadiumCapacityText ? stadiumCapacityText.match(/\d+/)?.[0] : null;
-    const stadiumOpened = stadiumOpenedText ? stadiumOpenedText.match(/\d+/)?.[0] : null;
-    const stadiumLocation = additionalDetails?.response?.details?.sportsTeamJSONLD?.location?.address?.addressLocality;
-    const stadiumSurface = "Grass";
+const StadiumInfo = ({ venue, team }) => {
+    if (!venue) {
+        return (
+            <div className="stadium-wrapper">
+                <h2 className="stadium-title">Stadium</h2>
+                <p>No stadium information available</p>
+            </div>
+        );
+    }
 
     return (
-        <div className="stadium-wrapper">
-            <h2 className="stadium-title">Stadium</h2>
-
-            <div className="stadium-info">
-                <p className="stadium-venue">{details.venue}</p>
-                {stadiumLocation && <p className="stadium-location">{stadiumLocation}</p>}
+        <div className="stadium-card">
+            {/* Stadium Image Section */}
+            <div className="stadium-image-container">
+                {venue.image ? (
+                    <img src={venue.image} alt={venue.name} className="stadium-image" />
+                ) : (
+                    <div className="stadium-image-placeholder">
+                        <FaBuilding className="placeholder-icon" />
+                    </div>
+                )}
+                <div className="stadium-image-overlay">
+                    <h2 className="stadium-name">{venue.name}</h2>
+                </div>
             </div>
 
-            <hr className="stadium-divider" />
+            {/* Stadium Details Section */}
+            <div className="stadium-details">
+                <h3 className="section-title">Stadium Info</h3>
 
-            <div className="stadium-stats-row">
-                {stadiumCapacity && (
-                    <div className="stadium-stats-item">
-                        <p className="stat-value">{parseInt(stadiumCapacity).toLocaleString()}</p>
-                        <p className="stat-label">Capacity</p>
+                <div className="info-row">
+                    <div className="info-item">
+                        <FaMapMarkerAlt className="info-icon" />
+                        <div className="info-content">
+                            <span className="info-label">Location</span>
+                            <span className="info-value">{venue.city}{venue.address ? `, ${venue.address}` : ''}</span>
+                        </div>
                     </div>
-                )}
-                {stadiumOpened && (
-                    <div className="stadium-stats-item">
-                        <p className="stat-value">{stadiumOpened}</p>
-                        <p className="stat-label">Opened</p>
-                    </div>
-                )}
-                <div className="stadium-stats-item">
-                    <p className="stat-value">{stadiumSurface}</p>
-                    <p className="stat-label">Surface</p>
+                </div>
+
+                <div className="info-stats">
+                    {venue.capacity && (
+                        <div className="stat-item">
+                            <span className="stat-value">{parseInt(venue.capacity).toLocaleString()}</span>
+                            <span className="stat-label">Capacity</span>
+                        </div>
+                    )}
+
+                    {team.founded && (
+                        <div className="stat-item">
+                            <FaCalendarAlt className="stat-icon" />
+                            <span className="stat-value">{team.founded}</span>
+                            <span className="stat-label">Founded</span>
+                        </div>
+                    )}
+
+                    {venue.surface && (
+                        <div className="stat-item">
+                            <FaLayerGroup className="stat-icon" />
+                            <span className="stat-value">
+                                {venue.surface.charAt(0).toUpperCase() + venue.surface.slice(1)}
+                            </span>
+                            <span className="stat-label">Surface</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

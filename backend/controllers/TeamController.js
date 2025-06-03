@@ -44,6 +44,16 @@ class TeamController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async getLastMatchInfo(req, res) {
+        try {
+            const { teamId } = req.params;
+            const data = await TeamService.getLastMatchInfo(teamId);
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 

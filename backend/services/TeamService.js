@@ -8,6 +8,7 @@ const { headers, API_FD_BASE_URL } = apiConfig;
 const FD_apiHeaders = headers.footballData;
 
 class TeamService {
+
     static async getTeamFullDetails(teamId) {
         try {
             const cacheKey = `teamFullDetails-${teamId}`;
@@ -18,18 +19,29 @@ class TeamService {
             }
 
             const teamUrl = `${API_FD_BASE_URL}/teams?id=${teamId}`;
-            const matchesUrl = `${API_FD_BASE_URL}/fixtures?team=${teamId}&next=10`;
+            const matches2024Url = `${API_FD_BASE_URL}/fixtures?team=${teamId}&season=2024`;
+            const matches2025Url = `${API_FD_BASE_URL}/fixtures?team=${teamId}&season=2025`;
 
             logger.info(`Fetching team details for ID: ${teamId}`);
 
-            const [teamRes, matchesRes] = await Promise.all([
+            const [teamRes, matches2024Res, matches2025Res] = await Promise.all([
                 axios.get(teamUrl, FD_apiHeaders),
-                axios.get(matchesUrl, FD_apiHeaders),
+                axios.get(matches2024Url, FD_apiHeaders),
+                axios.get(matches2025Url, FD_apiHeaders),
             ]);
+
+            // Combine fixtures from both seasons
+            const combinedMatches = {
+                ...matches2025Res.data,
+                response: [
+                    ...(matches2024Res.data.response || []),
+                    ...(matches2025Res.data.response || [])
+                ]
+            };
 
             const freshData = {
                 details: teamRes.data,
-                matches: matchesRes.data
+                matches: combinedMatches
             };
 
             logger.info(`Successfully fetched team data for ID: ${teamId}`);
@@ -38,6 +50,52 @@ class TeamService {
         } catch (error) {
             logger.error(`Error fetching team details: ${error.message}`);
             throw new Error(`Error fetching team details: ${error.message}`);
+        }
+    }
+    static async getLastMatchInfo(teamId) {
+        try {
+            const cacheKey = `lastMatchInfo-${teamId}`;
+            const storedData = await cache.read(cacheKey, { maxAgeHours: 6 });
+
+            if (storedData) {
+                return storedData;
+            }
+
+            // First, get the last match ID
+            const lastMatchUrl = `${API_FD_BASE_URL}/fixtures?team=${teamId}&last=1`;
+            logger.info(`Fetching last match ID for team ID: ${teamId}`);
+
+            const lastMatchResponse = await axios.get(lastMatchUrl, FD_apiHeaders);
+
+            if (!lastMatchResponse.data || !lastMatchResponse.data.response || lastMatchResponse.data.response.length === 0) {
+                throw new Error("No match data found for the specified team.");
+            }
+
+            // Extract the match ID
+            const lastMatchId = lastMatchResponse.data.response[0].fixture.id;
+
+            // Fetch detailed information using the match ID
+            const matchDetailsUrl = `${API_FD_BASE_URL}/fixtures?id=${lastMatchId}`;
+            logger.info(`Fetching detailed match info for match ID: ${lastMatchId}`);
+
+            const matchDetailsResponse = await axios.get(matchDetailsUrl, FD_apiHeaders);
+
+            if (!matchDetailsResponse.data || !matchDetailsResponse.data.response || matchDetailsResponse.data.response.length === 0) {
+                throw new Error("Could not retrieve detailed match information.");
+            }
+
+            logger.info(`Successfully fetched detailed match info for team ${teamId}`);
+            await cache.write(cacheKey, matchDetailsResponse.data);
+
+            // Return the detailed match data
+            return matchDetailsResponse.data;
+        }
+        catch (error) {
+            logger.error("Error fetching last match info:", {
+                error: error.response ? error.response.data : error.message,
+                teamId
+            });
+            throw new Error(`Error fetching last match info: ${error.message}`);
         }
     }
     static async getTeamStats(teamId, leagueId) {
@@ -50,7 +108,7 @@ class TeamService {
             }
 
             // Use the new API to get team statistics
-            const url = `${API_FD_BASE_URL}/teams/statistics?team=${teamId}&league=${leagueId}&season=${new Date().getFullYear()}`;
+            const url = `${API_FD_BASE_URL}/teams/statistics?team=${teamId}&league=${leagueId}&season=2024`;
 
             logger.info(`Fetching team statistics for team ID: ${teamId} in league: ${leagueId}`);
 
@@ -73,9 +131,9 @@ class TeamService {
     static async getTeamFixtures(teamId, options = {}) {
         try {
             const { dateFrom, dateTo, status, last = 100 } = options;
-            const season = "2024"
 
-            let cacheKey = `teamFixtures-${teamId}-season${season}`;
+            // Create cache keys for both seasons
+            let cacheKey = `teamFixtures-${teamId}-seasons2024-2025`;
             if (dateFrom) cacheKey += `-dateFrom${dateFrom}`;
             if (dateTo) cacheKey += `-dateTo${dateTo}`;
             if (status) cacheKey += `-status${status}`;
@@ -87,10 +145,19 @@ class TeamService {
                 return storedData;
             }
 
-            let url = `${API_FD_BASE_URL}/fixtures?team=${teamId}&season=${season}`;
+            // Create base URLs for both seasons
+            let url2024 = `${API_FD_BASE_URL}/fixtures?team=${teamId}&season=2024`;
+            let url2025 = `${API_FD_BASE_URL}/fixtures?team=${teamId}&season=2025`;
 
-            if (dateFrom) url += `&from=${dateFrom}`;
-            if (dateTo) url += `&to=${dateTo}`;
+            // Add filters to both URLs
+            if (dateFrom) {
+                url2024 += `&from=${dateFrom}`;
+                url2025 += `&from=${dateFrom}`;
+            }
+            if (dateTo) {
+                url2024 += `&to=${dateTo}`;
+                url2025 += `&to=${dateTo}`;
+            }
 
             if (status) {
                 const statusMap = {
@@ -98,15 +165,31 @@ class TeamService {
                     "LIVE": "1H,HT,2H,ET,BT,P",
                     "FINISHED": "FT,AET,PEN"
                 };
-                url += `&status=${statusMap[status] || status}`;
+                const mappedStatus = statusMap[status] || status;
+                url2024 += `&status=${mappedStatus}`;
+                url2025 += `&status=${mappedStatus}`;
             }
 
-            logger.info(`Fetching team fixtures for ID: ${teamId} with URL: ${url}`);
-            const response = await axios.get(url, FD_apiHeaders);
+            logger.info(`Fetching team fixtures for ID: ${teamId} from seasons 2024 and 2025`);
 
-            await cache.write(cacheKey, response.data);
-            logger.info(`Successfully fetched fixtures for team ${teamId}`);
-            return response.data;
+            // Make parallel requests for both seasons
+            const [response2024, response2025] = await Promise.all([
+                axios.get(url2024, FD_apiHeaders),
+                axios.get(url2025, FD_apiHeaders),
+            ]);
+
+            // Combine the responses
+            const combinedResponse = {
+                ...response2025.data,
+                response: [
+                    ...(response2024.data.response || []),
+                    ...(response2025.data.response || [])
+                ]
+            };
+
+            await cache.write(cacheKey, combinedResponse);
+            logger.info(`Successfully fetched fixtures for team ${teamId} from both seasons`);
+            return combinedResponse;
         } catch (error) {
             logger.error("Error fetching team fixtures:", {
                 error: error.response ? error.response.data : error.message,

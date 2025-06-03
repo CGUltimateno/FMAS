@@ -172,7 +172,8 @@
               display: flex;
               align-items: center;
               gap: 0.5rem;
-              width: calc(50% - 30px);
+              flex: 1; // Changed from fixed width to flex: 1
+              min-width: 0; // Allows team div to shrink if content is too large
 
               .team-logo {
                 width: 28px;
@@ -190,6 +191,10 @@
               .team-name {
                 font-weight: 500;
                 transition: color 0.2s ease;
+                 white-space: nowrap;
+                 overflow: hidden;
+                 text-overflow: ellipsis;
+                 max-width: 100%; /* or a specific max-width if needed */
 
                 &:hover {
                   color: #6f42c1;
@@ -208,9 +213,10 @@
             }
 
             .match-score {
-              width: 60px;
+              width: 60px; // Keeps the score area a consistent width
               text-align: center;
               font-weight: 600;
+              flex-shrink: 0; // Prevents the score div from shrinking
 
               .score {
                 padding: 0.25rem 0.5rem;

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useGetTrendingNewsQuery } from "../../services/footballApi";
 import "../../styles/Dashboard/News.scss";
 
 const News = () => {
   const [activeTab, setActiveTab] = useState("All News");
-  const { data: newsData, error, isLoading } = useGetTrendingNewsQuery();
+  const { data: newsData, error, isLoading } = [];
 
   const truncateDescription = (text) => {
     const maxLength = 74;
