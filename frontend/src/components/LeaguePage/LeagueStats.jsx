@@ -2,21 +2,6 @@ import React from "react";
 import "../../styles/LeagueDetails/LeagueStats.scss";
 import { Link, useParams } from "react-router-dom";
 import { useGetTopStatsQuery } from "../../services/footballApi";
-import { useGetPlayerImageQuery } from "../../services/footballApi.jsx";
-
-// PlayerImage component
-const PlayerImage = ({ playerId }) => {
-    const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
-
-    if (isLoading) return <div className="player-image placeholder"></div>;
-    if (error) return <div className="player-image error"></div>;
-
-    return (
-        <div className="player-image">
-            <img src={imageUrl} alt="Player" />
-        </div>
-    );
-};
 
 const LeagueStats = () => {
     const { leagueId } = useParams();
@@ -40,21 +25,23 @@ const LeagueStats = () => {
                 <div className="stats-section">
                     <h2>Top Scorers</h2>
                     <ul className="stats-list">
-                        {topScorers?.response?.players?.slice(0, 5).map((scorer, index) => (
+                        {topScorers?.response?.slice(0, 5).map((item, index) => (
                             <li key={`scorer-${index}`} className="stats-card">
                                 <div className="stats-info">
-                                    <PlayerImage playerId={scorer.id} />
+                                    <div className="player-image">
+                                        <img src={item.player.photo} alt={item.player.name} />
+                                    </div>
                                     <div className="player-details">
-                                        <Link to={`/player/${scorer.id}`} className="player-name">
-                                            {scorer.name}
+                                        <Link to={`/player/${item.player.id}`} className="player-name">
+                                            {item.player.name}
                                         </Link>
                                         <div className="club-info">
-                                            <Link to={`/team/${scorer.teamId}`} className="team-name-link">
-                                                <span className="club-name">{scorer.teamName}</span>
+                                            <Link to={`/team/${item.statistics[0].team.id}`} className="team-name-link">
+                                                <span className="club-name">{item.statistics[0].team.name}</span>
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="player-stats">{scorer.goals} Goals</span>
+                                    <span className="player-stats">{item.statistics[0].goals.total} Goals</span>
                                 </div>
                             </li>
                         ))}
@@ -65,46 +52,50 @@ const LeagueStats = () => {
                 <div className="stats-section">
                     <h2>Top Assists</h2>
                     <ul className="stats-list">
-                        {topAssists?.response?.players?.slice(0, 5).map((assist, index) => (
+                        {topAssists?.response?.slice(0, 5).map((item, index) => (
                             <li key={`assist-${index}`} className="stats-card">
                                 <div className="stats-info">
-                                    <PlayerImage playerId={assist.id} />
+                                    <div className="player-image">
+                                        <img src={item.player.photo} alt={item.player.name} />
+                                    </div>
                                     <div className="player-details">
-                                        <Link to={`/player/${assist.id}`} className="player-name">
-                                            {assist.name}
+                                        <Link to={`/player/${item.player.id}`} className="player-name">
+                                            {item.player.name}
                                         </Link>
                                         <div className="club-info">
-                                            <Link to={`/team/${assist.teamId}`} className="team-name-link">
-                                                <span className="club-name">{assist.teamName}</span>
+                                            <Link to={`/team/${item.statistics[0].team.id}`} className="team-name-link">
+                                                <span className="club-name">{item.statistics[0].team.name}</span>
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="player-stats">{assist.assists} Assists</span>
+                                    <span className="player-stats">{item.statistics[0].goals.assists} Assists</span>
                                 </div>
                             </li>
                         ))}
                     </ul>
                 </div>
 
-                {/* Top Rating */}
+                {/* Top Red Cards */}
                 <div className="stats-section">
-                    <h2>Top Rating</h2>
+                    <h2>Top Red Cards</h2>
                     <ul className="stats-list">
-                        {topCards?.response?.players?.slice(0, 5).map((card, index) => (
+                        {topCards?.response?.slice(0, 5).map((item, index) => (
                             <li key={`card-${index}`} className="stats-card">
                                 <div className="stats-info">
-                                    <PlayerImage playerId={card.id} />
+                                    <div className="player-image">
+                                        <img src={item.player.photo} alt={item.player.name} />
+                                    </div>
                                     <div className="player-details">
-                                        <Link to={`/player/${card.id}`} className="player-name">
-                                            {card.name}
+                                        <Link to={`/player/${item.player.id}`} className="player-name">
+                                            {item.player.name}
                                         </Link>
                                         <div className="club-info">
-                                            <Link to={`/team/${card.teamId}`} className="team-name-link">
-                                                <span className="club-name">{card.teamName}</span>
+                                            <Link to={`/team/${item.statistics[0].team.id}`} className="team-name-link">
+                                                <span className="club-name">{item.statistics[0].team.name}</span>
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="player-stats">{card.rating}</span>
+                                    <span className="player-stats">{item.statistics[0].cards.red} Red Cards</span>
                                 </div>
                             </li>
                         ))}

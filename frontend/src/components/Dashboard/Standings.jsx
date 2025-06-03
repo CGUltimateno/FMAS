@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import LeagueTable from "../LeaguePage/LeagueTable";
 
 const Standings = () => {
-  const { data, error, isLoading } = useGetLeagueStandingsQuery("PL");
+  const { data, error, isLoading } = useGetLeagueStandingsQuery(39);
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -16,28 +16,14 @@ const Standings = () => {
     return <p style={{ padding: "1rem", color: "red" }}>Error loading standings.</p>;
   }
 
-  const rawTable = data?.standings?.[0]?.table || [];
-  const competition = data?.competition;
-  const area = data?.area;
-  const standingsData = rawTable.map((teamEntry) => ({
-    id: teamEntry.team.id,
-    name: teamEntry.team.name,
-    logo: teamEntry.team.crest,
-    wins: teamEntry.won,
-    draws: teamEntry.draw,
-    losses: teamEntry.lost,
-    pts: teamEntry.points,
-    idx: teamEntry.position,
-    playedGames: teamEntry.playedGames,
-    goalsFor: teamEntry.goalsFor,
-    goalsAgainst: teamEntry.goalsAgainst,
-    goalDifference: teamEntry.goalDifference,
-  })).slice(0, 5);
+  console.log("Standings data:", data);
 
-  const leagueInfo = {
-    emblem: competition?.emblem,
-    flag: area?.flag,
-  };
+  // Extract league data from the API response
+  const league = data?.response?.[0]?.league;
+
+  // Get the raw standings data directly from the API response
+  // This maintains the structure expected by LeagueTable
+  const rawStandings = league?.standings?.[0] || [];
 
   return (
       <div className="standings-wrapper">
@@ -54,7 +40,16 @@ const Standings = () => {
         </div>
 
         <div className="standings-table-wrapper">
-          <LeagueTable leagueId="2021" leagueName={competition.name} showTitle={true} />
+          {data?.response?.length > 0 ? (
+              <LeagueTable
+                  leagueId={league?.id}
+                  leagueName={league?.name}
+                  showTitle={true}
+                  standings={rawStandings}
+              />
+          ) : (
+              <p>No standings data available</p>
+          )}
         </div>
       </div>
   );

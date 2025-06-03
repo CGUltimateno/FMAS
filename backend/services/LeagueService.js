@@ -15,35 +15,6 @@ function formatDate(dateObj) {
 }
 
 class FootballDataService {
-  static async getLeagueAdditionalData(flLeagueId) {
-    try {
-      const cacheKey = `flLeague-${flLeagueId}`;
-      const cachedData = await cache.read(cacheKey, { maxAgeHours: 24 });
-
-      if (cachedData) {
-        return cachedData;
-      }
-
-      // Fetch data from RapidAPI
-      const statsUrl = `${API_FL_BASE_URL}/v1/leagues/${flLeagueId}/stats`;
-      const teamsUrl = `${API_FL_BASE_URL}/v1/leagues/${flLeagueId}/teams`;
-
-      const [statsRes, teamsRes] = await Promise.all([
-        axios.get(statsUrl, FL_apiHeaders),
-        axios.get(teamsUrl, FL_apiHeaders),
-      ]);
-
-      const freshData = {
-        stats: statsRes.data,
-        teams: teamsRes.data
-      };
-
-      await cache.write(cacheKey, freshData);
-      return freshData;
-    } catch (error) {
-      throw new Error(`Error fetching additional league data: ${error.message}`);
-    }
-  }
 
   static async getTopStats(leagueId) {
     try {
@@ -81,65 +52,82 @@ class FootballDataService {
   static async getPopularLeagues() {
     try {
       const cacheKey = `popularLeagues`;
-      const cachedData = await cache.read(cacheKey);
+      const cachedData = await cache.read(cacheKey, { maxAgeHours: 72 });
 
       if (cachedData) {
         return cachedData;
       }
 
-      const url = `${API_FL_BASE_URL}/football-popular-leagues`;
-      const response = await axios.get(url, FL_apiHeaders);
-      const popularLeagues = response.data;
+      // Hardcoded list of popular league IDs
+      const popularLeagueIds = [
+        39,  // Premier League
+        140, // La Liga
+        135, // Serie A
+        78,  // Bundesliga
+        61,  // Ligue 1
+        2,   // Champions League
+        3,   // Europa League
+        848  // Conference League
+      ];
 
-      const freshData = {competitions: popularLeagues};
+      logger.info("Fetching information for popular leagues");
+
+      const url = `${API_FD_BASE_URL}/leagues`;
+      const leaguePromises = popularLeagueIds.map(id =>
+          axios.get(url, {
+            ...FD_apiHeaders,
+            params: { id: id }
+          })
+      );
+
+      const responses = await Promise.all(leaguePromises);
+
+      // Extract and format the league data
+      const competitions = responses.map(res => {
+        if (res.data && res.data.response && res.data.response.length > 0) {
+          return res.data.response[0];
+        }
+        return null;
+      }).filter(league => league !== null);
+
+      const freshData = { competitions };
       await cache.write(cacheKey, freshData);
       return freshData;
     } catch (error) {
+      logger.error(`Error fetching popular leagues: ${error.message}`);
       throw new Error(`Error fetching popular leagues: ${error.message}`);
-    }
-  }
-
-  static async getCombinedLeagueData(leagueId) {
-    try {
-      const cacheKey = `combinedLeague-${leagueId}`;
-      const cachedData = await cache.read(cacheKey, { maxAgeHours: 6 });
-
-      if (cachedData) {
-        return cachedData;
-      }
-
-      // Get data from both APIs
-      const fdData = await this.getLeagueFullDetails(leagueId);
-      const flLeagueId = getFLLeagueId(leagueId);
-
-      let flData = null;
-      if (flLeagueId) {
-        try {
-          flData = await this.getTopStats(leagueId);
-        } catch (error) {
-          console.error("Error fetching RapidAPI data:", error.message);
-        }
-      }
-
-      // Combine the data
-      const combinedData = {
-        ...fdData,
-        rapidApiData: flData
-      };
-
-      await cache.write(cacheKey, combinedData);
-      return combinedData;
-    } catch (error) {
-      throw new Error(`Error getting combined league data: ${error.message}`);
     }
   }
 
   static async getMatchesByStatus(status) {
     try {
-      const url = `${API_FD_BASE_URL}/matches?status=${status}`;
+      const cacheKey = `matches-${status}`;
+      const cachedData = await cache.read(cacheKey, { maxAgeHours: 1 });
+
+      if (cachedData) {
+        return cachedData;
+      }
+
+      let url;
+      switch (status.toUpperCase()) {
+        case 'LIVE':
+          url = `${API_FD_BASE_URL}/fixtures?live=all`;
+          break;
+        case 'SCHEDULED':
+          url = `${API_FD_BASE_URL}/fixtures?next=15`;
+          break;
+        default:
+          url = `${API_FD_BASE_URL}/fixtures?last=15`;
+      }
+
+      logger.info(`Fetching matches with status: ${status}`);
       const response = await axios.get(url, FD_apiHeaders);
-      return response.data;
+      const freshData = response.data;
+
+      await cache.write(cacheKey, freshData);
+      return freshData;
     } catch (error) {
+      logger.error(`Error fetching matches by status: ${error.message}`);
       throw new Error(`Error fetching matches by status: ${error.message}`);
     }
   }
@@ -194,33 +182,25 @@ class FootballDataService {
   }
   static async getLeagueFullDetails(leagueId) {
     try {
-      // Always fetch fresh data from the API
-      const detailsUrl = `${API_FD_BASE_URL}/competitions/${leagueId}`;
-      const standingsUrl = `${API_FD_BASE_URL}/competitions/${leagueId}/standings`;
-      const matchesUrl = `${API_FD_BASE_URL}/competitions/${leagueId}/matches`;
-      const scorersUrl = `${API_FD_BASE_URL}/competitions/${leagueId}/scorers`;
+      const standingsUrl = `${API_FD_BASE_URL}/standings`;
+      const matchesUrl = `${API_FD_BASE_URL}/fixtures`;
 
-      const [detailsRes, standingsRes, matchesRes, scorersRes] = await Promise.all([
-        axios.get(detailsUrl, FD_apiHeaders),
-        axios.get(standingsUrl, FD_apiHeaders),
-        axios.get(matchesUrl, FD_apiHeaders),
-        axios.get(scorersUrl, FD_apiHeaders),
+      const params = {
+        league: leagueId,
+        season: 2024
+      };
+
+      logger.info(`Fetching full details for league ID: ${leagueId}`);
+
+      const [standingsRes, matchesRes] = await Promise.all([
+        axios.get(standingsUrl, { ...FD_apiHeaders, params }),
+        axios.get(matchesUrl, { ...FD_apiHeaders, params }),
       ]);
 
       const freshData = {
-        details: detailsRes.data,
         standings: standingsRes.data,
         matches: matchesRes.data,
-        scorers: scorersRes.data,
       };
-      try {
-        const flLeagueId = getFLLeagueId(leagueId);
-        if (flLeagueId) {
-          freshData.additionalStats = await this.getLeagueAdditionalData(flLeagueId);
-        }
-      } catch (error) {
-        console.error("Error fetching additional data from RapidAPI:", error.message);
-    }
 
       const cacheKey = `leagueFullDetails-${leagueId}`;
       const storedData = await cache.read(cacheKey);
@@ -232,9 +212,11 @@ class FootballDataService {
         return freshData;
       }
     } catch (error) {
+      logger.error(`Error fetching full league details: ${error.message}`);
       throw new Error(`Error fetching full league details: ${error.message}`);
     }
   }
+
 }
 
 module.exports = FootballDataService;

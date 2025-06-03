@@ -16,7 +16,7 @@ const Dashboard = () => {
                 <Standings />
                 <FollowClub />
                 <br></br>
-                <News />
+                {/*<News />*/}
             </div>
         </div>
     );

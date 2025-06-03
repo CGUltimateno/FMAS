@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetLeagueDetailsQuery } from "../services/footballApi";
 import "../styles/LeagueDetails/LeagueDetailsPage.scss";
 import LeaguesMatches from "../components/LeaguePage/LeaguesMatches";
-import LeagueTable from "../components/LeaguePage/MiniLeagueTable";
+import LeagueTable from "../components/LeaguePage/LeagueTable";
 import LeagueStats from "../components/LeaguePage/LeagueStats";
 import NotFoundPage from "./NotFoundPage";
 import StandingsPage from "../components/LeaguePage/LeagueStandings.jsx";
@@ -16,21 +16,26 @@ const LeagueDetailsPage = () => {
 
     if (isLoading) return <p className="league-loading">Loading league details...</p>;
     if (error || !data) return <NotFoundPage />;
+    const leagueInfo = data?.standings?.response?.[0]?.league || {};
+    const standingsData = leagueInfo?.standings || [];
 
-    const { details, matches, scorers, assists, rated } = data;
+    const matchesData = data?.matches?.response || [];
+    const currentSeason = leagueInfo.season ||
+        (matchesData?.[0]?.league?.season ? matchesData[0].league.season : null);
+
     const tabs = ["Overview", "Matches", "Standings"];
 
     return (
         <div className="league-details-page">
             <header className="league-header">
                 <div className="league-header-inner">
-                    <img src={details.emblem} alt={`${details.name} Emblem`} className="league-emblem"/>
+                    <img src={leagueInfo.logo} alt={`${leagueInfo.name} Emblem`} className="league-emblem"/>
                     <div className="league-info">
-                        <h1 className="league-name">{details.name}</h1>
+                        <h1 className="league-name">{leagueInfo.name}</h1>
                         <div className="league-meta">
                             <div className="meta-item">
-                                <img src={details.area.flag} alt={`${details.area.name} Flag`} className="league-flag"/>
-                                <span className="area-name">{details.area.name}</span>
+                                <img src={leagueInfo.flag} alt={`${leagueInfo.country} Flag`} className="league-flag"/>
+                                <span className="area-name">{leagueInfo.country}</span>
                             </div>
                             <div className="meta-item">
                                 <span className="season-dates">
@@ -43,7 +48,7 @@ const LeagueDetailsPage = () => {
                                         <line x1="8" y1="2" x2="8" y2="6"></line>
                                         <line x1="3" y1="10" x2="21" y2="10"></line>
                                     </svg>
-                                    {details.currentSeason?.startDate} - {details.currentSeason?.endDate}
+                                    Season {currentSeason || new Date().getFullYear()}
                                 </span>
                             </div>
                             <div className="league-status active">
@@ -69,24 +74,36 @@ const LeagueDetailsPage = () => {
                 </div>
             </header>
 
-            {/* Move tabs outside header and use team-tabs class */}
-
-
             <div className="league-content">
                 {activeTab === "overview" && (
                     <>
-                        <LeaguesMatches matches={matches}/>
+                        <LeaguesMatches matches={matchesData}/>
                         <main className="league-content">
                             <section className="standings-section">
-                                <LeagueTable leagueId={leagueId} leagueName={details.name} showTitle={false}/>
+                                <LeagueTable
+                                    leagueId={leagueId}
+                                    leagueName={leagueInfo.name}
+                                    showTitle={false}
+                                    standings={standingsData}
+                                />
                             </section>
                             <LeagueStats state={leagueId}/>
                         </main>
                     </>
                 )}
 
-                {activeTab === "standings" && <StandingsPage leagueId={leagueId}/>}
-                {activeTab === "matches" && <LeagueMatchesExpanded matches={matches}/>}
+                {activeTab === "standings" && (
+                    <StandingsPage
+                        leagueId={leagueId}
+                        standings={standingsData}
+                    />
+                )}
+
+                {activeTab === "matches" && (
+                    <LeagueMatchesExpanded
+                        matches={matchesData}
+                    />
+                )}
             </div>
         </div>
     );

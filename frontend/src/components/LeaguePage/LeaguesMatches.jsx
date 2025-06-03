@@ -4,12 +4,22 @@ import { Link } from "react-router-dom";
 
 const LeaguesMatches = ({ matches }) => {
     const matchesPerPage = 3;
-    const totalMatches = matches?.matches?.length || 0;
+    const totalMatches = matches?.length || 0;
     const totalPages = Math.ceil(totalMatches / matchesPerPage);
 
-    // Find the latest match index
-    const latestMatchIndex = matches?.matches?.findIndex(match => new Date(match.utcDate) > new Date()) - 1;
-    const initialPage = Math.max(0, Math.ceil((latestMatchIndex + 1) / matchesPerPage) - 1);
+    // Find completed matches (status "FT" or other completed statuses)
+    const completedMatches = matches?.filter(match =>
+        match.fixture.status.short === "FT" ||
+        match.fixture.status.short === "AET" ||
+        match.fixture.status.short === "PEN"
+    );
+
+    // Calculate the page that contains the latest completed matches
+    const completedMatchesCount = completedMatches?.length || 0;
+    const lastCompletedMatchPage = Math.floor((completedMatchesCount - 1) / matchesPerPage);
+
+    // Default to last page of completed matches or first page if no completed matches
+    const initialPage = Math.max(0, Math.min(lastCompletedMatchPage, totalPages - 1));
 
     const [currentPage, setCurrentPage] = useState(initialPage);
 
@@ -30,7 +40,7 @@ const LeaguesMatches = ({ matches }) => {
         }
     };
 
-    const currentMatches = matches?.matches?.slice(
+    const currentMatches = matches?.slice(
         currentPage * matchesPerPage,
         (currentPage + 1) * matchesPerPage
     );
@@ -57,8 +67,8 @@ const LeaguesMatches = ({ matches }) => {
                 </button>
                 <div className="matches-list">
                     {currentMatches.map((match) => {
-                        const matchDate = new Date(match.utcDate);
-                        const isFutureMatch = matchDate > new Date();
+                        const matchDate = new Date(match.fixture.date);
+                        const isFutureMatch = match.fixture.status.short === "NS" || matchDate > new Date();
                         const matchTime = matchDate.toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit',
@@ -80,28 +90,34 @@ const LeaguesMatches = ({ matches }) => {
                         }
 
                         return (
-                            <div key={match.id} className="league-match-card">
+                            <div key={match.fixture.id} className="league-match-card">
                                 <div className="match-teams">
                                     <Link
-                                        to={`/teams/${match.homeTeam.id}`}
-                                        state={{ leagueId: matches?.competition?.id }}
+                                        to={`/teams/${match.teams.home.id}`}
+                                        state={{ leagueId: match.league.id }}
                                         className="team-name-link"
                                     >
-                                        <span className="home-team">{match.homeTeam.shortName || match.homeTeam.name}</span>
+                                        <span className="home-team">{match.teams.home.name}</span>
                                     </Link>
-                                    <img src={match.homeTeam.crest} alt={match.homeTeam.shortName} />
-                                    <span className="score">
-                                        {isFutureMatch
-                                            ? matchTime
-                                            : `${match.score.fullTime.home ?? '-'} - ${match.score.fullTime.away ?? '-'}`}
-                                    </span>
-                                    <img src={match.awayTeam.crest} alt={match.awayTeam.shortName} />
+                                    <img src={match.teams.home.logo} alt={match.teams.home.name} />
                                     <Link
-                                        to={`/teams/${match.awayTeam.id}`}
-                                        state={{ leagueId: matches?.competition?.id }}
+                                        to={`/matches/${match.fixture.id}`}
+                                        state={{ leagueId: match.league.id }}
+                                        className="score-link"
+                                    >
+                                        <span className="score">
+                                            {isFutureMatch
+                                                ? matchTime
+                                                : `${match.score.fulltime.home ?? '-'} - ${match.score.fulltime.away ?? '-'}`}
+                                        </span>
+                                    </Link>
+                                    <img src={match.teams.away.logo} alt={match.teams.away.name} />
+                                    <Link
+                                        to={`/teams/${match.teams.away.id}`}
+                                        state={{ leagueId: match.league.id }}
                                         className="team-name-link"
                                     >
-                                        <span className="away-team">{match.awayTeam.shortName || match.awayTeam.name}</span>
+                                        <span className="away-team">{match.teams.away.name}</span>
                                     </Link>
                                 </div>
                                 <div className="match-date">

@@ -18,9 +18,6 @@ router.get("/:leagueId/standings/", FootballDataController.getLeagueStandings);
 // GET top stats from RapidAPI
 router.get("/:leagueId/top-stats", FootballDataController.getTopStats);
 
-// GET combined league data from both APIs
-router.get("/:leagueId/combined", FootballDataController.getCombinedLeagueData);
-
 // GET league details by league ID
 router.get("/:leagueId", FootballDataController.getLeagueFullDetails);
 

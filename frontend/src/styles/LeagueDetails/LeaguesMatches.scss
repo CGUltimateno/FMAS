@@ -36,6 +36,17 @@
     position: relative;
     width: 100%;
 
+    .score-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+
+      &:hover .score {
+        background-color: rgba(138, 99, 210, 0.1);
+        color: #a98eda;
+      }
+    }
+
     .scroll-btn {
       background: rgba(111, 66, 193, 0.08);
       border: none;

@@ -1,87 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useGetLeagueStandingsQuery } from "../../services/footballApi";
 import { Link } from "react-router-dom";
 import "../../styles/LeagueDetails/LeagueTable.scss";
 
-const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
-    const { data, error, isLoading } = useGetLeagueStandingsQuery(leagueId);
-    const [teamForms, setTeamForms] = useState({});
+const LeagueTable = ({ leagueId, leagueName, showTitle = true, standings }) => {
+    // Use '39' (Premier League) as the default when leagueId is not provided
+    const effectiveLeagueId = leagueId || '39';
+
+    const { data, error, isLoading, isFetching } = !standings ?
+        useGetLeagueStandingsQuery(effectiveLeagueId, {
+            refetchOnMountOrArgChange: true
+        }) :
+        { data: null, error: null, isLoading: false, isFetching: false };
 
     useEffect(() => {
-        if (data?.standings?.[0]?.table) {
-            const fetchForms = async () => {
-                const forms = {};
-                for (const team of data.standings[0].table) {
-                    try {
-                        const response = await fetch(`http://localhost:5000/api/teams/${team.team.id}/form/${leagueId}`);
+        console.log("LeagueTable API request:", {
+            effectiveLeagueId,
+            data,
+            error,
+            isLoading,
+            isFetching
+        });
+    }, [effectiveLeagueId, data, error, isLoading, isFetching]);
 
-                        if (!response.ok) {
-                            console.error(`Server error for team ${team.team.id}: ${response.status}`);
-                            forms[team.team.id] = [];
-                            continue;
-                        }
-
-                        const matchData = await response.json();
-
-                        // Check if matchData is an array before mapping
-                        if (!Array.isArray(matchData)) {
-                            console.error(`Expected array but got:`, matchData);
-                            forms[team.team.id] = [];
-                            continue;
-                        }
-
-                        const formResults = matchData.map(match => {
-                            const isHome = match.isRequestedTeamHome;
-                            const homeScore = Number(match.home.score);
-                            const awayScore = Number(match.away.score);
-                            const teamScore = isHome ? homeScore : awayScore;
-                            const opponentScore = isHome ? awayScore : homeScore;
-
-                            if (teamScore > opponentScore) {
-                                return "W";
-                            } else if (teamScore < opponentScore) {
-                                return "L";
-                            } else {
-                                return "D";
-                            }
-                        });
-                        forms[team.team.id] = formResults.slice(0, 5);
-                    } catch (error) {
-                        console.error(`Error fetching form for team ${team.team.id}:`, error);
-                        forms[team.team.id] = [];
-                    }
-                }
-                setTeamForms(forms);
-            };
-            fetchForms();
-        }
-    }, [data, leagueId]);
-
-    if (isLoading) {
+    if (isLoading || isFetching) {
         return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
     }
-    if (error) {
-        return <p style={{ padding: "1rem", color: "red" }}>Error loading standings.</p>;
+
+    // Use predefined standings data if provided, otherwise try to get it from API response
+    let leagueInfo;
+    let standingsData = [];
+
+    if (standings) {
+        standingsData = Array.isArray(standings) && standings.length > 0 ?
+            (Array.isArray(standings[0]) ? standings[0] : standings) :
+            [];
+
+        leagueInfo = {
+            name: leagueName || "Standings",
+            emblem: null,
+            flag: null,
+            country: null
+        };
+    } else if (data?.response?.[0]?.league) {
+        const responseData = data.response[0].league;
+        standingsData = responseData?.standings?.[0] || [];
+        leagueInfo = {
+            name: responseData?.name || "Standings",
+            emblem: responseData?.logo,
+            flag: responseData?.flag,
+            country: responseData?.country
+        };
+    } else {
+        // Fallback when API doesn't return data
+        leagueInfo = {
+            name: leagueName || "Premier League",
+            emblem: null,
+            flag: null,
+            country: "England"
+        };
     }
 
-    const rawTable = data?.standings?.[0]?.table || [];
-    const competition = data?.competition;
-    const area = data?.area;
-    const standingsData = rawTable.map((team) => ({
-        position: team.position,
-        id: team.team.id,
-        team: team.team,
-        name: team.team.name,
-        logo: team.team.crest,
-        playedGames: team.playedGames,
-        won: team.won,
-        draw: team.draw,
-        lost: team.lost,
-        goalsFor: team.goalsFor,
-        goalsAgainst: team.goalsAgainst,
-        goalDifference: team.goalDifference,
-        points: team.points,
-    }));
+    // Ensure standingsData is always an array
+    if (!Array.isArray(standingsData)) {
+        standingsData = [];
+    }
 
     return (
         <div className="league-table">
@@ -90,86 +73,99 @@ const LeagueTable = ({ leagueId, leagueName, showTitle = true }) => {
                     <div className="title-league-section">
                         <div className="title-section">
                             <h2>
-                                <Link to={`/leagues/${competition.id}`}>{leagueName}</Link>
+                                <Link to={`/leagues/${effectiveLeagueId}`}>{leagueName || leagueInfo.name}</Link>
                             </h2>
                         </div>
                         <div className="league-section">
-                            {area?.flag && (
-                                <img src={area.flag} alt={area.name} className="league-flag" />
+                            {leagueInfo?.flag && (
+                                <img src={leagueInfo.flag} alt={leagueInfo.country} className="league-flag" />
                             )}
-                            {competition && competition.emblem && (
-                                <img src={competition.emblem} alt={competition.name} className="league-emblem" />
+                            {leagueInfo?.emblem && (
+                                <img src={leagueInfo.emblem} alt={leagueInfo.name} className="league-emblem" />
                             )}
                         </div>
                     </div>
                 </div>
             )}
             <div className="league-table-content">
-                <table className="standings-table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th className="club-col">Club</th>
-                        <th>Played</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>GF</th>
-                        <th>GA</th>
-                        <th>GD</th>
-                        <th>Pts</th>
-                        <th>Form</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {standingsData.map((team) => {
-                        const form = teamForms[team.id] || [];
-                        return (
-                            <tr key={team.position}>
-                                <td>{team.position}</td>
-                                <td className="club-cell">
-                                    <div className="club-info">
-                                        <img src={team.logo} alt={`${team.name} logo`} />
-                                        <Link
-                                            to={`/teams/${team.id}`}
-                                            state={{ leagueId }}
-                                            className="team-name-link"
-                                        >
-                                            <span>{team.name}</span>
-                                        </Link>
-                                    </div>
-                                </td>
-                                <td>{team.playedGames}</td>
-                                <td>{team.won}</td>
-                                <td>{team.draw}</td>
-                                <td>{team.lost}</td>
-                                <td>{team.goalsFor}</td>
-                                <td>{team.goalsAgainst}</td>
-                                <td>{team.goalDifference}</td>
-                                <td>{team.points}</td>
-                                <td>
-                                    <div className="form-indicators">
-                                        {form.map((result, index) => (
-                                            <span
-                                                key={index}
-                                                className={`form-indicator ${
-                                                    result === "W"
-                                                        ? "win"
-                                                        : result === "D"
-                                                            ? "draw"
-                                                            : "loss"
-                                                }`}
+                {standingsData.length > 0 ? (
+                    <table className="standings-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th className="club-col">Club</th>
+                            <th>Played</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>Pts</th>
+                            <th>Form</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {standingsData.map((team) => {
+                            if (!team || !team.team) {
+                                return null;
+                            }
+
+                            const formArray = team.form ? team.form.split('') : [];
+
+                            return (
+                                <tr key={team.rank || Math.random()}>
+                                    <td>{team.rank || "-"}</td>
+                                    <td className="club-cell">
+                                        <div className="club-info">
+                                            {team.team.logo && (
+                                                <img src={team.team.logo} alt={`${team.team.name || 'Team'} logo`} />
+                                            )}
+                                            <Link
+                                                to={`/teams/${team.team.id}`}
+                                                state={{ leagueId: effectiveLeagueId }}
+                                                className="team-name-link"
                                             >
-                                                {result}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                                                <span>{team.team.name || "Unknown Team"}</span>
+                                            </Link>
+                                        </div>
+                                    </td>
+                                    <td>{team.all?.played || "-"}</td>
+                                    <td>{team.all?.win || "-"}</td>
+                                    <td>{team.all?.draw || "-"}</td>
+                                    <td>{team.all?.lose || "-"}</td>
+                                    <td>{team.all?.goals?.for || "-"}</td>
+                                    <td>{team.all?.goals?.against || "-"}</td>
+                                    <td>{team.goalsDiff || "-"}</td>
+                                    <td>{team.points || "-"}</td>
+                                    <td>
+                                        <div className="form-indicators">
+                                            {formArray.map((result, index) => (
+                                                <span
+                                                    key={index}
+                                                    className={`form-indicator ${
+                                                        result === "W" ? "win" :
+                                                            result === "D" ? "draw" : "loss"
+                                                    }`}
+                                                >
+                                                    {result}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </td>
+                                    <td className="team-status">{team.description || "-"}</td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="no-standings">
+                        <p>No standings data available.</p>
+                        {error && <p className="error-message">Error: {error.toString()}</p>}
+                    </div>
+                )}
             </div>
         </div>
     );

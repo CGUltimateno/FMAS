@@ -14,20 +14,6 @@ import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetPopularLeaguesQuery } from "../services/footballApi";
-
-// League ID mapping
-const leagueMapping = {
-    "PL": { "fdId": 2021, "flId": 47 },
-    "PD": { "fdId": 2014, "flId": 87 },
-    "BL1": { "fdId": 2002, "flId": 54 },
-    "SA": { "fdId": 2019, "flId": 55 },
-    "FL1": { "fdId": 2015, "flId": 53 },
-    "CL": { "fdId": 2001, "flId": 42 },
-    "DED": { "fdId": 2003, "flId": 57 },
-    "ELC": { "fdId": 2016, "flId": 48 },
-    "BSA": { "fdId": 2013, "flId": 268 }
-};
-
 const Sidebar = () => {
     const navigate = useNavigate();
     const [isLeaguesOpen, setIsLeaguesOpen] = useState(false);
@@ -35,38 +21,25 @@ const Sidebar = () => {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
     const user = useSelector((state) => state.auth.user);
-
-    // Fetch popular leagues from backend
     const { data: popularLeagues, isLoading, error } = useGetPopularLeaguesQuery();
-
     const toggleLeagues = () => setIsLeaguesOpen(!isLeaguesOpen);
     const toggleClubs = () => setIsClubsOpen(!isClubsOpen);
     const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
 
-    // Extract leagues array from the nested response
-    const leagues = popularLeagues?.competitions?.response?.popular || [];
+    const competitions = popularLeagues?.competitions || [];
 
-    // Function to find the football-data ID (fdId) from the FotMob ID (flId)
-    const findFdIdFromFlId = (flId) => {
-        // Convert to number to ensure consistent comparison
-        const numericFlId = parseInt(flId, 10);
-
-        // Find the league code with matching flId
-        for (const leagueCode in leagueMapping) {
-            if (leagueMapping[leagueCode].flId === numericFlId) {
-                return leagueMapping[leagueCode].fdId;
-            }
-        }
-
-        // If no mapping found, return the original ID
-        console.warn(`No fdId mapping found for flId: ${flId}`);
-        return flId;
-    };
+    const leagues = competitions.map(comp => ({
+        id: comp.league.id,
+        name: comp.league.name,
+        logo: comp.league.logo,
+        country: comp.country.name,
+        flag: comp.country.flag
+    }));
 
     // Handle league click with proper ID mapping
     const handleLeagueClick = (leagueId) => {
-        const fdLeagueId = findFdIdFromFlId(leagueId);
-        navigate(`/leagues/${fdLeagueId}`);
+        // The new API already uses the correct IDs, so we can use them directly
+        navigate(`/leagues/${leagueId}`);
     };
 
     return (
@@ -120,7 +93,7 @@ const Sidebar = () => {
                 )
             )}
 
-            {/* Favorite Clubs Section */}
+            {/* Favorite Clubs Section - unchanged */}
             {user && user.favoriteTeams && user.favoriteTeams.length > 0 && (
                 <>
                     <h3 className="menuTitle2" onClick={toggleClubs}>

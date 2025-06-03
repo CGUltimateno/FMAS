@@ -1,30 +1,41 @@
 import "../styles/LeagueDetails/LeaguesPage.scss";
 import LeagueTable from "../components/LeaguePage/LeagueTable.jsx";
-import { useGetPopularLeaguesQuery } from "../services/footballApi";
-import { useState } from "react";
+import { useGetLeagueStandingsQuery } from "../services/footballApi";
+import { useState, useEffect } from "react";
 
 const LeaguesPage = () => {
-    const { data, error, isLoading } = useGetPopularLeaguesQuery();
-    const [selectedLeague, setSelectedLeague] = useState(null);
+    const popularLeagues = [
+        { id: 39, name: "Premier League", country: "England", logo: "https://media.api-sports.io/football/leagues/39.png" },
+        { id: 140, name: "La Liga", country: "Spain", logo: "https://media.api-sports.io/football/leagues/140.png" },
+        { id: 135, name: "Serie A", country: "Italy", logo: "https://media.api-sports.io/football/leagues/135.png" },
+        { id: 78, name: "Bundesliga", country: "Germany", logo: "https://media.api-sports.io/football/leagues/78.png" },
+        { id: 61, name: "Ligue 1", country: "France", logo: "https://media.api-sports.io/football/leagues/61.png" }
+    ];
+
+    const [selectedLeague, setSelectedLeague] = useState(popularLeagues[0]?.id);
+    const currentSeason = new Date().getFullYear();
+
+    const { data, error, isLoading } = useGetLeagueStandingsQuery(
+        selectedLeague ? { leagueId: selectedLeague, season: currentSeason } : skip
+    );
+
+    useEffect(() => {
+        if (popularLeagues.length && selectedLeague === null) {
+            setSelectedLeague(popularLeagues[0].id);
+        }
+    }, []);
 
     if (isLoading) return <div className="leagues-wrapper"><h2>Loading leagues...</h2></div>;
-    if (error) return <div className="leagues-wrapper"><h2>Error loading leagues</h2></div>;
+    if (error) return <div className="leagues-wrapper"><h2>Error loading leagues: {error.message}</h2></div>;
 
-    const leagues = data?.competitions?.response?.popular || [];
-
-    // Set initial selected league if not already set
-    if (leagues.length && selectedLeague === null) {
-        setSelectedLeague(leagues[0].id);
-    }
-
-    const currentLeague = leagues.find(league => league.id === selectedLeague);
+    const currentLeagueInfo = popularLeagues.find(league => league.id === selectedLeague);
 
     return (
         <div className="leagues-wrapper">
-            <h2>Leagues</h2>
+            <h2>Popular Leagues</h2>
 
             <div className="leagues-nav">
-                {leagues.map((league) => (
+                {popularLeagues.map((league) => (
                     <div
                         key={league.id}
                         className={`league-tab ${selectedLeague === league.id ? 'active' : ''}`}
@@ -37,11 +48,12 @@ const LeaguesPage = () => {
             </div>
 
             <div className="league-content">
-                {currentLeague && (
+                {currentLeagueInfo && (
                     <LeagueTable
-                        key={currentLeague.id}
-                        leagueId={currentLeague.id}
-                        leagueName={currentLeague.name}
+                        key={currentLeagueInfo.id}
+                        leagueId={currentLeagueInfo.id}
+                        leagueName={currentLeagueInfo.name}
+                        standings={data?.standings}
                     />
                 )}
             </div>

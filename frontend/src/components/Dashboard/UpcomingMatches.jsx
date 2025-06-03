@@ -8,41 +8,45 @@ import {
 } from "../../services/footballApi";
 
 const SUPPORTED_LEAGUES = [
-  2000, // World Cup
-  2001, // Champions League
-  2002, // Bundesliga
-  2003, // Eredivisie
-  2013, // Serie A Brazil
-  2014, // La Liga
-  2015, // Ligue 1
-  2016, // Championship
-  2019, // Serie A
-  2021  // Premier League
+  39,   // Premier League
+  140,  // La Liga
+  135,  // Serie A
+  78,   // Bundesliga
+  61,   // Ligue 1
+  2,    // Champions League
+  3,    // Europa League
+  848   // Conference League
 ];
 
-function transformMatches(apiMatches) {
-  // First filter by supported leagues
-  const filteredMatches = (apiMatches || []).filter(match =>
-      SUPPORTED_LEAGUES.includes(match.competition?.id)
+function transformMatches(data) {
+  // Extract the response array from the data
+  const apiMatches = data?.response || [];
+  console.log(apiMatches)
+  // Filter by supported leagues
+  const filteredMatches = apiMatches.filter(match =>
+      SUPPORTED_LEAGUES.includes(match.league?.id)
   );
-
-  // Then transform the filtered matches
+  console.log("Filtered Matches:", filteredMatches);
+  // Transform the filtered matches
   return filteredMatches.map((m) => {
-    const homeTeam = m.homeTeam.name;
-    const awayTeam = m.awayTeam.name;
+    const homeTeam = m.teams.home.name;
+    const awayTeam = m.teams.away.name;
 
-    const homeGoals = m.score?.fullTime?.home;
-    const awayGoals = m.score?.fullTime?.away;
+    // Handle score based on new structure
+    const homeGoals = m.goals.home;
+    const awayGoals = m.goals.away;
     let score = "-";
     if (homeGoals != null && awayGoals != null) {
       score = `${homeGoals} - ${awayGoals}`;
     }
 
-    let status = m.status;
-    if (status === "FINISHED") status = "Full - Time";
-    else if (status === "SCHEDULED") status = "Scheduled";
+    // Extract status from the fixture status object
+    let status = m.fixture.status.long;
+    if (status === "Match Finished") status = "Full - Time";
+    else if (status === "Not Started") status = "Scheduled";
 
-    const dateObj = new Date(m.utcDate);
+    // Format date from the fixture date
+    const dateObj = new Date(m.fixture.date);
     const dateStr = dateObj.toLocaleDateString();
     const timeStr = dateObj.toLocaleTimeString([], {
       hour: "2-digit",
@@ -50,18 +54,18 @@ function transformMatches(apiMatches) {
     });
 
     return {
-      id: m.id,
+      id: m.fixture.id,
       homeTeam,
-      homeTeamId: m.homeTeam.id,
-      homeTeamLogo: m.homeTeam.crest,
+      homeTeamId: m.teams.home.id,
+      homeTeamLogo: m.teams.home.logo,
       awayTeam,
-      awayTeamId: m.awayTeam.id,
-      awayTeamLogo: m.awayTeam.crest,
+      awayTeamId: m.teams.away.id,
+      awayTeamLogo: m.teams.away.logo,
       score,
       status,
       date: dateStr,
       time: timeStr,
-      competitionId: m.competition?.id
+      competitionId: m.league?.id
     };
   });
 }
@@ -100,9 +104,9 @@ const UpcomingMatches = () => {
       return;
     }
 
-    const finishedMatches = transformMatches(finishedQuery.data?.matches);
-    const scheduledMatches = transformMatches(scheduledQuery.data?.matches);
-    const liveMatches = transformMatches(liveQuery.data?.matches);
+    const finishedMatches = transformMatches(finishedQuery.data);
+    const scheduledMatches = transformMatches(scheduledQuery.data);
+    const liveMatches = transformMatches(liveQuery.data);
 
     setMatchesData({
       "Latest Match": finishedMatches,
@@ -206,13 +210,13 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="action-col">
-                        <Link
-                            to={`/matches/${match.id}`}
-                            state={{ leagueId: match.competitionId }}
-                            className="action-link"
-                            >
-                          <ArrowRight size={18} />
-                        </Link>
+                      <Link
+                          to={`/matches/${match.id}`}
+                          state={{ leagueId: match.competitionId }}
+                          className="action-link"
+                      >
+                        <ArrowRight size={18} />
+                      </Link>
                     </div>
                   </div>
               ))

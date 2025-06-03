@@ -3,7 +3,7 @@ import "../../styles/LeagueDetails/LeagueMatchesExpanded.scss";
 import { Link } from "react-router-dom";
 
 const LeagueMatchesExpanded = ({ matches }) => {
-    if (!matches || !Array.isArray(matches.matches)) {
+    if (!matches || !Array.isArray(matches) || matches.length === 0) {
         return <p>No Games Available.</p>;
     }
 
@@ -21,8 +21,9 @@ const LeagueMatchesExpanded = ({ matches }) => {
         return end;
     };
 
-    const groupedMatches = matches.matches.reduce((acc, match) => {
-        const matchDate = new Date(match.utcDate);
+    // Group matches by week
+    const groupedMatches = matches.reduce((acc, match) => {
+        const matchDate = new Date(match.fixture.date);
         const weekStart = getWeekStart(matchDate).toISOString();
         if (!acc[weekStart]) {
             acc[weekStart] = [];
@@ -41,7 +42,9 @@ const LeagueMatchesExpanded = ({ matches }) => {
         });
     };
 
-    const [currentWeekIndex, setCurrentWeekIndex] = useState(getCurrentWeekIndex());
+    // Initialize with current week or first week if no match in current week
+    const initialWeekIndex = Math.max(0, getCurrentWeekIndex());
+    const [currentWeekIndex, setCurrentWeekIndex] = useState(initialWeekIndex);
 
     const handleNext = () => {
         if (currentWeekIndex < sortedWeeks.length - 1) {
@@ -55,12 +58,18 @@ const LeagueMatchesExpanded = ({ matches }) => {
         }
     };
 
+    // If no weeks found (possible if matches array is empty)
+    if (sortedWeeks.length === 0) {
+        return <p>No matches scheduled for this league.</p>;
+    }
+
     const currentWeekStart = new Date(sortedWeeks[currentWeekIndex]);
     const currentWeekEnd = getWeekEnd(currentWeekStart);
     const currentWeekMatches = groupedMatches[sortedWeeks[currentWeekIndex]];
 
+    // Group matches by day
     const groupedByDay = currentWeekMatches.reduce((acc, match) => {
-        const matchDate = new Date(match.utcDate);
+        const matchDate = new Date(match.fixture.date);
         const today = new Date();
         const tomorrow = new Date();
         tomorrow.setDate(today.getDate() + 1);
@@ -88,7 +97,13 @@ const LeagueMatchesExpanded = ({ matches }) => {
     return (
         <div className="expanded-matches">
             <div className="expanded-week-navigation">
-                <button className="expanded-scroll-btn left" onClick={handlePrev} disabled={currentWeekIndex === 0}>&lt;</button>
+                <button
+                    className="expanded-scroll-btn left"
+                    onClick={handlePrev}
+                    disabled={currentWeekIndex === 0}
+                >
+                    &lt;
+                </button>
                 <div className="expanded-week-header">
                     {currentWeekStart.toLocaleDateString('en-GB', {
                         month: 'long',
@@ -98,52 +113,64 @@ const LeagueMatchesExpanded = ({ matches }) => {
                     month: 'long',
                 })}
                 </div>
-                <button className="expanded-scroll-btn right" onClick={handleNext} disabled={currentWeekIndex === sortedWeeks.length - 1}>&gt;</button>
+                <button
+                    className="expanded-scroll-btn right"
+                    onClick={handleNext}
+                    disabled={currentWeekIndex === sortedWeeks.length - 1}
+                >
+                    &gt;
+                </button>
             </div>
+
             {Object.keys(groupedByDay).map((day) => (
                 <div key={day} className="expanded-day-group">
                     <div className="expanded-day-header">{day}</div>
                     {groupedByDay[day].map((match) => {
-                        const matchDate = new Date(match.utcDate);
-                        const isFutureMatch = matchDate > new Date();
+                        const matchDate = new Date(match.fixture.date);
+                        const isFutureMatch = match.fixture.status.short === "NS" ||
+                            matchDate > new Date();
                         const matchTime = matchDate.toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit',
                             hour12: true,
                         });
-                        const isFinished = !isFutureMatch;
-                        const matchDateStr = matchDate.toLocaleDateString('en-GB', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
-                        });
 
                         return (
-                            <div key={match.id} className="expanded-match-row">
-                                {isFinished && <div className="expanded-ft-bubble">FT</div>}
+                            <div key={match.fixture.id} className="expanded-match-row">
+                                {match.fixture.status.short === "FT" && (
+                                    <div className="expanded-ft-bubble">FT</div>
+                                )}
                                 <div className="match-left">
                                     <Link
-                                        to={`/teams/${match.homeTeam.id}`}
-                                        state={{ leagueId: matches?.competition?.id }}
+                                        to={`/teams/${match.teams.home.id}`}
+                                        state={{ leagueId: match.league.id }}
                                         className="expanded-team-link"
                                     >
-                                        <span className="expanded-home-team">{match.homeTeam.shortName}</span>
+                                        <span className="expanded-home-team">{match.teams.home.name}</span>
                                     </Link>
-                                    <img src={match.homeTeam.crest} alt={match.homeTeam.shortName} />
+                                    <img src={match.teams.home.logo} alt={match.teams.home.name} />
                                 </div>
                                 <div className="match-center">
-                                    <span className="expanded-score">
-                                        {isFutureMatch ? matchTime : `${match.score.fullTime.home} - ${match.score.fullTime.away}`}
-                                    </span>
+                                    <Link
+                                        to={`/matches/${match.fixture.id}`}
+                                        state={{ leagueId: match.league.id }}
+                                        className="match-score-link"
+                                    >
+                                        <span className="expanded-score">
+                                            {isFutureMatch
+                                                ? matchTime
+                                                : `${match.score.fulltime.home ?? '-'} - ${match.score.fulltime.away ?? '-'}`}
+                                        </span>
+                                    </Link>
                                 </div>
                                 <div className="match-right">
-                                    <img src={match.awayTeam.crest} alt={match.awayTeam.shortName} />
+                                    <img src={match.teams.away.logo} alt={match.teams.away.name} />
                                     <Link
-                                        to={`/teams/${match.awayTeam.id}`}
-                                        state={{ leagueId: matches?.competition?.id }}
+                                        to={`/teams/${match.teams.away.id}`}
+                                        state={{ leagueId: match.league.id }}
                                         className="expanded-team-link"
                                     >
-                                        <span className="expanded-away-team">{match.awayTeam.shortName}</span>
+                                        <span className="expanded-away-team">{match.teams.away.name}</span>
                                     </Link>
                                 </div>
                             </div>
@@ -154,5 +181,4 @@ const LeagueMatchesExpanded = ({ matches }) => {
         </div>
     );
 };
-
 export default LeagueMatchesExpanded;

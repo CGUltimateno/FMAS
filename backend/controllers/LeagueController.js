@@ -13,7 +13,6 @@ class LeagueController {
 
   static async getMatches(req, res) {
     try {
-      // e.g. /api/football-data/matches?status=LIVE
       const { status } = req.query;
       const data = await FootballDataService.getMatchesByStatus(status || "FINISHED");
       res.json(data);
@@ -56,16 +55,6 @@ class LeagueController {
     try {
       const { leagueId } = req.params;
       const data = await FootballDataService.getTopStats(leagueId);
-      res.json(data);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-  
-  static async getCombinedLeagueData(req, res) {
-    try {
-      const { leagueId } = req.params;
-      const data = await FootballDataService.getCombinedLeagueData(leagueId);
       res.json(data);
     } catch (error) {
       res.status(500).json({ error: error.message });
