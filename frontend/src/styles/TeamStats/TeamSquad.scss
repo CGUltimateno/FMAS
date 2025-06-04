@@ -101,7 +101,7 @@
         }
       }
 
-      .player-header {
+      .player-squad-header {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -195,7 +195,7 @@
         border-color: rgba(220, 53, 69, 0.3);
       }
 
-      .player-header {
+      .player-squad-header {
         .player-name {
           color: #e0e0e0;
         }
@@ -247,7 +247,7 @@
       .player-card {
         padding: 1rem;
 
-        .player-header {
+        .player-squad-header {
           .player-name {
             font-size: 1rem;
           }

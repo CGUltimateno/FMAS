@@ -26,10 +26,8 @@ const TeamSquad = ({ teamId }) => {
         return groups;
     }, {});
 
-    // Define position order
     const positionOrder = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker'];
 
-    // Sort positions in the desired order
     const sortedPositions = Object.keys(groupedPlayers).sort(
         (a, b) => positionOrder.indexOf(a) - positionOrder.indexOf(b)
     );
@@ -47,13 +45,11 @@ const TeamSquad = ({ teamId }) => {
                                         <img src={player.photo} alt={player.name} />
                                     </div>
                                 </Link>
-                                <div className="player-header">
+                                <div className="player-squad-header">
                                     <Link to={`/player/${player.id}`} className="player-name-link">
                                         <h4 className="player-name">{player.name}</h4>
                                     </Link>
-                                    {/* We don't have country name in the new API */}
                                     <div className="player-country">
-                                        <FaFlag />
                                         <span>Age: {player.age}</span>
                                     </div>
                                 </div>

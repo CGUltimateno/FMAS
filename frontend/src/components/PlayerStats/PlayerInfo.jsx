@@ -1,177 +1,125 @@
 import React from 'react';
 import "../../styles/PlayerStats/PlayerInfo.scss";
-import { FaFlag } from 'react-icons/fa';
-import { useGetPlayerImageQuery } from '../../services/footballApi';
+import { FaFlag } from 'react-icons/fa'; // Corrected import
 
-// Player Image component
-const PlayerImage = ({ playerId }) => {
-  const { data: imageUrl, isLoading, error } = useGetPlayerImageQuery(playerId);
+const PlayerInfo = ({ playerData }) => {
+  if (!playerData) return <div className="player-info-loading">Loading player details...</div>;
 
-  if (isLoading) return <div className="player-image placeholder"></div>;
-  if (error) return <div className="player-image error"></div>;
+  const player = playerData.player || {};
+  const stats = playerData.statistics?.[0] || {};
 
-  return (
-      <div className="player-image">
-        <img src={imageUrl} alt="Player" />
-      </div>
-  );
-};
+  const {
+    name,
+    nationality,
+    photo,
+    birth,
+    height,
+    weight,
+    age
+  } = player;
 
-const calculateAge = (dob) => {
-  if (!dob) return "N/A";
-  const birthDate = new Date(dob);
-  const ageDiffMs = Date.now() - birthDate.getTime();
-  const ageDate = new Date(ageDiffMs);
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-};
+  const teamName = stats.team?.name || 'N/A';
+  const teamLogo = stats.team?.logo || '';
+  const position = stats.games?.position || 'N/A';
+  const number = stats.games?.number;
 
-const getFlDetailValue = (detailsArray, key) => {
-  return detailsArray?.find(d => d.translationKey === key)?.value?.fallback ?? 'N/A';
-};
-
-const formatDate = (dateString) => {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-};
-
-const mapPositionToClass = (position, section) => {
-  // First try to use the more specific section if available
-  if (section) {
-    // Normalize by removing both hyphens AND spaces
-    const sectionNormalized = section.toLowerCase().trim().replace(/[-\s]/g, '');
-
-    const sectionMap = {
-      'centreback': 'cb',
-      'centerback': 'cb',
-      'goalkeeper': 'gk',
-      'rightback': 'rb',
-      'leftback': 'lb',
-      'defensivemidfield': 'cdm',
-      'centralmidfield': 'cm',
-      'attackingmidfield': 'cam',
-      'rightmidfield': 'rm',
-      'leftmidfield': 'lm',
-      'rightwinger': 'rw',
-      'leftwinger': 'lw',
-      'striker': 'st',
-      'centreforward': 'st',
-      'centerforward': 'st',
-      'rightforward': 'rf',
-      'leftforward': 'lf',
-      'rightwingback': 'rwb',
-      'leftwingback': 'lwb'
-    };
-
-    if (sectionMap[sectionNormalized]) {
-      return sectionMap[sectionNormalized];
-    }
-  }
-
-  // Fall back to position if section mapping failed
-  if (!position) return 'cm'; // default position
-
-  // Normalize position the same way - removing spaces and hyphens
-  const posNormalized = position.toLowerCase().trim().replace(/[-\s]/g, '');
-
-  // Generic position mapping
-  const positionMap = {
-    'defence': 'cb',
-    'defender': 'cb',
-    'midfield': 'cm',
-    'midfielder': 'cm',
-    'attack': 'st',
-    'attacker': 'st',
-    'forward': 'st',
-    'goalkeeper': 'gk',
-    'rightwinger': 'rw',
-    'leftwinger': 'lw',
-    'rightmidfielder': 'rm',
-    'leftmidfielder': 'lm'
+  const formatDate = (dateStr) => {
+    if (!dateStr) return 'N/A';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
-  return positionMap[posNormalized] || 'cm';
-};
+  const getPositionMarkerClass = (pos) => {
+    if (!pos) return 'cm';
+    const p = pos.toLowerCase();
+    if (p.includes('goalkeeper')) return 'gk';
+    if (p.includes('defender')) return 'cb';
+    if (p.includes('midfielder')) return 'cm';
+    if (p.includes('attacker') || p.includes('forward')) return 'st';
+    if (['lw', 'rw', 'st', 'cf'].some(key => p.includes(key))) return 'st';
+    if (['cam', 'cm', 'cdm', 'lm', 'rm'].some(key => p.includes(key))) return 'cm';
+    if (['cb', 'lb', 'rb', 'lwb', 'rwb'].some(key => p.includes(key))) return 'cb';
+    return 'cm';
+  };
 
-const PlayerInfo = ({ player }) => {
-  if (!player) return <p>Loading...</p>;
-
-  const info = player.info || {};
-  const flDetails = player.fl?.detail || [];
-  const teamName = player.teamName || info.currentTeam?.name || "N/A";
-  const nationality = info.nationality || getFlDetailValue(flDetails, "country_sentencecase");
-  const height = getFlDetailValue(flDetails, "height_sentencecase");
-  const preferredFoot = getFlDetailValue(flDetails, "preferred_foot");
-  const marketValue = getFlDetailValue(flDetails, "transfer_value");
-  const shirt = info.shirtNumber ? `#${info.shirtNumber}` : getFlDetailValue(flDetails, "shirt");
-  const teamLogo = player.teamLogoUrl || info.currentTeam?.crest;
-  const countryCode = flDetails.find(d => d.translationKey === "country_sentencecase")?.countryCode;
-
-  // Use both position and section for accurate positioning
-  const position = mapPositionToClass(info.position, info.section);
+  const getPositionAbbreviation = (pos) => {
+    if (!pos) return 'N/A';
+    const p = pos.toLowerCase();
+    if (p.includes('goalkeeper')) return 'GK';
+    if (p.includes('defender')) return 'DEF';
+    if (p.includes('midfielder')) return 'MID';
+    if (p.includes('attacker') || p.includes('forward')) return 'ATT';
+    return pos.substring(0, 3).toUpperCase();
+  };
 
   return (
       <div className="player-card">
-        <header className="player-header" style={{ backgroundColor: player.teamColor || info.currentTeam?.clubColors?.split('/')[0] || '#0a66c2' }}>
-          <div className="player-header__left">
-            <div className="player-image-container">
-
-              <PlayerImage playerId={info.id}/>
-            </div>
-            <div className="player-info-wrapper">
-              <h1 className="player-name">{info.name || 'N/A'}</h1>
-              <div className="player-subtitle">
-                {teamLogo
-                    ? <img className="team-logo" src={teamLogo} alt={teamName}/>
-                    : <div className="team-logo--placeholder"/>
-                }
-                <span>{teamName}</span>
+        <header className="player-header">
+          <div className="player-header-content">
+            <div className="player-identity">
+              <div className="player-image-container">
+                <img src={photo || 'default-player-image.png'} alt={name || 'Player'} className="player-image" />
+              </div>
+              <div className="player-details">
+                <h1 className="player-name">{name || 'Unknown Player'}</h1>
+                <div className="player-subtitle">
+                  {teamLogo && <img className="team-logo" src={teamLogo} alt={teamName} />}
+                  <span>{teamName}{number ? ` • #${number}` : ''}</span>
+                </div>
               </div>
             </div>
           </div>
-          <button className="follow-button">Follow</button>
         </header>
 
         <div className="player-stats">
           <div className="stats-grid">
             <div className="stat">
               <span className="label">Height</span>
-              <span className="value">{height}</span>
+              <span className="value">{height || 'N/A'}</span>
             </div>
             <div className="stat">
-              <span className="label">Shirt</span>
-              <span className="value">{shirt}</span>
-            </div>
-
-            <div className="stat">
-              <span className="secondary">{formatDate(info.dateOfBirth)}</span>
-              <span className="value">{calculateAge(info.dateOfBirth)} years</span>
+              <span className="label">Weight</span>
+              <span className="value">{weight || 'N/A'}</span>
             </div>
             <div className="stat">
-              <span className="label">Preferred foot</span>
-              <span className="value">{preferredFoot}</span>
+              <span className="label">Age</span>
+              <span className="value">{age || 'N/A'} years</span>
             </div>
-
+            <div className="stat">
+              <span className="label">Birthdate</span>
+              <span className="value">{formatDate(birth?.date)}</span>
+            </div>
             <div className="stat">
               <span className="label">Country</span>
               <span className="value country-value">
-     {nationality}
-              </span>
+              {nationality ? <FaFlag className="flag-icon" title={nationality}/> : null}
+                {nationality || 'N/A'}
+            </span>
             </div>
             <div className="stat">
-              <span className="label">Market value</span>
-              <span className="value highlight">{marketValue}</span>
+              <span className="label">Position</span>
+              <span className="value">{position}</span>
             </div>
+            {number && (
+                <div className="stat">
+                  <span className="label">Jersey</span>
+                  <span className="value">#{number}</span>
+                </div>
+            )}
           </div>
 
           <div className="position-block">
-            <span className="label">Position</span>
-            <span className="role">Primary</span>
-            <span className="position-text">{info.section || info.position}</span>
-
+            <h4 className="position-title">Primary Position</h4>
+            <span className="position-text-detail">{position}</span>
             <div className="position-diagram">
               <div className="pitch">
-                <div className={`marker ${position}`}>{position.toUpperCase()}</div>
+                <div className={`marker ${getPositionMarkerClass(position)}`}>
+                  {getPositionAbbreviation(position)}
+                </div>
               </div>
             </div>
           </div>

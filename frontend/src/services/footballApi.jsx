@@ -70,6 +70,14 @@ export const footballApi = createApi({
             query: (playerId) => `players/${playerId}`,
         }),
 
+        getPlayerTrophies: builder.query({
+            query: (playerId) => `players/${playerId}/trophies`,
+        }),
+
+        getPlayerCareer: builder.query({
+            query: (playerId) => `players/${playerId}/career`,
+        }),
+
         getHeadToHead: builder.query({
             query: ({ team1Id, team2Id }) => ({
                 url: `teams/${team1Id}/matches?otherTeam=${team2Id}&limit=5&status=FINISHED`,
@@ -119,6 +127,8 @@ export const {
     useGetTeamSquadQuery,
     useGetPlayerImageQuery,
     useGetPlayerStatsQuery,
+    useGetPlayerTrophiesQuery,
+    useGetPlayerCareerQuery,
     useGetHeadToHeadQuery,
     useGetMatchLineupsQuery,
     useGetMatchFormationQuery,

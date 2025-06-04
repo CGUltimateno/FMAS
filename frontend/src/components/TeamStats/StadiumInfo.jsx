@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/TeamStats/StadiumInfo.scss";
-import { FaMapMarkerAlt, FaBuilding, FaCalendarAlt, FaLayerGroup } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBuilding, FaCalendarAlt, FaLayerGroup, FaUsers } from "react-icons/fa";
 
 const StadiumInfo = ({ venue, team }) => {
     if (!venue) {
@@ -45,6 +45,7 @@ const StadiumInfo = ({ venue, team }) => {
                 <div className="info-stats">
                     {venue.capacity && (
                         <div className="stat-item">
+                            <FaUsers className="stat-icon" />
                             <span className="stat-value">{parseInt(venue.capacity).toLocaleString()}</span>
                             <span className="stat-label">Capacity</span>
                         </div>

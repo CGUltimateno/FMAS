@@ -52,7 +52,7 @@ const MiniLeagueTable = ({ leagueId, selectedTeamId }) => {
                                 <div className="club-info">
                                     <img src={team.team.logo} alt={`${team.team.name} logo`} />
                                     <Link
-                                        to={`/team/${team.team.id}`}
+                                        to={`/teams/${team.team.id}`}
                                         state={{ leagueId }}
                                         className="team-name-link"
                                     >

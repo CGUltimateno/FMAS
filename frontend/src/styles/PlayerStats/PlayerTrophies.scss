@@ -1,112 +1,268 @@
 .player-trophies {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 405px fit-content;
-    height: 640px fit-content;
-    top: 1299px fit-content;
-    left: 1041px fit-content;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+  padding: 24px;
+  margin-bottom: 1.5rem;
 
-    h3 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #222;
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #343a40;
+  }
+
+  .empty-message {
+    text-align: center;
+    padding: 2rem 0;
+    color: #6c757d;
+    font-style: italic;
+  }
+
+  .trophies-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .trophies-section {
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #343a40;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e9ecef;
+
+      .section-icon {
+        font-size: 1.2rem;
       }
-    
-      .trophies-grid {
-        display: grid;
-        grid-template-columns: repeat(250px, 1fr);
-        gap: 20px;
-      }
-    
-      .team-section {
-        .team-name {
-          font-size: 18px;
-          margin-bottom: 10px;
-          font-weight: bold;
-          color: #444;
-        }
-    
-        .trophies-list {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-      }
-    
-      .trophy-item {
+    }
+
+    &.winners .section-icon {
+      color: #ffc107; // Gold color
+    }
+
+    &.runners-up .section-icon {
+      color: #6c757d; // Silver color
+    }
+  }
+
+  .decade-group {
+    margin-bottom: 24px;
+
+    .decade-header {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .trophy-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .trophy-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    }
+
+    &.runner-up {
+      border-left: 3px solid #6c757d; // Silver border
+    }
+
+    &.winner {
+      border-left: 3px solid #ffc107; // Gold border
+    }
+
+    .trophy-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .trophy-icon-container {
         display: flex;
         align-items: center;
-        padding: 12px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+
         .trophy-icon {
-          font-size: 24px;
-          margin-right: 15px;
-          color: gold;
+          font-size: 1.4rem;
+          color: #ffc107; // Gold color
+
+          &.european {
+            color: #3498db; // Blue for European competitions
+          }
+
+          &.global {
+            color: #9b59b6; // Purple for World competitions
+          }
+
+          &.cup {
+            color: #2ecc71; // Green for cup competitions
+          }
+
+          &.runner-up {
+            color: #95a5a6; // Silver color for runner-up
+          }
         }
-    
-        .trophy-details {
-          h4 {
-            font-size: 16px;
-            margin: 0;
-            color: #333;
-          }
-    
-          p {
-            margin: 3px 0 0;
-            font-size: 14px;
-            color: #666;
-          }
-    
-          .trophy-desc {
-            font-style: italic;
-            color: #999;
+      }
+
+      .trophy-name-container {
+        flex: 1;
+
+        .trophy-name {
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0 0 4px 0;
+          color: #212529;
+        }
+
+        .trophy-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          font-size: 0.85rem;
+          color: #6c757d;
+
+          .country, .season {
+            display: flex;
+            align-items: center;
+            gap: 6px;
           }
         }
       }
     }
-    
-    // Dark mode styling
-    .dark {
-      .player-trophies {
-        background-color: #1e1e1e;
-        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
-        color: #ddd;
-    
-        h3 {
-          color: #eee;
+  }
+}
+
+/* Dark mode */
+.dark .player-trophies {
+  background: #282A30;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  h3 {
+    color: #e0e0e0;
+  }
+
+  .empty-message {
+    color: #adb5bd;
+  }
+
+  .trophies-section {
+    .section-title {
+      color: #e0e0e0;
+      border-bottom-color: #3a3c42;
+    }
+  }
+
+  .decade-group .decade-header {
+    color: #adb5bd;
+  }
+
+  .trophy-card {
+    background: #343a40;
+
+    &:hover {
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    .trophy-header {
+      .trophy-icon-container {
+        background: #2b2b2b;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+
+      .trophy-name-container {
+        .trophy-name {
+          color: #e0e0e0;
         }
-    
-        .team-name {
-          color: #ccc;
+
+        .trophy-meta {
+          color: #adb5bd;
         }
-    
-        .trophy-item {
-          background-color: #2b2b2b;
-          box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
-    
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .player-trophies {
+    .trophy-card {
+      .trophy-header {
+        gap: 12px;
+
+        .trophy-icon-container {
+          width: 36px;
+          height: 36px;
+
           .trophy-icon {
-            color: #ffcc00;
+            font-size: 1.2rem;
           }
-    
-          .trophy-details {
-            h4 {
-              color: #fafafa;
-            }
-    
-            p {
-              color: #bbb;
-            }
-    
-            .trophy-desc {
-              color: #aaa;
-            }
+        }
+
+        .trophy-name-container {
+          .trophy-name {
+            font-size: 0.9rem;
+          }
+
+          .trophy-meta {
+            font-size: 0.75rem;
           }
         }
       }
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .player-trophies {
+    padding: 16px;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .trophies-section {
+      .section-title {
+        font-size: 1rem;
+      }
+    }
+
+    .decade-group {
+      margin-bottom: 16px;
+
+      .decade-header {
+        font-size: 0.8rem;
+      }
+
+      .trophy-list {
+        gap: 12px;
+      }
+    }
+
+    .trophy-card {
+      padding: 12px;
+    }
+  }
+}

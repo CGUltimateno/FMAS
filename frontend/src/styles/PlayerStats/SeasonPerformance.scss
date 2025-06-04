@@ -1,110 +1,153 @@
 .season-performance {
-    background: #fff; // Optional background if needed
-    padding: 2rem;
-    border-radius: 1rem;
-  
-    h3 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: #222;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+  padding: 24px;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-size: 1.25rem; // 20px
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #343a40;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem; // 24px
+  }
+
+  .stat-item {
+    background-color: #f8f9fa;
+    padding: 1.25rem 1rem; // 20px 16px
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; // 8px
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
     }
-  
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); // Force 4 items per row
-        gap: 2rem; // More spacing for clarity
-        justify-items: center;
+
+    .stat-icon {
+      font-size: 1.75rem; // 28px
+      margin-bottom: 0.25rem; // 4px
+      color: #0A66C2; // Default icon color (e.g., LinkedIn Blue)
+
+      // Specific icon colors
+      &.goal-icon { color: #28a745; } // Green
+      &.assist-icon { color: #17a2b8; } // Info Blue/Cyan
+      &.rating-icon { color: #ffc107; } // Yellow
+      &.yellow-card-icon { color: #ffc107; } // Yellow
+      &.red-card-icon { color: #dc3545; } // Red
+    }
+
+    .stat-value {
+      font-size: 1.5rem; // 24px
+      font-weight: 700;
+      color: #212529;
+      line-height: 1.2;
+      margin-bottom: 0.25rem; // 4px
+
+      // Badge styling for rating, yellow cards, red cards
+      &.rating,
+      &.yellow-card,
+      &.red-card {
+        padding: 0.3rem 0.8rem; // 4.8px 12.8px
+        border-radius: 6px;
+        font-size: 1.1rem; // ~17.6px, slightly smaller for badge
+        font-weight: 600;
+        display: inline-block; // To contain background and padding
       }
-      
-  
-    .stat-item {
-      text-align: center;
-  
-      .stat-value {
-        font-size: 20px;
-        font-weight: 700;
-        color: #111;
-        margin-bottom: 0.3rem;
-        display: block;
-  
-        // Optional: style for special stat like Rating
-        &.rating {
-          background-color: #43f383;
-          padding: 0.2rem 0.6rem;
-          border-radius: 0.4rem;
-          font-size: 20px;
-          font-weight: 700;
-          color: #111;
-          margin-bottom: 0.3rem;
-          display: block;
-        }
-  
-        // Optional: yellow/red card styling if needed
-        &.yellow-card {
-            background-color: #ddff00;
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.4rem;
-            font-size: 20px;
-            font-weight: 700;
-            color: #111;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-  
-        &.red-card {
-            background-color: #ff0000;
-            padding: 0.2rem 0.6rem;
-            border-radius: 0.4rem;
-            font-size: 20px;
-            font-weight: 700;
-            color: #111;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
+
+      &.rating {
+        background-color: #e9ffee; // Light green
+        color: #28a745; // Dark green text
+        border: 1px solid #a1e9b5; // Green border
       }
-  
-      .stat-label {
-        font-size: 13px;
-        color: #8E8E8E;
-        font-weight: 400;
+      &.yellow-card {
+        background-color: #fff8e1; // Light yellow
+        color: #f59f00; // Dark yellow text
+        border: 1px solid #ffe082; // Yellow border
       }
+      &.red-card {
+        background-color: #ffebee; // Light red
+        color: #d93a3a; // Dark red text
+        border: 1px solid #ffcdd2; // Red border
+      }
+    }
+
+    .stat-label {
+      font-size: 0.8rem; // ~12.8px
+      color: #6c757d;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
   }
-  .dark {
-    .season-performance {
-      background-color: #1e1e1e;
-      color: #1e1e1e;
-  
-      h3 {
-        color: #ccc;
+
+  .no-stats-message {
+    text-align: center;
+    padding: 2rem 0;
+    color: #6c757d;
+    font-style: italic;
+  }
+}
+
+/* Dark mode */
+.dark .season-performance {
+  background: #282A30;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  h3 {
+    color: #e0e0e0;
+  }
+
+  .stat-item {
+    background-color: #343a40; // Darker item background
+    &:hover {
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    .stat-icon {
+      color: #8ab4f8; // Light blue for default icons in dark mode
+      &.goal-icon { color: #48c774; }
+      &.assist-icon { color: #33c3dd; }
+      &.rating-icon { color: #ffd659; }
+      &.yellow-card-icon { color: #ffd659; }
+      &.red-card-icon { color: #ff6b6b; }
+    }
+
+    .stat-value {
+      color: #e9ecef;
+
+      &.rating {
+        background-color: rgba(72, 199, 116, 0.15);
+        color: #48c774;
+        border-color: rgba(72, 199, 116, 0.4);
       }
-  
-      .stat-item {
-        .stat-value {
-          color: #eee;
-  
-          &.rating {
-            background-color: #2e5f3e;
-            color: #b5f7c7;
-          }
-  
-          &.yellow-card {
-            background-color: #9e9e00;
-            color: #fff;
-          }
-  
-          &.red-card {
-            background-color: #990000;
-            color: #fff;
-          }
-        }
-  
-        .stat-label {
-          color: #aaa;
-        }
+      &.yellow-card {
+        background-color: rgba(255, 214, 89, 0.1);
+        color: #ffd659;
+        border-color: rgba(255, 214, 89, 0.3);
+      }
+      &.red-card {
+        background-color: rgba(255, 107, 107, 0.1);
+        color: #ff6b6b;
+        border-color: rgba(255, 107, 107, 0.3);
       }
     }
+    .stat-label {
+      color: #adb5bd;
+    }
   }
-  
-  
+  .no-stats-message {
+    color: #adb5bd;
+  }
+}
