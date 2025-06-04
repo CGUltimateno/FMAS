@@ -44,7 +44,7 @@ const App = () => {
                     </div>
                 </main>
             </div>
-            {/*<Footer />*/}
+            <Footer />
         </div>
     );
 };

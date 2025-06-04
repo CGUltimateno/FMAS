@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../../styles/TeamStats/TeamForm.scss";
+import "../../styles/TeamStats/TeamForm.scss"; // Ensure this path is correct
 import { FaHistory } from "react-icons/fa";
 
 const TeamForm = ({ teamId, matches = [] }) => {
@@ -9,25 +9,23 @@ const TeamForm = ({ teamId, matches = [] }) => {
 
     const recentMatches = [...matches]
         .sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date))
-        .slice(0, 5); // Take only the last 5 matches
+        .slice(0, 5);
 
     if (!recentMatches.length) {
         return (
-            <div className="team-form-row">
-                <div className="team-form-header">
-                    <h2><FaHistory className="icon" /> Recent Form</h2>
+            <div className="ts-bubbleform-xyz-row">
+                <div className="ts-bubbleform-xyz-header">
+                    <h2><FaHistory className="ts-bubbleform-xyz-icon" /> Recent Form</h2>
                 </div>
-                <div className="no-matches">No recent matches available</div>
+                <div className="ts-bubbleform-xyz-no-matches">No recent matches available</div>
             </div>
         );
     }
 
-    // Determine results for the team
     const getMatchResult = (match) => {
         const { home, away } = match.teams;
         const { home: homeGoals, away: awayGoals } = match.goals;
 
-        // Skip if we don't have scores yet
         if (homeGoals === null || awayGoals === null) {
             return { result: 'U', resultText: 'Upcoming' };
         }
@@ -45,7 +43,6 @@ const TeamForm = ({ teamId, matches = [] }) => {
         }
     };
 
-    // Count W/D/L records
     const formSummary = recentMatches.reduce((acc, match) => {
         const { result } = getMatchResult(match);
         if (result === 'W') acc.wins++;
@@ -55,44 +52,43 @@ const TeamForm = ({ teamId, matches = [] }) => {
     }, { wins: 0, draws: 0, losses: 0 });
 
     return (
-        <div className="team-form-row">
-            <div className="team-form-header">
-                <h2><FaHistory className="icon" /> Recent Form</h2>
-                <div className="form-record">
-                    <span className="wins">{formSummary.wins}W</span>
-                    <span className="draws">{formSummary.draws}D</span>
-                    <span className="losses">{formSummary.losses}L</span>
+        <div className="ts-bubbleform-xyz-row">
+            <div className="ts-bubbleform-xyz-header">
+                <h2><FaHistory className="ts-bubbleform-xyz-icon" /> Recent Form</h2>
+                <div className="ts-bubbleform-xyz-form-record">
+                    <span className="ts-bubbleform-xyz-wins">{formSummary.wins}W</span>
+                    <span className="ts-bubbleform-xyz-draws">{formSummary.draws}D</span>
+                    <span className="ts-bubbleform-xyz-losses">{formSummary.losses}L</span>
                 </div>
             </div>
 
-            <div className="form-bubbles-container">
+            <div className="ts-bubbleform-xyz-bubbles-container">
                 {recentMatches.map((match, index) => {
                     const isTeamHome = match.teams.home.id === parseInt(teamId);
                     const opponent = isTeamHome ? match.teams.away : match.teams.home;
-                    const { result } = getMatchResult(match); // Removed unused resultText
+                    const { result } = getMatchResult(match);
                     const { home: homeGoals, away: awayGoals } = match.goals;
                     const teamGoals = isTeamHome ? homeGoals : awayGoals;
                     const opponentGoals = isTeamHome ? awayGoals : homeGoals;
-
                     const matchLeagueId = match.league?.id;
 
                     return (
-                        <div key={index} className="form-bubble-wrapper">
-                            <Link to={`/match/${match.fixture.id}`} className="match-score clickable">
+                        <div key={index} className="ts-bubbleform-xyz-bubble-wrapper">
+                            <Link to={`/matches/${match.fixture.id}`} state={{ leagueId: matchLeagueId }} className="ts-bubbleform-xyz-match-score ts-bubbleform-xyz-clickable">
                                 {teamGoals !== null ? teamGoals : '-'} : {opponentGoals !== null ? opponentGoals : '-'}
                             </Link>
-                            <div className={`form-bubble ${result.toLowerCase()}`}
+                            <div className={`ts-bubbleform-xyz-form-bubble ts-bubbleform-xyz-${result.toLowerCase()}`}
                                  title={`${isTeamHome ? 'vs' : '@'} ${opponent.name}, ${new Date(match.fixture.date).toLocaleDateString()}`}>
                                 <Link
                                     to={`/teams/${opponent.id}`}
-                                    state={{leagueId: matchLeagueId}}  // Pass the specific match's leagueId
-                                    className="opponent-logo"
+                                    state={{leagueId: matchLeagueId}}
+                                    className="ts-bubbleform-xyz-opponent-logo-link" // Changed class for clarity
                                 >
-                                    <img src={opponent.logo} alt={opponent.name}/>
+                                    <img src={opponent.logo} alt={opponent.name} className="ts-bubbleform-xyz-opponent-logo-image"/>
                                 </Link>
-                                <div className="result-indicator">{result}</div>
+                                <div className={`ts-bubbleform-xyz-result-indicator ts-bubbleform-xyz-${result.toLowerCase()}`}>{result}</div>
                             </div>
-                            <div className="match-date">
+                            <div className="ts-bubbleform-xyz-match-date">
                                 {new Date(match.fixture.date).toLocaleDateString('en-GB', {
                                     day: '2-digit',
                                     month: 'short'

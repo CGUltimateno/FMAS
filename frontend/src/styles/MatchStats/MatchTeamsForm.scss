@@ -1,0 +1,326 @@
+// frontend/src/styles/MatchStats/MatchTeamsForm.scss
+// This file is completely isolated from TeamForm.scss with bizarre unique identifiers
+
+.matchdetails-teamform-xz9-section-container {
+  margin: 1.5rem 0;
+
+  .matchdetails-teamform-xz9-main-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+
+    .matchdetails-teamform-xz9-title-icon {
+      margin-right: 0.5rem;
+      color: #4b5563;
+    }
+  }
+
+  .matchdetails-teamform-xz9-teams-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .matchdetails-teamform-xz9-panel {
+    flex: 1;
+    min-width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+
+    .matchdetails-teamform-xz9-header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+
+      .matchdetails-teamform-xz9-team-identity-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        .matchdetails-teamform-xz9-team-logo-image {
+          width: 32px;
+          height: 32px;
+          object-fit: contain;
+        }
+
+        .matchdetails-teamform-xz9-team-name-text {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+          color: #1f2937;
+        }
+      }
+
+      .matchdetails-teamform-xz9-record-summary {
+        display: flex;
+        gap: 0.5rem;
+
+        span {
+          padding: 0.25rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.85rem;
+          font-weight: 500;
+
+          &.matchdetails-teamform-xz9-wins-count {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+          }
+
+          &.matchdetails-teamform-xz9-draws-count {
+            background: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+          }
+
+          &.matchdetails-teamform-xz9-losses-count {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+          }
+        }
+      }
+    }
+
+    .matchdetails-teamform-xz9-matches-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .matchdetails-teamform-xz9-match-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: #f9fafb;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          background: #f3f4f6;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .matchdetails-teamform-xz9-result-badge {
+          font-weight: 700;
+          font-size: 0.8rem;
+          width: 26px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          color: white;
+          flex-shrink: 0;
+          margin-right: 0.75rem;
+
+          &.w {
+            background: #10b981;
+          }
+
+          &.d {
+            background: #6b7280;
+          }
+
+          &.l {
+            background: #ef4444;
+          }
+
+          &.u {
+            background: #3b82f6;
+          }
+        }
+
+        .matchdetails-teamform-xz9-match-info {
+          flex: 1;
+          min-width: 0;
+
+          .matchdetails-teamform-xz9-match-date {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+          }
+
+          .matchdetails-teamform-xz9-teams-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .matchdetails-teamform-xz9-venue-indicator {
+              display: flex;
+              align-items: center;
+
+              .matchdetails-teamform-xz9-venue-icon-home {
+                font-size: 0.85rem;
+                color: #10b981;
+              }
+
+              .matchdetails-teamform-xz9-venue-icon-away {
+                font-size: 0.85rem;
+                color: #6b7280;
+              }
+            }
+
+            .matchdetails-teamform-xz9-opponent-link {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              min-width: 0;
+              text-decoration: none;
+              color: inherit;
+
+              &:hover .matchdetails-teamform-xz9-opponent-name {
+                color: #2563eb;
+                text-decoration: underline;
+              }
+
+              .matchdetails-teamform-xz9-opponent-logo {
+                width: 24px;
+                height: 24px;
+                object-fit: contain;
+                flex-shrink: 0;
+              }
+
+              .matchdetails-teamform-xz9-opponent-name {
+                font-size: 0.9rem;
+                font-weight: 500;
+                color: #1f2937;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+          }
+        }
+
+        .matchdetails-teamform-xz9-score-display {
+          font-size: 1rem;
+          font-weight: 700;
+          margin: 0 0.75rem;
+          display: flex;
+          align-items: center;
+          color: #1f2937;
+
+          .matchdetails-teamform-xz9-score-separator {
+            margin: 0 0.25rem;
+            opacity: 0.5;
+          }
+        }
+
+        .matchdetails-teamform-xz9-arrow-icon {
+          color: #9ca3af;
+          font-size: 0.85rem;
+          flex-shrink: 0;
+        }
+      }
+
+      .matchdetails-teamform-xz9-no-data-message {
+        text-align: center;
+        color: #6b7280;
+        font-size: 0.9rem;
+        padding: 1rem 0;
+      }
+    }
+  }
+
+  .matchdetails-teamform-xz9-panel-empty {
+    flex: 1;
+    min-width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+  }
+
+  .matchdetails-teamform-xz9-loading-state,
+  .matchdetails-teamform-xz9-error-state {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+}
+
+// Dark mode
+.dark .matchdetails-teamform-xz9-section-container {
+  .matchdetails-teamform-xz9-main-title {
+    color: #f3f4f6;
+
+    .matchdetails-teamform-xz9-title-icon {
+      color: #9ca3af;
+    }
+  }
+
+  .matchdetails-teamform-xz9-panel {
+    background: #1f2937;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+
+    .matchdetails-teamform-xz9-header-wrapper {
+      border-bottom-color: #374151;
+
+      .matchdetails-teamform-xz9-team-identity-container .matchdetails-teamform-xz9-team-name-text {
+        color: #f3f4f6;
+      }
+    }
+
+    .matchdetails-teamform-xz9-matches-list {
+      .matchdetails-teamform-xz9-match-item {
+        background: #273548;
+
+        &:hover {
+          background: #2d3c50;
+        }
+
+        .matchdetails-teamform-xz9-match-info {
+          .matchdetails-teamform-xz9-match-date {
+            color: #9ca3af;
+          }
+
+          .matchdetails-teamform-xz9-teams-info {
+            .matchdetails-teamform-xz9-opponent-link {
+              .matchdetails-teamform-xz9-opponent-name {
+                color: #e5e7eb;
+              }
+
+              &:hover .matchdetails-teamform-xz9-opponent-name {
+                color: #60a5fa;
+              }
+            }
+          }
+        }
+
+        .matchdetails-teamform-xz9-score-display {
+          color: #e5e7eb;
+        }
+
+        .matchdetails-teamform-xz9-arrow-icon {
+          color: #6b7280;
+        }
+      }
+    }
+  }
+
+  .matchdetails-teamform-xz9-panel-empty,
+  .matchdetails-teamform-xz9-loading-state,
+  .matchdetails-teamform-xz9-error-state {
+    background: #1f2937;
+    color: #9ca3af;
+  }
+}

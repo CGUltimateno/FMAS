@@ -1,170 +1,232 @@
-import React, {useState} from "react";
-import { useParams } from "react-router-dom";
+// frontend/src/pages/MatchDetails.jsx
+import React, { useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { useGetMatchDetailsQuery } from "../services/footballApi";
-import "../styles/LeagueDetails/MatchDetails.scss";
-import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
-import Formation from "../components/MatchStats/Lineup";
+import "../styles/MatchStats/MatchDetails.scss";
+import { FaCalendarAlt, FaMapMarkerAlt, FaUserAlt, FaHistory } from "react-icons/fa";
 import HeadToHead from "../components/MatchStats/HeadToHead";
-import PerformanceGraphs from "../components/MatchStats/PerformanceGraphs";
 import Stats from "../components/MatchStats/Stats";
-import TeamForm from "../components/MatchStats/TeamForm";
+import MatchTeamsForm from "../components/MatchStats/MatchTeamsForm.jsx";
 import WinningGuess from "../components/MatchStats/WinningGuess";
 import MatchEvents from "../components/MatchStats/MatchEvents";
+import Lineup from "../components/MatchStats/Lineup";
 
 const MatchDetails = () => {
   const { matchId } = useParams();
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const { data: matchData, isLoading, error } = useGetMatchDetailsQuery(matchId);
-    const [activeTab, setActiveTab] = useState("overview");
-  const useStaticData = true
-  const match = useStaticData
-    ? {
-        homeTeam: {
-          name: "Paris Saint-Germain FC",
-          id: 524,
-          logo:
-            "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1200px-Paris_Saint-Germain_F.C..svg.png",
-        },
-        awayTeam: {
-          name: "Arsenal FC",
-          id: 57,
-          logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
-        },
-        score: {
-          fullTime: { home: 2, away: 1 },
-        },
-        utcDate: "2025-05-07T20:00:00Z",
-        venue: "Parc des Princes",
-        status: "FINISHED",
-        competition: {
-          id: 2001,
-          name: "UEFA Champions League",
-          emblem:
-             "https://upload.wikimedia.org/wikipedia/commons/7/77/UEFA_Champions_League_Logo_2021.svg",
-        },
-      }
-    : matchData;
+  const location = useLocation();
+  const leagueId = location.state?.leagueId;
+  const [activeTab, setActiveTab] = useState("overview");
 
-  if (isLoading) return <div className="loading-container">Loading match details...</div>;
+  const { data, isLoading, error } = useGetMatchDetailsQuery(matchId);
+  console.log("Match Details Data:", data); // Debugging log
+  if (isLoading) return (
+      <div className="md-loading-container">
+        <div className="md-loading-spinner"></div>
+        <p>Loading match details...</p>
+      </div>
+  );
 
-  const homeTeamId = match.homeTeam?.id;
-  const awayTeamId = match.awayTeam?.id;
-  const leagueId = match.competition?.id || null;
-  const matchDate = new Date(match.utcDate);
+  if (error || !data?.response?.[0]) return (
+      <div className="md-error">
+        <h3>Unable to load match data</h3>
+        <p>Please try again later</p>
+      </div>
+  );
+
+  const match = data.response[0];
+  const { fixture, league, teams, goals, score, events, statistics } = match;
+
+  const statusShort = fixture?.status?.short || "NS";
+  const matchDate = fixture?.date ? new Date(fixture.date) : null;
+
+  const homeTeam = teams?.home || {};
+  const awayTeam = teams?.away || {};
+
+  const isNotStarted = statusShort === "NS";
+  const isLive = ["1H", "HT", "2H", "ET", "BT", "P"].includes(statusShort);
+  const isFinished = ["FT", "AET", "PEN"].includes(statusShort);
+
+  // Format match time
+  const formatMatchTime = (date) => {
+    if (!date) return "";
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // Format match date
+  const formatMatchDate = (date) => {
+    if (!date) return "";
+    return date.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  };
 
   return (
-      <div className="match-details-container">
-          <div className="match-details-page">
-              <div className="match-header">
-                  <div className={`competition-section ${isDarkMode ? 'dark' : ''}`}>
-                      <div className="competition-info">
-                          <img
-                              src={match.competition?.emblem}
-                              alt={`${match.competition?.name} Logo`}
-                              className="competition-emblem"
-                          />
-                          <div className="competition-meta">
-                              <h1 className="competition-name">{match.competition?.name}</h1>
-                              <div className="match-status">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"
-                                       fill="currentColor">
-                                      <circle cx="12" cy="12" r="10"/>
-                                  </svg>
-                                  {match.status === "FINISHED" ? "Finished" : "In Progress"}
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div className={`match-card-section ${isDarkMode ? 'dark' : ''}`}>
-                      <div className="match-card">
-                          <div className="teams-aligned-row">
-                              <div className="team-col left">
-                                  <img
-                                      src={match.homeTeam?.logo}
-                                      alt={match.homeTeam?.name}
-                                      className="team-logo"
-                                  />
-                                  <span className="team-name">{match.homeTeam?.name}</span>
-                              </div>
-                              <div className="score-col center">
-          <span className="score">
-            {match.score?.fullTime?.home ?? "-"}:{match.score?.fullTime?.away ?? "-"}
-          </span>
-                              </div>
-                              <div className="team-col right">
-                                  <img
-                                      src={match.awayTeam?.logo}
-                                      alt={match.awayTeam?.name}
-                                      className="team-logo"
-                                  />
-                                  <span className="team-name">{match.awayTeam?.name}</span>
-                              </div>
-                          </div>
-
-                          <div className="match-meta">
-                              <div className="meta-item">
-                                  <FaCalendarAlt className="meta-icon"/>
-                                  <span>{matchDate.toLocaleDateString('en-GB')}, {matchDate.toLocaleTimeString("en-GB", {
-                                      hour: "2-digit",
-                                      minute: "2-digit",
-                                      hour12: true,
-                                  })}</span>
-                              </div>
-                              <div className="meta-item">
-                                  <FaMapMarkerAlt className="meta-icon"/>
-                                  <span>{match.venue}</span>
-                              </div>
-                              <div className="meta-item">
-                                  <span>Referee: Michael Oliver</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div className={`team-tabs-section ${isDarkMode ? 'dark' : ''}`}>
-                      <div className={`team-tabs ${isDarkMode ? 'dark' : ''}`}>
-                          {["Overview", "H2H"].map((tab) => (
-                              <button
-                                  key={tab}
-                                  className={`tab-btn ${activeTab === tab.toLowerCase() ? "active" : ""} ${isDarkMode ? 'dark' : ''}`}
-                                  onClick={() => setActiveTab(tab.toLowerCase())}
-                              >
-                                  {tab}
-                              </button>
-                          ))}
-                      </div>
-                  </div>
+      <div className="md-container">
+        <div className="md-page">
+          {/* Header Section */}
+          <div className="md-header">
+            <div className="md-league-section">
+              <div className="md-league-info">
+                {league?.logo && (
+                    <img src={league.logo} alt={league.name} className="md-league-logo" />
+                )}
+                <div className="md-league-details">
+                  <h1 className="md-league-name">{league?.name || "Unknown League"}</h1>
+                  <span className="md-match-round">{league?.round || ""}</span>
+                </div>
               </div>
-              <div className="match-content">
-                  {activeTab === "overview" && (
-                      <div className="overview-content">
-                          <div className="left-section">
-                              <Stats matchId={matchId}/>
-                              <TeamForm teamAId={homeTeamId} teamBId={awayTeamId} leagueId={leagueId}/>
-                          </div>
-                          <div className="right-section">
-                              <WinningGuess matchId={matchId}/>
-                          </div>
+            </div>
+
+            {/* Match Score Card */}
+            <div className="md-scoreboard">
+              <div className="md-match-status">
+              <span className={`md-status-badge ${isLive ? "live" : ""}`}>
+                {fixture?.status?.long || "Not Started"}
+                {isLive && <span className="md-live-indicator"></span>}
+              </span>
+                {matchDate && <span className="md-match-time">{formatMatchTime(matchDate)}</span>}
+              </div>
+
+              <div className="md-teams-display">
+                <div className="md-team md-home-team">
+                  <img src={homeTeam.logo} alt={homeTeam.name} className="md-team-logo" />
+                  <h2 className="md-team-name">{homeTeam.name}</h2>
+                  {isFinished && <span className={`md-winner-badge ${homeTeam.winner ? "visible" : ""}`}>Winner</span>}
+                </div>
+
+                <div className="md-score-display">
+                  {isNotStarted ? (
+                      <div className="md-vs">VS</div>
+                  ) : (
+                      <div className="md-score">
+                        <span className="md-score-number">{goals?.home ?? 0}</span>
+                        <span className="md-score-divider">:</span>
+                        <span className="md-score-number">{goals?.away ?? 0}</span>
                       </div>
                   )}
-                  {activeTab === "lineups" && <Formation matchId={matchId}/>}
-                  {activeTab === "stats" && <Stats matchId={matchId}/>}
-                  {activeTab === "h2h" && <HeadToHead team1Id={homeTeamId} team2Id={awayTeamId}/>}
+                  {score?.halftime?.home !== null && score?.halftime?.away !== null && (
+                      <div className="md-halftime">
+                        HT: {score.halftime.home} - {score.halftime.away}
+                      </div>
+                  )}
+                </div>
+
+                <div className="md-team md-away-team">
+                  <img src={awayTeam.logo} alt={awayTeam.name} className="md-team-logo" />
+                  <h2 className="md-team-name">{awayTeam.name}</h2>
+                  {isFinished && <span className={`md-winner-badge ${awayTeam.winner ? "visible" : ""}`}>Winner</span>}
+                </div>
               </div>
+
+              <div className="md-match-meta">
+                {matchDate && (
+                    <div className="md-meta-item">
+                      <FaCalendarAlt className="md-meta-icon" />
+                      <span>{formatMatchDate(matchDate)}</span>
+                    </div>
+                )}
+                {fixture?.venue?.name && (
+                    <div className="md-meta-item">
+                      <FaMapMarkerAlt className="md-meta-icon" />
+                      <span>{fixture.venue.name}, {fixture.venue.city || ""}</span>
+                    </div>
+                )}
+                {fixture?.referee && (
+                    <div className="md-meta-item">
+                      <FaUserAlt className="md-meta-icon" />
+                      <span>Referee: {fixture.referee}</span>
+                    </div>
+                )}
+              </div>
+            </div>
+
+            {/* Tabs Navigation */}
+            <div className="md-tabs-container">
+              <div className="md-tabs">
+                <button
+                    className={`md-tab ${activeTab === "overview" ? "active" : ""}`}
+                    onClick={() => setActiveTab("overview")}
+                >
+                  Overview
+                </button>
+                <button
+                    className={`md-tab ${activeTab === "stats" ? "active" : ""}`}
+                    onClick={() => setActiveTab("stats")}
+                >
+                  Statistics
+                </button>
+                <button
+                    className={`md-tab ${activeTab === "lineup" ? "active" : ""}`}
+                    onClick={() => setActiveTab("lineup")}
+                >
+                  Lineups
+                </button>
+                <button
+                    className={`md-tab ${activeTab === "h2h" ? "active" : ""}`}
+                    onClick={() => setActiveTab("h2h")}
+                >
+                  H2H
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="left-section">
-              <MatchEvents/>
-              <HeadToHead team1Id={homeTeamId} team2Id={awayTeamId}/>
-              <Formation matchId={matchId}/>
-              {/* <PerformanceGraphs matchId={matchId} /> */}
-              <Stats matchId={matchId}/>
-              <TeamForm teamAId={homeTeamId} teamBId={awayTeamId} leagueId={leagueId}/>
+          {/* Content Section */}
+          <div className="md-content">
+            {activeTab === "overview" && (
+                <div className="md-overview">
+                  <div className="md-main-column">
+                    {/* Events Timeline */}
+                    {(isLive || isFinished) && (
+                        <div className="md-section md-events-section">
+                          <h3 className="md-section-title">
+                            <FaHistory className="md-section-icon" />
+                            Match Timeline
+                          </h3>
+                          <MatchEvents matchId={matchId} teams={teams} />
+                        </div>
+                    )}
+
+                    {/* Team Form */}
+                    <div className="md-section">
+                      <MatchTeamsForm
+                          teamAId={homeTeam.id}
+                          teamBId={awayTeam.id}
+                          leagueId={leagueId || league.id}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md-side-column">
+                    <WinningGuess matchId={matchId} />
+
+                    {(isLive || isFinished) && statistics && statistics.length > 0 && (
+                        <div className="md-section md-quick-stats">
+                          <h3 className="md-section-title">Key Statistics</h3>
+                          <Stats matchId={matchId} statistics={statistics} />
+                        </div>
+                    )}
+                  </div>
+                </div>
+            )}
+
+            {activeTab === "stats" && (
+                <div className="md-stats-tab">
+                  <Stats matchId={matchId} statistics={statistics} detailed={true} />
+                </div>
+            )}
+
+            {activeTab === "lineup" && (
+                <div className="md-lineup-tab">
+                  <Lineup matchId={matchId} />
+                </div>
+            )}
+
+            {activeTab === "h2h" && (
+                <div className="md-h2h-tab">
+                  <HeadToHead team1Id={homeTeam.id} team2Id={awayTeam.id} />
+                </div>
+            )}
           </div>
-          <div className="right-section">
-              <WinningGuess matchId={matchId}/>
-          </div>
+        </div>
       </div>
   );
 };

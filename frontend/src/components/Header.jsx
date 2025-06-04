@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaSearch, FaBell, FaSun, FaUser } from "react-icons/fa";
+import { FaBell, FaSun, FaUser } from "react-icons/fa";
 import "../styles/header.scss";
 import { useLoginUserMutation } from "../services/userApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,6 +73,7 @@ const Header = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [darkMode]);
+
     const renderDropdown = () => {
         if (!user) {
             return (
@@ -99,11 +100,6 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="search-bar">
-                <FaSearch className="search-icon" />
-                <input type="text" placeholder="Type to search..." />
-            </div>
-
             <div className="header-right">
                 <FaBell className="notification-icon" />
                 <FaSun onClick={toggleDarkMode} className="mode-icon" />

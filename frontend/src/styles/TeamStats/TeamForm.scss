@@ -1,13 +1,13 @@
-.team-form-row {
+.ts-bubbleform-xyz-row {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-  width: 50%;
+  width: 50%; // Consider if this should be more flexible or removed if it causes issues
   padding: 20px;
   margin-bottom: 20px;
 
-  .team-form-header {
+  .ts-bubbleform-xyz-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,13 +20,13 @@
       display: flex;
       align-items: center;
 
-      .icon {
+      .ts-bubbleform-xyz-icon {
         margin-right: 10px;
         color: #5a67d8;
       }
     }
 
-    .form-summary-mini {
+    .ts-bubbleform-xyz-form-record { // Renamed from form-summary-mini for consistency
       display: flex;
       gap: 10px;
 
@@ -36,17 +36,17 @@
         padding: 4px 8px;
         border-radius: 12px;
 
-        &.win {
+        &.ts-bubbleform-xyz-wins { // Updated class
           background-color: rgba(72, 187, 120, 0.15);
           color: #2f855a;
         }
 
-        &.draw {
+        &.ts-bubbleform-xyz-draws { // Updated class
           background-color: rgba(236, 201, 75, 0.15);
           color: #d69e2e;
         }
 
-        &.loss {
+        &.ts-bubbleform-xyz-losses { // Updated class
           background-color: rgba(245, 101, 101, 0.15);
           color: #e53e3e;
         }
@@ -54,30 +54,29 @@
     }
   }
 
-  .form-bubbles-container {
+  .ts-bubbleform-xyz-bubbles-container {
     display: flex;
     justify-content: space-between;
     gap: 10px;
 
-    .form-bubble-wrapper {
+    .ts-bubbleform-xyz-bubble-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 20%;
+      width: 20%; // This makes bubbles take up equal space, adjust if needed
 
-      .match-score {
+      .ts-bubbleform-xyz-match-score {
         font-weight: 700;
         font-size: 1rem;
         margin-bottom: 6px;
         color: #2d3748;
       }
 
-      .match-score.clickable {
+      .ts-bubbleform-xyz-match-score.ts-bubbleform-xyz-clickable {
         cursor: pointer;
         transition: color 0.2s;
         text-decoration: none;
         color: #2d3748;
-
 
         &:hover {
           color: #5a67d8;
@@ -86,31 +85,32 @@
 
         .dark & {
           color: #e2e8f0;
-
           &:hover {
             color: #8a63d2;
           }
         }
       }
 
-
-      .team-logo-link {
+      .ts-bubbleform-xyz-opponent-logo-link { // Class for the Link wrapping the logo
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
         height: 100%;
 
-        &:hover .opponent-logo {
+        &:hover .ts-bubbleform-xyz-opponent-logo-image { // Target the image class
           transform: scale(1.1);
-          transition: transform 0.2s;
         }
       }
 
-      .opponent-logo {
+      .ts-bubbleform-xyz-opponent-logo-image { // Class for the img tag
         transition: transform 0.2s;
+        width: 50%; // Adjust as needed, was inside .form-bubble .opponent-logo
+        height: 70%; // Adjust as needed
+        object-fit: contain;
       }
-      .form-bubble {
+
+      .ts-bubbleform-xyz-form-bubble {
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -120,33 +120,29 @@
         position: relative;
         border: 3px solid transparent;
 
-        &.w {
+        &.ts-bubbleform-xyz-w {
           border-color: #48bb78;
           background-color: rgba(72, 187, 120, 0.1);
         }
 
-        &.d {
+        &.ts-bubbleform-xyz-d {
           border-color: #ecc94b;
           background-color: rgba(236, 201, 75, 0.1);
         }
 
-        &.l {
+        &.ts-bubbleform-xyz-l {
           border-color: #f56565;
           background-color: rgba(245, 101, 101, 0.1);
         }
 
-        &.u {
+        &.ts-bubbleform-xyz-u {
           border-color: #a0aec0;
           background-color: rgba(160, 174, 192, 0.1);
         }
 
-        .opponent-logo {
-          width: 70%;
-          height: 70%;
-          object-fit: contain;
-        }
+        // .ts-bubbleform-xyz-opponent-logo-image is now styled above, outside this rule
 
-        .result-indicator {
+        .ts-bubbleform-xyz-result-indicator {
           position: absolute;
           bottom: -5px;
           right: -5px;
@@ -160,76 +156,120 @@
           font-size: 0.7rem;
           color: white;
 
-          &.w {
+          // Modifier classes for result indicator background
+          &.ts-bubbleform-xyz-w { // Ensure these match the bubble's result class
             background-color: #48bb78;
           }
-
-          &.d {
+          &.ts-bubbleform-xyz-d {
             background-color: #ecc94b;
           }
-
-          &.l {
+          &.ts-bubbleform-xyz-l {
             background-color: #f56565;
           }
-
-          &.u {
+          &.ts-bubbleform-xyz-u {
             background-color: #a0aec0;
           }
         }
       }
 
-      .match-date {
-        margin-top: 6px;
-        font-size: 0.7rem;
+      .ts-bubbleform-xyz-match-date {
+        font-size: 0.8rem;
         color: #718096;
+        margin-top: 6px;
       }
     }
   }
 
-  .no-matches {
-    padding: 20px 0;
+  .ts-bubbleform-xyz-no-matches {
     text-align: center;
+    padding: 20px;
     color: #718096;
     font-style: italic;
   }
+}
 
-  // Dark mode
-  .dark & {
-    background: #2a2b31;
+// Dark mode
+.dark .ts-bubbleform-xyz-row {
+  background: #2d3748; // Example dark background
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 
-    .team-form-header {
-      h2 {
-        color: #e2e8f0;
-
-        .icon {
-          color: #8a63d2;
-        }
+  .ts-bubbleform-xyz-header {
+    h2 {
+      color: #e2e8f0; // Light text for dark mode
+      .ts-bubbleform-xyz-icon {
+        color: #8a63d2; // Adjusted icon color for dark mode
       }
     }
 
-    .form-bubbles-container {
-      .form-bubble-wrapper {
-        .match-score {
-          color: #e2e8f0;
+    .ts-bubbleform-xyz-form-record {
+      span {
+        // Adjust dark mode summary badge colors if needed
+        &.ts-bubbleform-xyz-wins {
+          background-color: rgba(72, 187, 120, 0.25);
+          color: #68d391;
         }
-
-        .match-date {
-          color: #a0aec0;
+        &.ts-bubbleform-xyz-draws {
+          background-color: rgba(236, 201, 75, 0.25);
+          color: #faf089;
+        }
+        &.ts-bubbleform-xyz-losses {
+          background-color: rgba(245, 101, 101, 0.25);
+          color: #fc8181;
         }
       }
     }
   }
 
-  // Responsive
-  @media (max-width: 768px) {
-    .form-bubbles-container {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-
-      .form-bubble-wrapper {
-        width: auto;
+  .ts-bubbleform-xyz-bubbles-container {
+    .ts-bubbleform-xyz-bubble-wrapper {
+      .ts-bubbleform-xyz-match-score {
+        color: #e2e8f0;
+        // Hover styles for clickable score are handled by .dark & in the main rule
       }
+
+      .ts-bubbleform-xyz-form-bubble {
+        // Adjust border/background for dark mode if needed
+        &.ts-bubbleform-xyz-w {
+          border-color: #68d391;
+          background-color: rgba(72, 187, 120, 0.2);
+        }
+        &.ts-bubbleform-xyz-d {
+          border-color: #faf089;
+          background-color: rgba(236, 201, 75, 0.2);
+        }
+        &.ts-bubbleform-xyz-l {
+          border-color: #fc8181;
+          background-color: rgba(245, 101, 101, 0.2);
+        }
+        &.ts-bubbleform-xyz-u {
+          border-color: #cbd5e0;
+          background-color: rgba(160, 174, 192, 0.2);
+        }
+      }
+      .ts-bubbleform-xyz-match-date {
+        color: #a0aec0;
+      }
+    }
+  }
+  .ts-bubbleform-xyz-no-matches {
+    color: #a0aec0;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .ts-bubbleform-xyz-row {
+    width: 90%; // Make it wider on smaller screens
+    padding: 15px;
+  }
+  .ts-bubbleform-xyz-bubbles-container {
+    flex-wrap: wrap;
+    justify-content: center; // Center bubbles when they wrap
+    gap: 15px; // Adjust gap for wrapped items
+
+    .ts-bubbleform-xyz-bubble-wrapper {
+      width: auto; // Allow bubbles to size based on content or a fixed min-width
+      min-width: 70px; // Example min-width
     }
   }
 }

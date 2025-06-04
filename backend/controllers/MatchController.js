@@ -34,26 +34,7 @@ class MatchController {
             res.status(500).json({ message: "Error fetching match lineups" });
         }
     }
-    async getMatchFormation(req, res) {
-        const matchId = req.params.matchId;
-        try {
-            const formation = await FootballDataService.getMatchFormation(matchId);
-            res.status(200).json(formation);
-        } catch (error) {
-            console.error("Error fetching match formation:", error);
-            res.status(500).json({ message: "Error fetching match formation" });
-        }
-    }
-    async getMatchPerformance(req, res) {
-        const matchId = req.params.matchId;
-        try {
-            const performance = await FootballDataService.getMatchPerformance(matchId);
-            res.status(200).json(performance);
-        } catch (error) {
-            console.error("Error fetching match performance:", error);
-            res.status(500).json({ message: "Error fetching match performance" });
-        }
-    }
+    
     async getMatchHeadToHead(req, res) {
         const { team1Id, team2Id } = req.params;
         try {
@@ -64,26 +45,18 @@ class MatchController {
             res.status(500).json({ message: "Error fetching match head-to-head" });
         }
     }
-    async getMatchForm(req, res) {
-        const { teamId, leagueId } = req.params;
+
+    async getMatchEvents(req, res) {
+        const matchId = req.params.matchId;
         try {
-            const form = await FootballDataService.getMatchForm(teamId, leagueId);
-            res.status(200).json(form);
+            const events = await FootballDataService.getMatchEvents(matchId);
+            res.status(200).json(events);
         } catch (error) {
-            console.error("Error fetching match form:", error);
-            res.status(500).json({ message: "Error fetching match form" });
+            console.error("Error fetching match events:", error);
+            res.status(500).json({ message: "Error fetching match events" });
         }
     }
-    async getMatchFixtures(req, res) {
-        const teamId = req.params.teamId;
-        try {
-            const fixtures = await FootballDataService.getMatchFixtures(teamId);
-            res.status(200).json(fixtures);
-        } catch (error) {
-            console.error("Error fetching match fixtures:", error);
-            res.status(500).json({ message: "Error fetching match fixtures" });
-        }
-    }
+
     
     
    

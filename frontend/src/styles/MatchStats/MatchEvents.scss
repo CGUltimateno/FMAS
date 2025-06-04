@@ -1,0 +1,274 @@
+// frontend/src/styles/MatchStats/MatchEvents.scss
+
+// Color Variables (consider moving to a global scope if not already)
+:root {
+  --me-timeline-bg: #e9ecef;
+  --me-timeline-gradient-start: rgba(222, 226, 230, 0.7);
+  --me-timeline-gradient-end: rgba(200, 206, 210, 1);
+  --me-event-card-bg: #ffffff;
+  --me-event-card-shadow: rgba(0, 0, 0, 0.08);
+  --me-text-primary: #212529;
+  --me-text-secondary: #495057;
+  --me-text-muted: #6c757d;
+  --me-icon-point-bg: #ffffff;
+  --me-icon-point-shadow: rgba(0, 0, 0, 0.1);
+  --me-connector-color: #ced4da;
+}
+
+.dark {
+  --me-timeline-bg: #343a40;
+  --me-timeline-gradient-start: rgba(73, 80, 87, 0.7);
+  --me-timeline-gradient-end: rgba(52, 58, 64, 1);
+  --me-event-card-bg: #2c2f33; // Darker card background
+  --me-event-card-shadow: rgba(0, 0, 0, 0.25);
+  --me-text-primary: #f8f9fa;
+  --me-text-secondary: #adb5bd;
+  --me-text-muted: #868e96;
+  --me-icon-point-bg: #343a40;
+  --me-icon-point-shadow: rgba(0, 0, 0, 0.3);
+  --me-connector-color: #495057;
+}
+
+.me-container {
+    max-width: 760px;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  box-sizing: border-box;
+  scrollbar-color: #adb5bd #e9ecef;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e9ecef;
+  }
+  .me-no-events {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--me-text-muted);
+    font-style: italic;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .me-timeline {
+    position: relative;
+    min-height: 360px; // Increased height for better spacing
+    width: max-content; // Expands with content
+    min-width: 100%;    // Ensures it takes at least full container width
+    padding: 50px 30px; // Top/bottom padding for events, left/right for timeline ends
+
+    // The main horizontal timeline bar
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 3px; // Slightly thicker
+      background: linear-gradient(to right,
+              var(--me-timeline-gradient-start),
+              var(--me-timeline-gradient-end),
+              var(--me-timeline-gradient-start));
+      transform: translateY(-50%);
+      z-index: 1;
+      border-radius: 2px;
+    }
+  }
+
+  .me-event {
+    position: absolute;
+    width: 190px; // Event card width
+    transform: translateX(-50%); // Centers the event on its 'left' percentage
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2; // Above timeline bar
+
+    // Home team events (positioned above the timeline)
+    &.me-home {
+      bottom: calc(50% + 15px); // Position bottom of event block above timeline center + gap
+
+      // Visual order: Card (top), Time, Connector/Point (bottom)
+      .me-event-card { order: 1; margin-bottom: 8px; }
+      .me-time { order: 2; margin-bottom: 8px; }
+      .me-timeline-connector { order: 3; }
+    }
+
+    // Away team events (positioned below the timeline)
+    &.me-away {
+      top: calc(50% + 15px); // Position top of event block below timeline center + gap
+
+      // Visual order: Time (top), Connector/Point, Card (bottom)
+      .me-time { order: 1; margin-bottom: 8px; }
+      .me-timeline-connector { order: 2; margin-bottom: 8px; }
+      .me-event-card { order: 3; }
+    }
+  }
+
+  // The card holding event details
+  .me-event-card {
+    background-color: var(--me-event-card-bg);
+    border-radius: 10px; // Softer corners
+    box-shadow: 0 3px 8px var(--me-event-card-shadow);
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .me-team-badge {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 6px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%; // Circular badges if desired
+    }
+  }
+
+  .me-details {
+    width: 100%;
+    .me-type {
+      font-size: 0.7rem;
+      color: var(--me-text-muted);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    .me-description {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--me-text-secondary);
+      display: flex;
+      flex-direction: column; // Stack player and assist for clarity
+      align-items: center;
+      gap: 3px;
+      word-break: break-word;
+
+      .me-player-name, .me-player-in, .me-player-out {
+        font-weight: 600;
+        color: var(--me-text-primary);
+      }
+      .me-assist {
+        display: flex;
+        align-items: center;
+        font-size: 0.75rem;
+        color: var(--me-text-muted);
+        .me-assist-icon { margin: 0 3px; font-size: 0.65rem; }
+      }
+      .me-substitution-arrow {
+        color: var(--me-text-muted);
+        margin: 2px 0;
+        .me-sub-icon { transform: rotate(90deg); }
+      }
+      .me-player-out { text-decoration: line-through; opacity: 0.7; }
+      .me-player-in { color: #28a745; } // Consider theming this color
+    }
+  }
+
+  .me-time {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--me-text-secondary);
+    padding: 2px 5px;
+    border-radius: 4px;
+    background-color: rgba(128,128,128,0.05); // Subtle background for time
+
+    sup {
+      font-size: 0.7rem;
+      margin-left: 1px;
+      color: var(--me-text-muted);
+    }
+  }
+
+  // Connector line and the point on the timeline
+  .me-timeline-connector {
+    width: 2px;
+    height: 30px; // Length of the connector line
+    background-color: var(--me-connector-color);
+    position: relative; // For positioning the point within/relative to it
+  }
+
+  .me-timeline-point {
+    width: 30px; // Icon circle size
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--me-icon-point-bg);
+    box-shadow: 0 0 0 3px var(--me-connector-color), 0 2px 5px var(--me-icon-point-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%; // Center on the connector line
+    transform: translateX(-50%);
+    z-index: 4; // Above connector line
+
+    .me-home & { bottom: -15px; } // Position point at the end of home's downward connector
+    .me-away & { top: -15px; }    // Position point at the end of away's upward connector
+  }
+
+  // Icons styling
+  .me-icon {
+    font-size: 0.9rem; // Slightly smaller icons for the point
+    &.me-goal { color: #28a745; }
+    &.me-own-goal { color: #dc3545; }
+    &.me-substitution { color: #fd7e14; transform: rotate(0deg); } // No rotation needed now
+    &.me-var { color: #6610f2; }
+  }
+  .me-card { // Card icon
+    width: 10px; height: 14px; border-radius: 2px;
+    &.me-yellow { background-color: #ffc107; }
+    &.me-red { background-color: #dc3545; }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .me-container .me-timeline {
+    min-height: 320px;
+    padding: 40px 15px;
+  }
+  .me-container .me-event {
+    width: 160px; // Smaller cards on tablet
+  }
+  .me-container .me-details .me-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .me-container .me-timeline {
+    min-height: 300px; // Even less height on mobile
+    padding: 30px 10px;
+  }
+  .me-container .me-event {
+    width: 130px; // Narrower cards on mobile
+  }
+  .me-container .me-event-card {
+    padding: 8px;
+  }
+  .me-container .me-details .me-description {
+    font-size: 0.75rem;
+  }
+  .me-container .me-timeline-point {
+    width: 26px; height: 26px;
+    .me-home & { bottom: -13px; }
+    .me-away & { top: -13px; }
+  }
+  .me-container .me-icon { font-size: 0.8rem; }
+  .me-container .me-card { width: 8px; height: 12px; }
+  .me-container .me-timeline-connector { height: 25px; }
+}

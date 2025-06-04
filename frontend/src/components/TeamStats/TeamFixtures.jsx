@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useGetTeamFixturesQuery } from "../../services/footballApi";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import "../../styles/TeamStats/TeamFixtures.scss";
@@ -169,13 +170,19 @@ const TeamFixtures = ({ teamId }) => {
                                             </div>
 
                                             <div className="match-score">
-                                                {match.fixture.status.short === "FT" ? (
-                                                    <span className="score">
-                                                        {match.goals.home} - {match.goals.away}
-                                                    </span>
-                                                ) : (
-                                                    <span className="vs">vs</span>
-                                                )}
+                                                <Link
+                                                    to={`/matches/${match.fixture.id}`}
+                                                    state={{leagueId: match.league.id}}
+                                                    className="match-score-link"
+                                                >
+                                                    {match.fixture.status.short === "FT" ? (
+                                                        <span className="score">
+                                                            {match.goals.home} - {match.goals.away}
+                                                        </span>
+                                                    ) : (
+                                                        <span className="vs">vs</span>
+                                                    )}
+                                                </Link>
                                             </div>
 
                                             <div className="team away">

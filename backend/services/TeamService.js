@@ -2,7 +2,6 @@ const axios = require("axios");
 const path = require("path");
 const logger = require("../logger");
 const cache = require("../config/CacheService");
-const mapJson = require('../cache/apiMappings.json');
 const apiConfig = require("../config/apiConfig");
 const { headers, API_FD_BASE_URL } = apiConfig;
 const FD_apiHeaders = headers.footballData;
