@@ -1,0 +1,281 @@
+.admin-section {
+  margin-bottom: 30px;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.admin-card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-card-header h2 {
+  margin: 0 0 5px;
+  font-size: 20px;
+  color: #2c3e50;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 14px;
+}
+
+.admin-card-content {
+  padding: 24px;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #95a5a6;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.search-spinner {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.search-results {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  margin-bottom: 24px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.league-info {
+  display: flex;
+  align-items: center;
+}
+
+.league-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+
+.league-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.league-name {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.league-country {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.action-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-button.add {
+  background: #3498db;
+  color: white;
+}
+
+.action-button.add:hover {
+  background: #2980b9;
+}
+
+.action-button.disabled {
+  background: #ecf0f1;
+  color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.popular-leagues-section {
+  margin-top: 24px;
+}
+
+.popular-leagues-section h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  color: #7f8c8d;
+}
+
+.empty-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.empty-hint {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.leagues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.league-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  transition: all 0.2s;
+}
+
+.league-card:hover {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  border-color: #ddd;
+}
+
+.league-card-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.remove-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 12px;
+}
+
+.remove-button:hover {
+  background: rgba(231, 76, 60, 0.2);
+}
+
+.admin-card-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+.primary-button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primary-button:hover {
+  background: #219d55;
+}
+
+.primary-button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #27ae60;
+  margin-left: 16px;
+  font-size: 14px;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #7f8c8d;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}

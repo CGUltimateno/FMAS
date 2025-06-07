@@ -1,8 +1,6 @@
-// src/styles/Register.scss
-
 .register-page-container {
   display: flex;
-  height: 800px;
+  min-height: 800px; // Changed from fixed height to min-height
   background: #f6f6f4;
   flex-direction: column;
 
@@ -56,15 +54,16 @@
     .register-box {
       display: flex;
       width: 1168px;
-      height: 654px;
+      height: auto; // Changed from 654px to auto
+      min-height: 654px; // Add min-height for consistency
       background: #f1f1ef;
       border-radius: 48px;
       flex-direction: column;
       align-items: center;
       padding: 2rem;
-      .dark & {
-        background: #1f1f1f;
-      }
+      margin: 2rem 0; // Add vertical margin
+      box-sizing: border-box; // Ensure padding is included in the height calculation
+      overflow: visible; // Ensure content is not cut off
 
       .register-title {
         margin-top: 60px;
@@ -146,6 +145,55 @@
         .error-message {
           color: red;
           font-size: 0.9rem;
+        }
+        .profile-picture-section {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            transform: scale(1.02);
+          }
+
+          .profile-preview-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: #8b5cf6;
+              box-shadow: 0 6px 12px rgba(139, 92, 246, 0.2);
+            }
+
+            .dark & {
+              border-color: #444;
+              &:hover {
+                border-color: #8b5cf6;
+              }
+            }
+          }
+
+          p {
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0;
+
+            .dark & {
+              color: #aaa;
+            }
+
+            &:hover {
+              color: #8b5cf6;
+            }
+          }
         }
       }
 

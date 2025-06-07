@@ -87,8 +87,11 @@ const LoginPage = () => {
                     <p className="register-redirect">
                         Need an account? <Link to="/register">Create one</Link>
                     </p>
+                    <p className="forgot-password">
+                        <Link to="/forgot-password">Forgot your password?</Link>
+                    </p>
 
-                    <button onClick={() => navigate(-1)} className="go-back-button">
+                    <button onClick={() => navigate("/")} className="go-back-button">
                         Go Back
                     </button>
                 </div>

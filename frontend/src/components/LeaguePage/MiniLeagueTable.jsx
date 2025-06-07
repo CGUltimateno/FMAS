@@ -4,8 +4,9 @@ import { useGetLeagueStandingsQuery } from "../../services/footballApi";
 import "../../styles/LeagueDetails/MiniLeagueTable.scss";
 
 const MiniLeagueTable = ({ leagueId, selectedTeamId }) => {
-    const { data, error, isLoading } = useGetLeagueStandingsQuery(leagueId);
-
+    const currentSeason = new Date().getFullYear().toString(); // Use current year dynamically
+    const { data, error, isLoading } = useGetLeagueStandingsQuery({ leagueId, season: currentSeason });
+    console.log("MiniLeagueTable leagueId:", leagueId, "season:", currentSeason, "data:", data);
     if (isLoading) return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
     if (error) return <p style={{ padding: "1rem", color: "red" }}>Error loading standings.</p>;
     if (!data || !data.response || data.response.length === 0) {

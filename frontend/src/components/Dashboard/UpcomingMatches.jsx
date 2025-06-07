@@ -19,16 +19,15 @@ const SUPPORTED_LEAGUES = [
 ];
 
 function transformMatches(data) {
-  // Extract the response array from the data
   const apiMatches = data?.response || [];
-  console.log(apiMatches)
+
   // Filter by supported leagues
-  const filteredMatches = apiMatches.filter(match =>
-      SUPPORTED_LEAGUES.includes(match.league?.id)
-  );
-  console.log("Filtered Matches:", filteredMatches);
+  // const filteredMatches = apiMatches.filter(match =>
+  //     SUPPORTED_LEAGUES.includes(match.league?.id)
+  // );
+
   // Transform the filtered matches
-  return filteredMatches.map((m) => {
+  return apiMatches.map((m) => {
     const homeTeam = m.teams.home.name;
     const awayTeam = m.teams.away.name;
 

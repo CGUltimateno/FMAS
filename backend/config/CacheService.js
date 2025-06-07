@@ -55,6 +55,22 @@ class CacheService {
         }
     }
 
+    async delete(cacheKey) {
+        const filePath = path.join(this.cacheFolder, `${cacheKey}.json`);
+        try {
+            await fs.unlink(filePath);
+            logger.info(`Cache file ${cacheKey}.json deleted successfully.`);
+            return true;
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                logger.info(`Cache file ${cacheKey}.json not found, no need to delete.`);
+                return true; // Or false, depending on desired behavior for non-existent files
+            }
+            logger.error(`Error deleting cache file ${cacheKey}.json:`, err);
+            return false;
+        }
+    }
+
     // Helper for determining if cache update is needed
     deepEqual(a, b) {
         return JSON.stringify(a) === JSON.stringify(b);

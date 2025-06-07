@@ -16,6 +16,7 @@
     "cheerio": "^1.0.0",
     "framer-motion": "^12.16.0",
     "http-proxy-middleware": "^3.0.3",
+    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",

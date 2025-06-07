@@ -7,15 +7,19 @@ import { logout } from "../services/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const DEFAULT_PROFILE_PIC = "https://via.placeholder.com/40?text=USER";
+const BACKEND_URL =  'http://localhost:5000';
 
 const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const { user } = useSelector((state) => state.auth,
+        // Force re-render when any part of the user object changes
+        (prev, next) => JSON.stringify(prev.user) === JSON.stringify(next.user)
+    );
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.auth.user);
     const [loginUser, { isLoading, error }] = useLoginUserMutation();
     const navigate = useNavigate();
 
@@ -82,7 +86,6 @@ const Header = () => {
                         {isLoading ? "Logging in..." : "Login"}
                     </button>
                     <button onClick={handleRegisterClick}>Register</button>
-                    <a href="#">Forgot Password?</a>
                     {error && <p style={{ color: "red" }}>Login failed</p>}
                 </div>
             );
@@ -92,6 +95,9 @@ const Header = () => {
                     <p>Welcome, {user.firstName}!</p>
                     <button onClick={() => navigate("/profile")}>Profile</button>
                     <button onClick={() => navigate("/profile/edit")}>Edit Profile</button>
+                    {user.isAdmin && (
+                        <button onClick={() => navigate("/admin/dashboard")}>Admin Dashboard</button>
+                    )}
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             );
@@ -106,7 +112,7 @@ const Header = () => {
 
                 {user ? (
                     <img
-                        src={DEFAULT_PROFILE_PIC}
+                        src={user.profilePictureUrl ? `${BACKEND_URL}${user.profilePictureUrl}` : DEFAULT_PROFILE_PIC}
                         alt="Profile"
                         className="profile-pic"
                         onClick={toggleDropdown}
@@ -122,3 +128,4 @@ const Header = () => {
 };
 
 export default Header;
+

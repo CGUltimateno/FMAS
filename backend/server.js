@@ -7,17 +7,32 @@ const leagueRoutes = require("./routes/leagueRoutes");
 const teamRoutes = require("./routes/teamRoutes");
 const playerStatsRoutes = require("./routes/playerStatsRoutes");
 const matchRoutes = require("./routes/matchRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const path = require("path");
+const fs = require('fs');
+
+const PROFILE_PICS_DIR = path.join(__dirname, 'public', 'profile_pics');
+if (!fs.existsSync(PROFILE_PICS_DIR)) {
+    fs.mkdirSync(PROFILE_PICS_DIR, { recursive: true });
+    console.log(`Created directory: ${PROFILE_PICS_DIR}`);
+} else {
+    console.log(`Directory exists: ${PROFILE_PICS_DIR}`);
+}
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Your frontend origin
+    credentials: true // Allow credentials to be sent with requests
+}));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/leagues", leagueRoutes);
 app.use("/api/teams", teamRoutes);
 app.use("/api/players", playerStatsRoutes);
 app.use("/api/match", matchRoutes);
-
+app.use("/api/admin", adminRoutes);
 
 console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);

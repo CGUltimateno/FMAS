@@ -1,35 +1,41 @@
 import "../styles/LeagueDetails/LeaguesPage.scss";
 import LeagueTable from "../components/LeaguePage/LeagueTable.jsx";
-import { useGetLeagueStandingsQuery } from "../services/footballApi";
+import { useGetLeagueStandingsQuery, useGetPopularLeaguesQuery } from "../services/footballApi";
 import { useState, useEffect } from "react";
+import { skipToken } from '@reduxjs/toolkit/query/react';
 
 const LeaguesPage = () => {
-    const popularLeagues = [
-        { id: 39, name: "Premier League", country: "England", logo: "https://media.api-sports.io/football/leagues/39.png" },
-        { id: 140, name: "La Liga", country: "Spain", logo: "https://media.api-sports.io/football/leagues/140.png" },
-        { id: 135, name: "Serie A", country: "Italy", logo: "https://media.api-sports.io/football/leagues/135.png" },
-        { id: 78, name: "Bundesliga", country: "Germany", logo: "https://media.api-sports.io/football/leagues/78.png" },
-        { id: 61, name: "Ligue 1", country: "France", logo: "https://media.api-sports.io/football/leagues/61.png" }
-    ];
+    const { data: popularLeaguesData, error: popularLeaguesError, isLoading: isLoadingPopularLeagues } = useGetPopularLeaguesQuery();
 
-    const [selectedLeague, setSelectedLeague] = useState(popularLeagues[0]?.id);
-    const currentSeason = new Date().getFullYear();
+    const popularLeagues = popularLeaguesData?.competitions?.map(comp => ({
+        id: comp.league.id,
+        name: comp.league.name,
+        country: comp.country.name,
+        logo: comp.league.logo
+    })) || [];
 
-    const { data, error, isLoading } = useGetLeagueStandingsQuery(
-        selectedLeague ? { leagueId: selectedLeague, season: currentSeason } : skip
-    );
+    const [selectedLeague, setSelectedLeague] = useState(null);
+    const currentSeason = "2024"
 
     useEffect(() => {
-        if (popularLeagues.length && selectedLeague === null) {
-            setSelectedLeague(popularLeagues[0].id);
+        if (popularLeagues && popularLeagues.length > 0) {
+            if (selectedLeague === null || !popularLeagues.some(league => league.id === selectedLeague)) {
+                setSelectedLeague(popularLeagues[0].id);
+            }
+        } else if (popularLeagues && popularLeagues.length === 0) {
+            setSelectedLeague(null);
         }
-    }, []);
+    }, [popularLeagues, selectedLeague]);
 
-    if (isLoading) return <div className="leagues-wrapper"><h2>Loading leagues...</h2></div>;
-    if (error) return <div className="leagues-wrapper"><h2>Error loading leagues: {error.message}</h2></div>;
+    const { data: standingsData, error: standingsError, isLoading: isLoadingStandings } = useGetLeagueStandingsQuery(
+        selectedLeague ? { leagueId: selectedLeague, season: currentSeason } : skipToken
+    );
+
+    if (isLoadingPopularLeagues) return <div className="leagues-wrapper"><h2>Loading popular leagues...</h2></div>;
+    if (popularLeaguesError) return <div className="leagues-wrapper"><h2>Error loading popular leagues: {popularLeaguesError.message || 'Unknown error'}</h2></div>;
+    if (!popularLeagues || popularLeagues.length === 0) return <div className="leagues-wrapper"><h2>No popular leagues available.</h2></div>;
 
     const currentLeagueInfo = popularLeagues.find(league => league.id === selectedLeague);
-
     return (
         <div className="leagues-wrapper">
             <h2>Popular Leagues</h2>
@@ -48,13 +54,18 @@ const LeaguesPage = () => {
             </div>
 
             <div className="league-content">
-                {currentLeagueInfo && (
+                {isLoadingStandings && <div className="leagues-wrapper"><h3>Loading standings...</h3></div>}
+                {standingsError && <div className="leagues-wrapper"><h3>Error loading standings: {standingsError.message || 'Unknown error'}</h3></div>}
+                {currentLeagueInfo && standingsData && !isLoadingStandings && !standingsError && (
                     <LeagueTable
                         key={currentLeagueInfo.id}
                         leagueId={currentLeagueInfo.id}
                         leagueName={currentLeagueInfo.name}
-                        standings={data?.standings}
+                        standings={standingsData?.standings}
                     />
+                )}
+                {currentLeagueInfo && !standingsData && !isLoadingStandings && !standingsError && (
+                    <div className="leagues-wrapper"><h3>No standings available for {currentLeagueInfo.name}.</h3></div>
                 )}
             </div>
         </div>
@@ -62,3 +73,4 @@ const LeaguesPage = () => {
 }
 
 export default LeaguesPage;
+

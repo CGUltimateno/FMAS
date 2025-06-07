@@ -36,9 +36,7 @@ const Sidebar = () => {
         flag: comp.country.flag
     }));
 
-    // Handle league click with proper ID mapping
     const handleLeagueClick = (leagueId) => {
-        // The new API already uses the correct IDs, so we can use them directly
         navigate(`/leagues/${leagueId}`);
     };
 

@@ -34,6 +34,48 @@ export const userApi = createApi({
             query: () => "/auth/profile",
         }),
 
+        // 4) Update user profile
+        updateProfile: builder.mutation({
+            query: (formData) => ({
+                url: "/auth/profile",
+                method: "PUT",
+                body: formData,
+            }),
+        }),
+
+        // 5) Verify Email
+        verifyEmail: builder.mutation({
+            query: (token) => ({
+                url: `/auth/verify-email/${token}`,
+                method: "GET",
+            }),
+        }),
+
+        forgotPassword: builder.mutation({
+            query: (email) => ({
+                url: "/auth/forgot-password",
+                method: "POST",
+                body: { email },
+            }),
+        }),
+
+        resetPassword: builder.mutation({
+            query: ({ token, newPassword }) => ({
+                url: `/auth/reset-password/${token}`,
+                method: "POST",
+                body: { password: newPassword },
+            }),
+        }),
+
+        // 6) Resend Verification Email
+        resendVerificationEmail: builder.mutation({
+            query: ({ email }) => ({
+                url: "/auth/resend-verification-email",
+                method: "POST",
+                body: { email },
+            }),
+        }),
+
         // follow a team
         followTeam: builder.mutation({
             query: ({ teamId, teamData }) => ({
@@ -58,4 +100,9 @@ export const {
     useRegisterUserMutation,
     useFollowTeamMutation,
     useUnfollowTeamMutation,
+    useUpdateProfileMutation,
+    useVerifyEmailMutation,
+    useResendVerificationEmailMutation,
+    useForgotPasswordMutation,
+    useResetPasswordMutation,
 } = userApi;

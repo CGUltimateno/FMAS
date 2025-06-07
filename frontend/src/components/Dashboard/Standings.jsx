@@ -6,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import LeagueTable from "../LeaguePage/LeagueTable";
 
 const Standings = () => {
-  const { data, error, isLoading } = useGetLeagueStandingsQuery(39);
+  const { data, error, isLoading } = useGetLeagueStandingsQuery({
+    leagueId: 39,
+    season: "2024",
+  });
   const navigate = useNavigate();
-
+  console.log(data);
   if (isLoading) {
     return <p style={{ padding: "1rem" }}>Loading Standings...</p>;
   }
@@ -18,11 +21,7 @@ const Standings = () => {
 
   console.log("Standings data:", data);
 
-  // Extract league data from the API response
   const league = data?.response?.[0]?.league;
-
-  // Get the raw standings data directly from the API response
-  // This maintains the structure expected by LeagueTable
   const rawStandings = league?.standings?.[0] || [];
 
   return (

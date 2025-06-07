@@ -30,7 +30,16 @@ class LeagueController {
       res.status(500).json({ error: error.message });
     }
   }
-    
+
+
+  static async updatePopularLeagues(req, res) {
+    try {
+      const data = await FootballDataService.updatePopularLeagueIds();
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
   static async getPopularLeagues(req, res) {
     try {
       const data = await FootballDataService.getPopularLeagues();

@@ -165,6 +165,7 @@
         }
       }
 
+
       .register-redirect {
         margin-top: 1rem;
         text-align: center;
@@ -174,6 +175,8 @@
           color: #ccc;
         }
 
+
+
         a {
           color: #8b5cf6;
           text-decoration: none;
@@ -182,6 +185,23 @@
           }
         }
       }
+
+        .forgot-password {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            .dark & {
+            color: #ccc;
+            }
+
+            a {
+            color: #8b5cf6;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+            }
+        }
       .go-back-button {
         background: #ccc;
         color: #333;
@@ -216,3 +236,4 @@
     }
   }
 }
+

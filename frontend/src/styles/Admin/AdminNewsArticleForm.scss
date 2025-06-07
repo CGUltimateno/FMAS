@@ -1,0 +1,133 @@
+.news-form-card {
+    height: 100%;
+
+    .admin-news-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+
+            &.two-columns {
+                @media (min-width: 768px) {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+        }
+
+        .form-group {
+            flex: 1;
+
+            label {
+                display: flex;
+                align-items: center;
+                margin-bottom: 8px;
+                font-weight: 500;
+                color: #34495e;
+
+                .form-icon {
+                    margin-right: 8px;
+                    font-size: 16px;
+                }
+            }
+
+            input, textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-size: 14px;
+                transition: all 0.2s;
+
+                &:focus {
+                    border-color: #3498db;
+                    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+                    outline: none;
+                }
+
+                &::placeholder {
+                    color: #bdc3c7;
+                }
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+
+            .submit-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: #27ae60;
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 6px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: #219d55;
+                }
+
+                &:disabled {
+                    background: #95a5a6;
+                    cursor: not-allowed;
+                }
+
+                .btn-icon {
+                    font-size: 14px;
+                }
+
+                .btn-spinner {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid rgba(255,255,255,0.3);
+                    border-top-color: white;
+                    border-radius: 50%;
+                    animation: spin 0.8s linear infinite;
+                }
+            }
+        }
+
+        .notification {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+
+            .notification-icon {
+                margin-right: 10px;
+                font-size: 16px;
+            }
+
+            &.success {
+                background: rgba(39, 174, 96, 0.1);
+                color: #27ae60;
+                border-left: 4px solid #27ae60;
+            }
+
+            &.error {
+                background: rgba(231, 76, 60, 0.1);
+                color: #e74c3c;
+                border-left: 4px solid #e74c3c;
+            }
+        }
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+}
