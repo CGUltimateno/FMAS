@@ -235,47 +235,104 @@ class FootballDataService {
 
     static async getLeagueStandings(leagueId, season) {
     logger.info(`LeagueService.getLeagueStandings called with leagueId: ${leagueId} (type: ${typeof leagueId}), season: ${season} (type: ${typeof season})`);
-    try {
-      // Use the provided season, or default to current year if not provided.
-      const effectiveSeason = season || new Date().getFullYear();
 
-      if (leagueId === undefined || leagueId === null || String(leagueId).toLowerCase() === 'undefined' || String(leagueId).trim() === '') {
+    if (leagueId === undefined || leagueId === null || String(leagueId).toLowerCase() === 'undefined' || String(leagueId).trim() === '') {
         logger.error(`LeagueService.getLeagueStandings: leagueId is invalid. Received: '${leagueId}'`);
         throw new Error(`Invalid leagueId provided: ${leagueId}`);
-      }
+    }
 
-      const cacheKey = `leagueStandings-${leagueId}-${effectiveSeason}`;
-      const cachedData = await cache.read(cacheKey, { maxAgeHours: 24 });
+    const currentYear = new Date().getFullYear();
+    const effectiveSeason = season || currentYear;
+    const isDataProblematic = (data) => {
+        if (!data) return true;
 
-      if (cachedData) {
-        if (cachedData.errors && cachedData.parameters && cachedData.parameters.league === 'undefined') {
-            logger.warn(`Returning cached data for ${leagueId}-${effectiveSeason} which previously had 'league: undefined' error. Consider clearing this cache if issue persists.`);
+        if (data.errors && typeof data.errors === 'object' && !Array.isArray(data.errors) && Object.keys(data.errors).length > 0) {
+            return true;
         }
-        return cachedData;
-      }
+        if ((!data.response || (Array.isArray(data.response) && data.response.length === 0)) &&
+            (data.results === 0)) {
+            return true;
+        }
+        return false;
+    };
 
-      const url = `${API_FD_BASE_URL}/standings?league=${leagueId}&season=${effectiveSeason}`;
-      logger.info(`Fetching league standings from external API: ${url}`);
+    async function getStandingsForSingleSeason(lgId, ssnToFetch) {
+        const cacheKey = `leagueStandings-${lgId}-${ssnToFetch}`;
+        const cachedData = await cache.read(cacheKey, { maxAgeHours: 24 });
 
-      const response = await axios.get(url, FD_apiHeaders);
-      const freshData = response.data;
+        if (cachedData) {
+            logger.info(`Using cached league standings for league ${lgId}, season ${ssnToFetch}`);
+            return cachedData;
+        }
 
-      if (freshData && freshData.errors && freshData.parameters && freshData.parameters.league !== String(leagueId)) {
-          logger.error(`External API for ${leagueId}-${effectiveSeason} reported issues or mismatched league parameter. External API params: ${JSON.stringify(freshData.parameters)}, Errors: ${JSON.stringify(freshData.errors)}`);
-      }
+        const url = `${API_FD_BASE_URL}/standings?league=${lgId}&season=${ssnToFetch}`;
+        logger.info(`Fetching league standings from external API: ${url}`);
+        try {
+            const response = await axios.get(url, FD_apiHeaders);
+            const standingsData = response.data;
+            if (standingsData && typeof standingsData.errors === 'undefined') {
+                standingsData.errors = {};
+            }
+            await cache.write(cacheKey, standingsData);
+            return standingsData;
+        } catch (apiError) {
+            logger.error(`API error fetching league standings for league ${lgId}, season ${ssnToFetch}: ${apiError.message}`);
+            let errorDataToCache;
+            if (apiError.response && apiError.response.data) {
+                logger.error(`API Error Status: ${apiError.response.status}, Data: ${JSON.stringify(apiError.response.data)}`);
+                errorDataToCache = apiError.response.data;
+                if (typeof errorDataToCache.errors === 'undefined') errorDataToCache.errors = { api: `Failed request for season ${ssnToFetch}` };
+                if (typeof errorDataToCache.response === 'undefined') errorDataToCache.response = [];
+                if (typeof errorDataToCache.results === 'undefined') errorDataToCache.results = 0;
+            } else {
+                errorDataToCache = {
+                    errors: { network: `Network error or no response data for season ${ssnToFetch}: ${apiError.message}` },
+                    response: [],
+                    results: 0
+                };
+            }
+            await cache.write(cacheKey, errorDataToCache);
+            return errorDataToCache;
+        }
+    }
 
-      await cache.write(cacheKey, freshData);
-      return freshData;
+    try {
+        let standingsDataCurrentSeason = await getStandingsForSingleSeason(leagueId, effectiveSeason);
+
+        if (isDataProblematic(standingsDataCurrentSeason)) {
+            const currentSeasonErrors = standingsDataCurrentSeason ? JSON.stringify(standingsDataCurrentSeason.errors) : 'N/A';
+            const currentSeasonResults = standingsDataCurrentSeason ? standingsDataCurrentSeason.results : 'N/A';
+            logger.warn(`Data for league ${leagueId}, season ${effectiveSeason} is problematic (Errors: ${currentSeasonErrors}, Results: ${currentSeasonResults}). Attempting to fetch for previous season.`);
+
+            const previousSeason = effectiveSeason - 1;
+            if (previousSeason < 1900) {
+                 logger.warn(`Previous season ${previousSeason} is too old. Returning data for ${effectiveSeason}.`);
+                 return standingsDataCurrentSeason;
+            }
+
+            let standingsDataPreviousSeason = await getStandingsForSingleSeason(leagueId, previousSeason);
+
+            if (!isDataProblematic(standingsDataPreviousSeason)) {
+                logger.info(`Successfully fetched and using standings for previous season ${previousSeason} for league ${leagueId}.`);
+                return standingsDataPreviousSeason;
+            } else {
+                const prevSeasonErrors = standingsDataPreviousSeason ? JSON.stringify(standingsDataPreviousSeason.errors) : 'N/A';
+                const prevSeasonResults = standingsDataPreviousSeason ? standingsDataPreviousSeason.results : 'N/A';
+                logger.warn(`Previous season ${previousSeason} also yielded problematic data (Errors: ${prevSeasonErrors}, Results: ${prevSeasonResults}). Returning data for the originally requested/effective season ${effectiveSeason}.`);
+                return standingsDataCurrentSeason;
+            }
+        }
+
+        logger.info(`Successfully fetched standings for league ${leagueId}, season ${effectiveSeason}.`);
+        return standingsDataCurrentSeason;
+
     } catch (error) {
-      logger.error(`Error in LeagueService.getLeagueStandings for league ${leagueId} season ${effectiveSeason}: ${error.message}`);
-      if (error.response) {
-        logger.error(`Axios Error Status: ${error.response.status}, Data: ${JSON.stringify(error.response.data)}`);
-      }
-      throw error;
+        logger.error(`Unhandled error in getLeagueStandings for league ${leagueId}, season ${effectiveSeason}: ${error.message}`);
+        throw new Error(`Error fetching league standings for ${leagueId} season ${effectiveSeason}: ${error.message}`);
     }
   }
 
-  static async getLeagueFullDetails(leagueId) {
+  static async getLeagueFullDetails(leagueId, season) {
     try {
       const standingsUrl = `${API_FD_BASE_URL}/standings`;
       const matchesUrl = `${API_FD_BASE_URL}/fixtures`;
@@ -287,7 +344,6 @@ class FootballDataService {
 
       logger.info(`Fetching full details for league ID: ${leagueId}, attempting season: ${seasonToFetch}`);
 
-      // First attempt: Current season
       let matchesRes = await axios.get(matchesUrl, {
         ...FD_apiHeaders,
         params: { league: leagueId, season: seasonToFetch },
@@ -295,10 +351,9 @@ class FootballDataService {
 
       matchesData = matchesRes.data;
 
-      // Check if fixtures are empty for the current season
       if (!matchesData.response || matchesData.response.length === 0) {
         logger.info(`No fixtures found for league ID: ${leagueId} for current season: ${seasonToFetch}. Attempting previous season.`);
-        seasonToFetch = currentYear - 1; // Fallback to previous season
+        seasonToFetch = currentYear - 1;
         attemptPreviousSeason = true;
 
         matchesRes = await axios.get(matchesUrl, {
@@ -316,25 +371,20 @@ class FootballDataService {
         logger.info(`Fetched fixtures for league ID: ${leagueId} from current season: ${seasonToFetch}`);
       }
 
-      // Fetch standings for the season that had matches (or current if both attempts failed to find matches but we proceed)
       const standingsRes = await axios.get(standingsUrl, {
         ...FD_apiHeaders,
-        params: { league: leagueId, season: seasonToFetch }, // Use the season for which matches were found (or attempted)
+        params: { league: leagueId, season: seasonToFetch },
       });
       standingsData = standingsRes.data;
 
       const freshData = {
         standings: standingsData,
         matches: matchesData,
-        retrievedSeason: seasonToFetch, // Add the season info to the response
+        retrievedSeason: seasonToFetch,
         attemptedPreviousSeason: attemptPreviousSeason
       };
 
-      // Include season in cache key to avoid conflicts if data for different seasons is fetched.
       const cacheKey = `leagueFullDetails-${leagueId}-season-${seasonToFetch}`;
-      // No deepEqual check here as we want to ensure fresh data if season logic changes behavior.
-      // Consider if deepEqual is needed based on how often underlying data for a *specific season* changes.
-      // For now, always write to cache if we fetched.
       await cache.write(cacheKey, freshData);
       logger.info(`Cached data for league ID: ${leagueId}, season: ${seasonToFetch} under key: ${cacheKey}`);
 
@@ -344,7 +394,6 @@ class FootballDataService {
       if (error.response && error.response.status === 404 && error.config && error.config.params) {
         logger.warn(`Received 404 for league ${leagueId}, season ${error.config.params.season}. This might indicate no data for this season.`);
       }
-      // Rethrow to be handled by the controller
       throw new Error(`Error fetching full league details for league ID ${leagueId}: ${error.message}`);
     }
   }
