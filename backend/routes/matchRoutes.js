@@ -4,6 +4,11 @@ const matchController = require('../controllers/MatchController');
 
 
 router.get('/predict-match/:fixtureId', matchController.predictMatchFromFixture);
+
+// Upcoming fixtures route
+router.get('/predict-all', matchController.predictAllUpcomingFixtures);
+
+
 // Match details routes
 router.get('/:matchId', matchController.getMatchDetails);
 router.get('/:matchId/stats', matchController.getMatchStats);

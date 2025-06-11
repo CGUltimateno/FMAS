@@ -22,8 +22,8 @@ if (!fs.existsSync(PROFILE_PICS_DIR)) {
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend origin
-    credentials: true // Allow credentials to be sent with requests
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 app.use(express.static(path.join(__dirname, "public")));
 

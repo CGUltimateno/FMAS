@@ -236,7 +236,8 @@ class FootballDataService {
     static async getLeagueStandings(leagueId, season) {
     logger.info(`LeagueService.getLeagueStandings called with leagueId: ${leagueId} (type: ${typeof leagueId}), season: ${season} (type: ${typeof season})`);
     try {
-      const effectiveSeason = "2024"
+      // Use the provided season, or default to current year if not provided.
+      const effectiveSeason = season || new Date().getFullYear();
 
       if (leagueId === undefined || leagueId === null || String(leagueId).toLowerCase() === 'undefined' || String(leagueId).trim() === '') {
         logger.error(`LeagueService.getLeagueStandings: leagueId is invalid. Received: '${leagueId}'`);
@@ -278,40 +279,76 @@ class FootballDataService {
     try {
       const standingsUrl = `${API_FD_BASE_URL}/standings`;
       const matchesUrl = `${API_FD_BASE_URL}/fixtures`;
+      const currentYear = new Date().getFullYear();
+      let seasonToFetch = currentYear;
+      let matchesData;
+      let standingsData;
+      let attemptPreviousSeason = false;
 
-      const params = {
-        league: leagueId,
-        season: 2024
-      };
+      logger.info(`Fetching full details for league ID: ${leagueId}, attempting season: ${seasonToFetch}`);
 
-      logger.info(`Fetching full details for league ID: ${leagueId}`);
+      // First attempt: Current season
+      let matchesRes = await axios.get(matchesUrl, {
+        ...FD_apiHeaders,
+        params: { league: leagueId, season: seasonToFetch },
+      });
 
-      const [standingsRes, matchesRes] = await Promise.all([
-        axios.get(standingsUrl, { ...FD_apiHeaders, params }),
-        axios.get(matchesUrl, { ...FD_apiHeaders, params }),
-      ]);
+      matchesData = matchesRes.data;
+
+      // Check if fixtures are empty for the current season
+      if (!matchesData.response || matchesData.response.length === 0) {
+        logger.info(`No fixtures found for league ID: ${leagueId} for current season: ${seasonToFetch}. Attempting previous season.`);
+        seasonToFetch = currentYear - 1; // Fallback to previous season
+        attemptPreviousSeason = true;
+
+        matchesRes = await axios.get(matchesUrl, {
+          ...FD_apiHeaders,
+          params: { league: leagueId, season: seasonToFetch },
+        });
+        matchesData = matchesRes.data;
+
+        if (!matchesData.response || matchesData.response.length === 0) {
+          logger.warn(`No fixtures found for league ID: ${leagueId} for previous season: ${seasonToFetch} either.`);
+        } else {
+          logger.info(`Fetched fixtures for league ID: ${leagueId} from previous season: ${seasonToFetch}`);
+        }
+      } else {
+        logger.info(`Fetched fixtures for league ID: ${leagueId} from current season: ${seasonToFetch}`);
+      }
+
+      // Fetch standings for the season that had matches (or current if both attempts failed to find matches but we proceed)
+      const standingsRes = await axios.get(standingsUrl, {
+        ...FD_apiHeaders,
+        params: { league: leagueId, season: seasonToFetch }, // Use the season for which matches were found (or attempted)
+      });
+      standingsData = standingsRes.data;
 
       const freshData = {
-        standings: standingsRes.data,
-        matches: matchesRes.data,
+        standings: standingsData,
+        matches: matchesData,
+        retrievedSeason: seasonToFetch, // Add the season info to the response
+        attemptedPreviousSeason: attemptPreviousSeason
       };
 
-      const cacheKey = `leagueFullDetails-${leagueId}`;
-      const storedData = await cache.read(cacheKey);
+      // Include season in cache key to avoid conflicts if data for different seasons is fetched.
+      const cacheKey = `leagueFullDetails-${leagueId}-season-${seasonToFetch}`;
+      // No deepEqual check here as we want to ensure fresh data if season logic changes behavior.
+      // Consider if deepEqual is needed based on how often underlying data for a *specific season* changes.
+      // For now, always write to cache if we fetched.
+      await cache.write(cacheKey, freshData);
+      logger.info(`Cached data for league ID: ${leagueId}, season: ${seasonToFetch} under key: ${cacheKey}`);
 
-      if (storedData && cache.deepEqual(freshData, storedData)) {
-        return storedData;
-      } else {
-        await cache.write(cacheKey, freshData);
-        return freshData;
-      }
+      return freshData;
     } catch (error) {
-      logger.error(`Error fetching full league details: ${error.message}`);
-      throw new Error(`Error fetching full league details: ${error.message}`);
+      logger.error(`Error fetching full league details for league ID ${leagueId}: ${error.message}`);
+      if (error.response && error.response.status === 404 && error.config && error.config.params) {
+        logger.warn(`Received 404 for league ${leagueId}, season ${error.config.params.season}. This might indicate no data for this season.`);
+      }
+      // Rethrow to be handled by the controller
+      throw new Error(`Error fetching full league details for league ID ${leagueId}: ${error.message}`);
     }
   }
 
 }
 
 module.exports = FootballDataService;
-

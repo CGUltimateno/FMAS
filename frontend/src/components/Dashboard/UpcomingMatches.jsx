@@ -5,33 +5,17 @@ import { Link } from "react-router-dom";
 import {
   useGetMatchesByStatusQuery,
   useGetLatestMatchQuery,
+  usePredictAllUpcomingFixturesQuery,
 } from "../../services/footballApi";
 
-const SUPPORTED_LEAGUES = [
-  39,   // Premier League
-  140,  // La Liga
-  135,  // Serie A
-  78,   // Bundesliga
-  61,   // Ligue 1
-  2,    // Champions League
-  3,    // Europa League
-  848   // Conference League
-];
 
-function transformMatches(data) {
+function transformMatches(data, predictions = []) {
   const apiMatches = data?.response || [];
 
-  // Filter by supported leagues
-  // const filteredMatches = apiMatches.filter(match =>
-  //     SUPPORTED_LEAGUES.includes(match.league?.id)
-  // );
-
-  // Transform the filtered matches
   return apiMatches.map((m) => {
     const homeTeam = m.teams.home.name;
     const awayTeam = m.teams.away.name;
 
-    // Handle score based on new structure
     const homeGoals = m.goals.home;
     const awayGoals = m.goals.away;
     let score = "-";
@@ -39,18 +23,18 @@ function transformMatches(data) {
       score = `${homeGoals} - ${awayGoals}`;
     }
 
-    // Extract status from the fixture status object
     let status = m.fixture.status.long;
     if (status === "Match Finished") status = "Full - Time";
     else if (status === "Not Started") status = "Scheduled";
 
-    // Format date from the fixture date
     const dateObj = new Date(m.fixture.date);
     const dateStr = dateObj.toLocaleDateString();
     const timeStr = dateObj.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
+
+    const predictionData = predictions.find(p => p.fixture_id === m.fixture.id);
 
     return {
       id: m.fixture.id,
@@ -64,12 +48,20 @@ function transformMatches(data) {
       status,
       date: dateStr,
       time: timeStr,
-      competitionId: m.league?.id
+      competitionId: m.league?.id,
+      predictionDetails: predictionData ? predictionData.prediction : null,
     };
   });
 }
 
 const TABS = ["Latest Match", "Coming Match", "Live Games"];
+
+const formatPredictionOutcome = (predictionCode) => {
+  if (predictionCode === "H") return "Home Win";
+  if (predictionCode === "D") return "Draw";
+  if (predictionCode === "A") return "Away Win";
+  return "";
+};
 
 const UpcomingMatches = () => {
   const [activeTab, setActiveTab] = useState("Latest Match");
@@ -78,6 +70,10 @@ const UpcomingMatches = () => {
   const finishedQuery = useGetLatestMatchQuery();
   const scheduledQuery = useGetMatchesByStatusQuery("SCHEDULED");
   const liveQuery = useGetMatchesByStatusQuery("LIVE");
+  const predictionsQuery = usePredictAllUpcomingFixturesQuery(undefined, {
+    skip: activeTab !== "Coming Match",
+  });
+
 
   const [matchesData, setMatchesData] = useState({
     "Latest Match": [],
@@ -89,23 +85,26 @@ const UpcomingMatches = () => {
     if (
         finishedQuery.isLoading ||
         scheduledQuery.isLoading ||
-        liveQuery.isLoading
+        liveQuery.isLoading ||
+        (activeTab === "Coming Match" && predictionsQuery.isLoading)
     ) {
       return;
     }
 
-    if (finishedQuery.error || scheduledQuery.error || liveQuery.error) {
+    if (finishedQuery.error || scheduledQuery.error || liveQuery.error || (activeTab === "Coming Match" && predictionsQuery.error) ) {
       console.error("Error fetching one of the queries:", {
         finishedError: finishedQuery.error,
         scheduledError: scheduledQuery.error,
         liveError: liveQuery.error,
+        predictionsError: predictionsQuery.error,
       });
       return;
     }
 
     const finishedMatches = transformMatches(finishedQuery.data);
-    const scheduledMatches = transformMatches(scheduledQuery.data);
+    const scheduledMatches = transformMatches(scheduledQuery.data, activeTab === "Coming Match" ? predictionsQuery.data : []);
     const liveMatches = transformMatches(liveQuery.data);
+
 
     setMatchesData({
       "Latest Match": finishedMatches,
@@ -116,12 +115,16 @@ const UpcomingMatches = () => {
     finishedQuery.isLoading,
     scheduledQuery.isLoading,
     liveQuery.isLoading,
+    predictionsQuery.isLoading,
     finishedQuery.error,
     scheduledQuery.error,
     liveQuery.error,
+    predictionsQuery.error,
     finishedQuery.data,
     scheduledQuery.data,
     liveQuery.data,
+    predictionsQuery.data,
+    activeTab,
   ]);
 
   useEffect(() => {
@@ -132,7 +135,7 @@ const UpcomingMatches = () => {
     }
   }, [activeTab]);
 
-  const isAnyLoading =
+  const isAnyQueryLoading =
       finishedQuery.isLoading || scheduledQuery.isLoading || liveQuery.isLoading;
 
   const noMatchesMessage = {
@@ -158,20 +161,22 @@ const UpcomingMatches = () => {
           <div className="tab-bar" ref={barRef}></div>
         </div>
 
-        {isAnyLoading && <p style={{ padding: "1rem" }}>Loading matches...</p>}
+        {isAnyQueryLoading && activeTab !== "Coming Match" && <p style={{ padding: "1rem" }}>Loading matches...</p>}
+        {activeTab === "Coming Match" && predictionsQuery.isLoading && <p style={{ padding: "1rem" }}>Loading predictions for upcoming matches...</p>}
+
 
         <div className="matches-list">
-          {matchesData[activeTab].length === 0 ? (
+          {(activeTab === "Coming Match" && predictionsQuery.isLoading) ? null :
+           (matchesData[activeTab].length === 0 && !(activeTab === "Coming Match" && predictionsQuery.isLoading)) ? (
               <p style={{padding: "1rem"}}>{noMatchesMessage[activeTab]}</p>
           ) : (
               matchesData[activeTab].map((match) => (
                   <div className="match-row" key={match.id}>
                     <div className="team-col home-team">
-                      {match.homeTeamLogo ? (
+                      {match.homeTeamLogo && (
                           <img src={match.homeTeamLogo} alt={match.homeTeam}/>
-                      ) : (
-                          <div className="no-logo"/>
                       )}
+                      {!match.homeTeamLogo && (<div className="no-logo"/>)}
                       <Link
                           to={`/teams/${match.homeTeamId}`}
                           state={{ leagueId: match.competitionId }}
@@ -179,13 +184,36 @@ const UpcomingMatches = () => {
                       >
                         <span>{match.homeTeam}</span>
                       </Link>
+                      {activeTab === "Coming Match" && match.predictionDetails && match.predictionDetails.probabilities && typeof match.predictionDetails.probabilities.H === 'number' && (
+                        <span className="prediction-percentage" style={{ marginLeft: '8px', fontSize: '0.9em', color: '#666' }}>
+                          ({(match.predictionDetails.probabilities.H * 100).toFixed(0)}%)
+                        </span>
+                      )}
                     </div>
 
                     <div className="score-container">
-                      <div className="score-col">{match.score}</div>
+                      <div className="score-col">
+                        {activeTab === "Coming Match" && match.predictionDetails ? (
+                          <>
+                            <div>{formatPredictionOutcome(match.predictionDetails.prediction)}</div>
+                            {match.predictionDetails.probabilities && typeof match.predictionDetails.probabilities.D === 'number' && (
+                              <div className="prediction-percentage-draw" style={{ fontSize: '0.8em', color: '#555', marginTop: '2px' }}>
+                                Draw: {(match.predictionDetails.probabilities.D * 100).toFixed(0)}%
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          match.score
+                        )}
+                      </div>
                     </div>
 
                     <div className="team-col away-team">
+                      {activeTab === "Coming Match" && match.predictionDetails && match.predictionDetails.probabilities && typeof match.predictionDetails.probabilities.A === 'number' && (
+                        <span className="prediction-percentage" style={{ marginRight: '8px', fontSize: '0.9em', color: '#666' }}>
+                          ({(match.predictionDetails.probabilities.A * 100).toFixed(0)}%)
+                        </span>
+                      )}
                       <Link
                           to={`/teams/${match.awayTeamId}`}
                           state={{ leagueId: match.competitionId }}
@@ -193,11 +221,10 @@ const UpcomingMatches = () => {
                       >
                         <span>{match.awayTeam}</span>
                       </Link>
-                      {match.awayTeamLogo ? (
+                      {match.awayTeamLogo && (
                           <img src={match.awayTeamLogo} alt={match.awayTeam}/>
-                      ) : (
-                          <div className="no-logo"/>
                       )}
+                       {!match.awayTeamLogo && (<div className="no-logo"/>)}
                     </div>
 
                     <div className="status-col">
@@ -226,3 +253,4 @@ const UpcomingMatches = () => {
 };
 
 export default UpcomingMatches;
+

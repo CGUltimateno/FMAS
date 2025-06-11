@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "../../styles/LeagueDetails/LeagueMatchesExpanded.scss";
 import { Link } from "react-router-dom";
 
@@ -6,7 +6,7 @@ const LeagueMatchesExpanded = ({ matches }) => {
     if (!matches || !Array.isArray(matches) || matches.length === 0) {
         return <p>No Games Available.</p>;
     }
-
+    console.log("LeagueMatchesExpanded matches:", matches);
     const getWeekStart = (date) => {
         const start = new Date(date);
         start.setDate(start.getDate() - start.getDay());
@@ -21,30 +21,103 @@ const LeagueMatchesExpanded = ({ matches }) => {
         return end;
     };
 
-    // Group matches by week
-    const groupedMatches = matches.reduce((acc, match) => {
-        const matchDate = new Date(match.fixture.date);
-        const weekStart = getWeekStart(matchDate).toISOString();
-        if (!acc[weekStart]) {
-            acc[weekStart] = [];
+    // Memoize groupedMatches and sortedWeeks for performance
+    const { groupedMatches, sortedWeeks } = useMemo(() => {
+        const acc = matches.reduce((acc, match) => {
+            const matchDate = new Date(match.fixture.date);
+            const weekStart = getWeekStart(matchDate).toISOString();
+            if (!acc[weekStart]) {
+                acc[weekStart] = [];
+            }
+            acc[weekStart].push(match);
+            return acc;
+        }, {});
+        const weeks = Object.keys(acc).sort((a, b) => new Date(a) - new Date(b));
+        return { groupedMatches: acc, sortedWeeks: weeks };
+    }, [matches]);
+
+    const isSeasonFinished = useMemo(() => {
+        if (matches.length === 0) return false; // Should be caught by the initial empty check
+        return matches.every(match => match.fixture.status.short === "FT");
+    }, [matches]);
+
+    const calculateInitialWeekIndex = () => {
+        if (sortedWeeks.length === 0) {
+            return 0;
         }
-        acc[weekStart].push(match);
-        return acc;
-    }, {});
 
-    const sortedWeeks = Object.keys(groupedMatches).sort((a, b) => new Date(a) - new Date(b));
+        // isSeasonFinished is available from useMemo above
+        if (isSeasonFinished) {
+            return sortedWeeks.length - 1; // Show the last week of the concluded season
+        }
 
-    const getCurrentWeekIndex = () => {
+        // Season is not finished or not all matches are FT
         const now = new Date();
-        return sortedWeeks.findIndex(weekStart => {
-            const weekEnd = getWeekEnd(new Date(weekStart));
-            return now >= new Date(weekStart) && now <= weekEnd;
+        let targetDate = null;
+
+        let latestPlayedMatch = null;
+        let earliestUpcomingMatch = null;
+
+        matches.forEach(match => {
+            const matchDate = new Date(match.fixture.date);
+            if (match.fixture.status.short !== "NS") { // Includes FT, LIVE, PST, CANC, etc.
+                if (matchDate <= now) { // Match is on or before today
+                    if (!latestPlayedMatch || matchDate > new Date(latestPlayedMatch.fixture.date)) {
+                        latestPlayedMatch = match;
+                    }
+                }
+            }
+            if (match.fixture.status.short === "NS") { // Upcoming match
+                if (!earliestUpcomingMatch || matchDate < new Date(earliestUpcomingMatch.fixture.date)) {
+                    earliestUpcomingMatch = match;
+                }
+            }
         });
+
+        if (latestPlayedMatch) {
+            targetDate = new Date(latestPlayedMatch.fixture.date);
+        } else if (earliestUpcomingMatch) {
+            targetDate = new Date(earliestUpcomingMatch.fixture.date);
+        }
+
+        let weekIdx = -1;
+        if (targetDate) {
+            weekIdx = sortedWeeks.findIndex(weekStart => {
+                const weekStartDate = new Date(weekStart);
+                const weekEndDate = getWeekEnd(weekStartDate);
+                return targetDate >= weekStartDate && targetDate <= weekEndDate;
+            });
+        }
+
+        if (weekIdx === -1) { // Fallback 1: Try week of current date
+            weekIdx = sortedWeeks.findIndex(weekStart => {
+                const weekStartDate = new Date(weekStart);
+                const weekEndDate = getWeekEnd(weekStartDate);
+                return now >= weekStartDate && now <= weekEndDate;
+            });
+        }
+
+        if (weekIdx === -1) { // Fallback 2: Current date is outside all match weeks
+            if (sortedWeeks.length > 0) { // Should always be true if we reached here from top check
+                const lastMatchWeekStartDate = new Date(sortedWeeks[sortedWeeks.length - 1]);
+                if (now > getWeekEnd(lastMatchWeekStartDate)) {
+                    weekIdx = sortedWeeks.length - 1; // Current date is past the last match week
+                } else {
+                    // Current date is before the first match week, or some other gap
+                    weekIdx = 0;
+                }
+            }
+            // If sortedWeeks.length was 0, it's handled at the start of function.
+        }
+        // Ensure index is valid and within bounds
+        let finalIndex = weekIdx >= 0 ? weekIdx : 0; // Default to 0 if somehow still -1
+        if (sortedWeeks.length > 0) {
+            finalIndex = Math.min(finalIndex, sortedWeeks.length - 1);
+        }
+        return finalIndex;
     };
 
-    // Initialize with current week or first week if no match in current week
-    const initialWeekIndex = Math.max(0, getCurrentWeekIndex());
-    const [currentWeekIndex, setCurrentWeekIndex] = useState(initialWeekIndex);
+    const [currentWeekIndex, setCurrentWeekIndex] = useState(() => calculateInitialWeekIndex());
 
     const handleNext = () => {
         if (currentWeekIndex < sortedWeeks.length - 1) {
@@ -58,9 +131,9 @@ const LeagueMatchesExpanded = ({ matches }) => {
         }
     };
 
-    // If no weeks found (possible if matches array is empty)
+    // If no weeks found (possible if matches array is empty or all filtered out)
     if (sortedWeeks.length === 0) {
-        return <p>No matches scheduled for this league.</p>;
+        return <p>No matches to display for this league in weekly format.</p>; // Adjusted message
     }
 
     const currentWeekStart = new Date(sortedWeeks[currentWeekIndex]);
@@ -122,6 +195,15 @@ const LeagueMatchesExpanded = ({ matches }) => {
                 </button>
             </div>
 
+            {isSeasonFinished && (
+                <div className="season-concluded-message">
+                    <p>
+                        Displaying matches from the concluded season.
+                        Fixtures for the upcoming season may not yet be available.
+                    </p>
+                </div>
+            )}
+
             {Object.keys(groupedByDay).map((day) => (
                 <div key={day} className="expanded-day-group">
                     <div className="expanded-day-header">{day}</div>
@@ -182,3 +264,4 @@ const LeagueMatchesExpanded = ({ matches }) => {
     );
 };
 export default LeagueMatchesExpanded;
+

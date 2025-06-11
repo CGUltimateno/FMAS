@@ -1,25 +1,19 @@
-import React, { useMemo } from 'react';
-import { useGetMatchDetailsQuery } from '../../services/footballApi';
+import React, { useEffect } from 'react';
+import { useGetMatchDetailsQuery, usePredictMatchFromFixtureMutation } from '../../services/footballApi';
 import '../../styles/MatchStats/WinningGuess.scss';
 import { FaChartBar } from 'react-icons/fa';
 
 const WinningGuess = ({ matchId }) => {
-  const { data, isLoading, error } = useGetMatchDetailsQuery(matchId);
+  const { data: matchDetailsData, isLoading: isLoadingMatchDetails, error: errorMatchDetails } = useGetMatchDetailsQuery(matchId);
+  const [predictMatch, { data: predictionData, isLoading: isLoadingPrediction, error: errorPrediction, isUninitialized }] = usePredictMatchFromFixtureMutation();
 
-  // Generate random but consistent prediction percentages
-  // useMemo ensures values don't change on re-renders
-  const probabilities = useMemo(() => {
-    // Generate random values that sum to 100
-    const homeWin = Math.floor(Math.random() * 60) + 20; // 20-80%
-    const remainingPercentage = 100 - homeWin;
-    const draw = Math.floor(Math.random() * remainingPercentage * 0.7); // Allocate portion of remaining
-    const awayWin = remainingPercentage - draw;
+  useEffect(() => {
+    if (matchId) {
+      predictMatch(matchId);
+    }
+  }, [matchId, predictMatch]);
 
-    return { homeWin, draw, awayWin };
-  }, [matchId]); // Only recalculate if matchId changes
-
-  // Loading state
-  if (isLoading) {
+  if (isLoadingMatchDetails || (isLoadingPrediction && !isUninitialized)) {
     return (
         <div className="winning-guess loading">
           <div className="loading-spinner"></div>
@@ -28,18 +22,17 @@ const WinningGuess = ({ matchId }) => {
     );
   }
 
-  // Error state
-  if (error) {
+  if (errorMatchDetails || errorPrediction) {
     return (
         <div className="winning-guess error">
           <FaChartBar size={24} />
-          <p>Unable to load prediction</p>
+          <p>Unable to load prediction data</p>
+          {/* Consider logging errorMatchDetails || errorPrediction to console for debugging */}
         </div>
     );
   }
 
-  // Check if we have match data
-  if (!data?.response?.[0]) {
+  if (!matchDetailsData?.response?.[0]) {
     return (
         <div className="winning-guess error">
           <p>No match data available</p>
@@ -47,10 +40,34 @@ const WinningGuess = ({ matchId }) => {
     );
   }
 
-  // Get teams from the correct data structure
-  const match = data.response[0];
+  const match = matchDetailsData.response[0];
   const homeTeam = match.teams?.home;
   const awayTeam = match.teams?.away;
+
+  const probabilities = predictionData?.probabilities; // Corrected data access path
+  const homeWinProb = probabilities?.H ? (probabilities.H * 100) : 0;
+  const drawProb = probabilities?.D ? (probabilities.D * 100) : 0;
+  const awayWinProb = probabilities?.A ? (probabilities.A * 100) : 0;
+
+  // If prediction data is not yet available but not explicitly loading/error, show a specific message or minimal UI
+  if (isUninitialized || (isLoadingPrediction && !predictionData)) {
+     return (
+        <div className="winning-guess loading">
+          <div className="loading-spinner"></div>
+          <p>Fetching prediction...</p>
+        </div>
+     );
+  }
+
+  if (!probabilities && !isLoadingPrediction) {
+    return (
+        <div className="winning-guess error">
+          <FaChartBar size={24} />
+          <p>Prediction data not available for this match.</p>
+        </div>
+    );
+  }
+
 
   return (
       <div className="winning-guess">
@@ -61,15 +78,15 @@ const WinningGuess = ({ matchId }) => {
             {homeTeam?.logo && (
                 <img src={homeTeam.logo} alt={homeTeam.name} className="team-logo" />
             )}
-            <div className="prob-value">{probabilities.homeWin}%</div>
-            <div className="prob-bar" style={{ height: `${probabilities.homeWin}%` }}></div>
+            <div className="prob-value">{homeWinProb.toFixed(0)}%</div>
+            <div className="prob-bar" style={{ height: `${homeWinProb.toFixed(0)}%` }}></div>
             <div className="prob-label">{homeTeam?.name || "Home"}</div>
           </div>
 
           <div className="probability draw">
             <div className="draw-icon">X</div>
-            <div className="prob-value">{probabilities.draw}%</div>
-            <div className="prob-bar" style={{ height: `${probabilities.draw}%` }}></div>
+            <div className="prob-value">{drawProb.toFixed(0)}%</div>
+            <div className="prob-bar" style={{ height: `${drawProb.toFixed(0)}%` }}></div>
             <div className="prob-label">Draw</div>
           </div>
 
@@ -77,8 +94,8 @@ const WinningGuess = ({ matchId }) => {
             {awayTeam?.logo && (
                 <img src={awayTeam.logo} alt={awayTeam.name} className="team-logo" />
             )}
-            <div className="prob-value">{probabilities.awayWin}%</div>
-            <div className="prob-bar" style={{ height: `${probabilities.awayWin}%` }}></div>
+            <div className="prob-value">{awayWinProb.toFixed(0)}%</div>
+            <div className="prob-bar" style={{ height: `${awayWinProb.toFixed(0)}%` }}></div>
             <div className="prob-label">{awayTeam?.name || "Away"}</div>
           </div>
         </div>

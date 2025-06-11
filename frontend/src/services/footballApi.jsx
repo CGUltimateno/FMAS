@@ -6,22 +6,18 @@ export const footballApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:5000/api/",
         prepareHeaders: (headers, { getState }) => {
-            // Get the token from your auth state
             const token = getState().auth.token;
-
-            // If we have a token, add it to the headers
             if (token) {
                 headers.set('authorization', `Bearer ${token}`);
             }
-
             return headers;
         },
-        credentials: 'include', // For cookies if you're using those too
+        credentials: 'include',
     }),
     endpoints: (builder) => ({
 
         getUserProfile: builder.query({
-            query: () => 'auth/me', // Assuming 'auth/me' is your backend endpoint for current user profile
+            query: () => 'auth/me',
             providesTags: ['User'],
         }),
 
@@ -184,7 +180,7 @@ export const footballApi = createApi({
                 body: data,
                 credentials: 'include',
             }),
-            invalidatesTags: ['User'], // Uncommented for cache invalidation
+            invalidatesTags: ['User'],
         }),
 
         unfollowTeam: builder.mutation({
@@ -192,16 +188,27 @@ export const footballApi = createApi({
                 url: 'auth/unfollow-team',
                 method: 'POST',
                 body: { teamId },
-                credentials: 'include', // Important: include cookies for auth
+                credentials: 'include',
             }),
-            invalidatesTags: ['User'], // Uncommented for cache invalidation
+            invalidatesTags: ['User'],
+        }),
+
+        predictMatchFromFixture: builder.mutation({
+            query: (fixtureId) => ({
+                url: `match/predict-match/${fixtureId}`,
+                method: 'GET',
+            }),
+        }),
+
+        predictAllUpcomingFixtures: builder.query({
+            query: () => 'match/predict-all',
         }),
 
     }),
 });
 
 export const {
-    useGetUserProfileQuery, // Export the new hook
+    useGetUserProfileQuery,
     useGetMatchesByStatusQuery,
     useGetLatestMatchQuery,
     useGetLeagueStandingsQuery,
@@ -222,7 +229,7 @@ export const {
     useGetMatchDetailsQuery,
     useGetMatchEventsQuery,
     useGetSearchResultsQuery,
-    useGetClubFollowerAnalysisQuery, // Export the new hook
+    useGetClubFollowerAnalysisQuery,
     useGetAllNewsQuery,
     useUpdatePopularLeaguesMutation,
     useCreateNewsArticleMutation,
@@ -230,4 +237,6 @@ export const {
     useDeleteNewsArticleMutation,
     useFollowTeamMutation,
     useUnfollowTeamMutation,
+    usePredictMatchFromFixtureMutation,
+    usePredictAllUpcomingFixturesQuery,
 } = footballApi;

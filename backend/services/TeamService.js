@@ -53,48 +53,35 @@ class TeamService {
     }
     static async getLastMatchInfo(teamId) {
         try {
-            const cacheKey = `lastMatchInfo-${teamId}`;
+            const cacheKey = `lastMatches-${teamId}-5`;
             const storedData = await cache.read(cacheKey, { maxAgeHours: 6 });
 
             if (storedData) {
                 return storedData;
             }
 
-            // First, get the last match ID
-            const lastMatchUrl = `${API_FD_BASE_URL}/fixtures?team=${teamId}&last=1`;
-            logger.info(`Fetching last match ID for team ID: ${teamId}`);
+            // Fetch the last 5 matches
+            const lastMatchesUrl = `${API_FD_BASE_URL}/fixtures?team=${teamId}&last=5`;
+            logger.info(`Fetching last 5 matches for team ID: ${teamId}`);
 
-            const lastMatchResponse = await axios.get(lastMatchUrl, FD_apiHeaders);
+            const lastMatchesResponse = await axios.get(lastMatchesUrl, FD_apiHeaders);
 
-            if (!lastMatchResponse.data || !lastMatchResponse.data.response || lastMatchResponse.data.response.length === 0) {
+            if (!lastMatchesResponse.data || !lastMatchesResponse.data.response || lastMatchesResponse.data.response.length === 0) {
                 throw new Error("No match data found for the specified team.");
             }
 
-            // Extract the match ID
-            const lastMatchId = lastMatchResponse.data.response[0].fixture.id;
+            logger.info(`Successfully fetched last 5 matches for team ${teamId}`);
+            await cache.write(cacheKey, lastMatchesResponse.data);
 
-            // Fetch detailed information using the match ID
-            const matchDetailsUrl = `${API_FD_BASE_URL}/fixtures?id=${lastMatchId}`;
-            logger.info(`Fetching detailed match info for match ID: ${lastMatchId}`);
-
-            const matchDetailsResponse = await axios.get(matchDetailsUrl, FD_apiHeaders);
-
-            if (!matchDetailsResponse.data || !matchDetailsResponse.data.response || matchDetailsResponse.data.response.length === 0) {
-                throw new Error("Could not retrieve detailed match information.");
-            }
-
-            logger.info(`Successfully fetched detailed match info for team ${teamId}`);
-            await cache.write(cacheKey, matchDetailsResponse.data);
-
-            // Return the detailed match data
-            return matchDetailsResponse.data;
+            // Return all 5 matches directly
+            return lastMatchesResponse.data;
         }
         catch (error) {
-            logger.error("Error fetching last match info:", {
+            logger.error("Error fetching last matches:", {
                 error: error.response ? error.response.data : error.message,
                 teamId
             });
-            throw new Error(`Error fetching last match info: ${error.message}`);
+            throw new Error(`Error fetching last matches: ${error.message}`);
         }
     }
     static async getTeamStats(teamId, leagueId) {
