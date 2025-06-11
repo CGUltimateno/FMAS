@@ -130,6 +130,25 @@ class MatchService {
     }
   }
 
+  async getUpcomingFixtures(limit = 20) {
+  try {
+    const response = await axios.get(
+      `${API_FD_BASE_URL}/fixtures`,
+      {
+        ...FD_apiHeaders,
+        params: {
+          status: "NS",  // Not Started
+          next: limit
+        }
+      }
+    );
+    return response.data?.response || [];
+  } catch (error) {
+    logger.error(`Error fetching upcoming fixtures: ${error.message}`);
+    throw error;
+  }
+}
+
 
 }
 
