@@ -9,25 +9,30 @@ const EmailService = require("./EmailService");
 const DEFAULT_PROFILE_PIC_URL = "/profile_pics/default_avatar.png";
 
 class AuthService {
-  // Helper function to get favorite teams
   static async getFavoriteTeams(userId) {
     const followedTeams = await UserTeam.findAll({
-        where: { userId },
-        attributes: [['teamId', 'id'], ['teamName', 'name'], ['teamCrest', 'crest']]
+      where: { userId },
+      attributes: [['teamId', 'id'], ['teamName', 'name'], ['teamCrest', 'crest']]
     });
     return followedTeams.map(team => team.toJSON());
   }
 
   static async registerUser({ firstName, lastName, username, email, password }, profilePictureUrl) {
+    const conflictingUserByUsername = await User.findOne({ where: { username } });
+    if (conflictingUserByUsername && conflictingUserByUsername.email !== email) {
+      throw new Error("Username already taken. Please choose a different one.");
+    }
+
     let existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
       if (existingUser.isEmailVerified) {
         throw new Error("Email already registered and verified. Please login.");
       }
+
       const hashedPassword = await bcrypt.hash(password, 10);
       const emailVerificationToken = crypto.randomBytes(32).toString("hex");
-      const emailVerificationTokenExpires = new Date(Date.now() + 3600000); // 1 hour
+      const emailVerificationTokenExpires = new Date(Date.now() + 3600000);
 
       existingUser.firstName = firstName;
       existingUser.lastName = lastName;
@@ -51,7 +56,7 @@ class AuthService {
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const emailVerificationToken = crypto.randomBytes(32).toString("hex");
-      const emailVerificationTokenExpires = new Date(Date.now() + 3600000); // 1 hour
+      const emailVerificationTokenExpires = new Date(Date.now() + 3600000);
 
       const newUser = await User.create({
         firstName,
@@ -93,12 +98,12 @@ class AuthService {
     }
 
     const token = jwt.sign(
-      { userId: user.userId, email: user.email, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET,
-      { expiresIn: "7h" }
+        { userId: user.userId, email: user.email, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET,
+        { expiresIn: "7h" }
     );
 
-    const favoriteTeams = await AuthService.getFavoriteTeams(user.userId); // Fetch favorite teams
+    const favoriteTeams = await AuthService.getFavoriteTeams(user.userId);
 
     return {
       token,
@@ -111,25 +116,25 @@ class AuthService {
         profilePictureUrl: user.profilePictureUrl || DEFAULT_PROFILE_PIC_URL,
         isEmailVerified: user.isEmailVerified,
         isAdmin: user.isAdmin,
-        favoriteTeams: favoriteTeams // Include favorite teams
+        favoriteTeams: favoriteTeams
       }
     };
   }
 
   static async verifyUserEmail(token) {
     const userToVerify = await User.findOne({
-        where: {
-            emailVerificationToken: token,
-            emailVerificationTokenExpires: { [Op.gt]: new Date() }
-        }
+      where: {
+        emailVerificationToken: token,
+        emailVerificationTokenExpires: { [Op.gt]: new Date() }
+      }
     });
 
     if (!userToVerify) {
-        const expiredTokenUser = await User.findOne({ where: { emailVerificationToken: token } });
-        if (expiredTokenUser) {
-            throw new Error("Verification token has expired. Please request a new one.");
-        }
-        throw new Error("Invalid verification token.");
+      const expiredTokenUser = await User.findOne({ where: { emailVerificationToken: token } });
+      if (expiredTokenUser) {
+        throw new Error("Verification token has expired. Please request a new one.");
+      }
+      throw new Error("Invalid verification token.");
     }
 
     userToVerify.isEmailVerified = true;
@@ -143,25 +148,25 @@ class AuthService {
   static async resendVerificationEmail(email) {
     const userToResend = await User.findOne({ where: { email } });
     if (!userToResend) {
-        throw new Error("User with this email not found.");
+      throw new Error("User with this email not found.");
     }
     if (userToResend.isEmailVerified) {
-        throw new Error("Email is already verified.");
+      throw new Error("Email is already verified.");
     }
 
     const emailVerificationToken = crypto.randomBytes(32).toString("hex");
-    const emailVerificationTokenExpires = new Date(Date.now() + 3600000); // 1 hour
+    const emailVerificationTokenExpires = new Date(Date.now() + 3600000);
 
     userToResend.emailVerificationToken = emailVerificationToken;
     userToResend.emailVerificationTokenExpires = emailVerificationTokenExpires;
     await userToResend.save();
 
     try {
-        await EmailService.sendVerificationEmail(userToResend.email, emailVerificationToken);
-        return { message: "Verification email resent successfully. Please check your inbox." };
+      await EmailService.sendVerificationEmail(userToResend.email, emailVerificationToken);
+      return { message: "Verification email resent successfully. Please check your inbox." };
     } catch (emailError) {
-        console.error("Failed to resend verification email:", emailError);
-        throw new Error("Failed to resend verification email. Please try again later.");
+      console.error("Failed to resend verification email:", emailError);
+      throw new Error("Failed to resend verification email. Please try again later.");
     }
   }
 
@@ -172,7 +177,7 @@ class AuthService {
     }
 
     const passwordResetToken = crypto.randomBytes(32).toString("hex");
-    const passwordResetTokenExpires = new Date(Date.now() + 3600000); // 1 hour
+    const passwordResetTokenExpires = new Date(Date.now() + 3600000);
 
     user.passwordResetToken = passwordResetToken;
     user.passwordResetTokenExpires = passwordResetTokenExpires;
@@ -221,52 +226,56 @@ class AuthService {
     if (!userToUpdate) throw new Error("User not found");
 
     if (!userToUpdate.isEmailVerified) {
-        throw new Error("Please verify your email before updating your profile.");
+      throw new Error("Please verify your email before updating your profile.");
     }
 
     const updates = {};
     if (firstName) updates.firstName = firstName;
     if (lastName) updates.lastName = lastName;
     if (username) {
-        const existingUserWithUsername = await User.findOne({ where: { username, userId: { [Op.ne]: userId } } });
-        if (existingUserWithUsername) {
-            throw new Error("Username already taken");
+      const existingUserWithUsername = await User.findOne({
+        where: {
+          username,
+          userId: { [Op.ne]: userId }
         }
-        updates.username = username;
+      });
+      if (existingUserWithUsername) {
+        throw new Error("Username already taken");
+      }
+      updates.username = username;
     }
     if (profilePicturePath) updates.profilePictureUrl = profilePicturePath;
 
     await userToUpdate.update(updates);
 
-    const favoriteTeams = await AuthService.getFavoriteTeams(userToUpdate.userId); // Also include fav teams on profile update response
+    const favoriteTeams = await AuthService.getFavoriteTeams(userToUpdate.userId);
 
     return {
-        userId: userToUpdate.userId,
-        firstName: userToUpdate.firstName,
-        lastName: userToUpdate.lastName,
-        email: userToUpdate.email,
-        username: userToUpdate.username,
-        profilePictureUrl: userToUpdate.profilePictureUrl,
-        isEmailVerified: userToUpdate.isEmailVerified,
-        isAdmin: userToUpdate.isAdmin,
-        favoriteTeams: favoriteTeams // Include favorite teams
+      userId: userToUpdate.userId,
+      firstName: userToUpdate.firstName,
+      lastName: userToUpdate.lastName,
+      email: userToUpdate.email,
+      username: userToUpdate.username,
+      profilePictureUrl: userToUpdate.profilePictureUrl,
+      isEmailVerified: userToUpdate.isEmailVerified,
+      isAdmin: userToUpdate.isAdmin,
+      favoriteTeams: favoriteTeams
     };
   }
 
-  // New method for the /profile endpoint
   static async getFullUserProfile(userId) {
     const user = await User.findByPk(userId, {
-        attributes: ['userId', 'firstName', 'lastName', 'email', 'username', 'profilePictureUrl', 'isEmailVerified', 'isAdmin']
+      attributes: ['userId', 'firstName', 'lastName', 'email', 'username', 'profilePictureUrl', 'isEmailVerified', 'isAdmin']
     });
     if (!user) {
-        throw new Error("User not found");
+      throw new Error("User not found");
     }
 
     const favoriteTeams = await AuthService.getFavoriteTeams(user.userId);
 
     return {
-        ...user.toJSON(),
-        favoriteTeams: favoriteTeams
+      ...user.toJSON(),
+      favoriteTeams: favoriteTeams
     };
   }
 
@@ -277,7 +286,7 @@ class AuthService {
 
     const existingFollow = await UserTeam.findOne({ where: { userId, teamId } });
     if (!existingFollow) {
-        await UserTeam.create({ userId, teamId, teamName: teamData.name, teamCrest: teamData.crest });
+      await UserTeam.create({ userId, teamId, teamName: teamData.name, teamCrest: teamData.crest });
     }
     const followedTeams = await UserTeam.findAll({ where: { userId } });
     return followedTeams.map(team => ({ id: team.teamId, name: team.teamName, crest: team.teamCrest }));
@@ -295,4 +304,3 @@ class AuthService {
 }
 
 module.exports = AuthService;
-

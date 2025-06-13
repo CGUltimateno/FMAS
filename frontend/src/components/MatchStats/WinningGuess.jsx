@@ -6,7 +6,7 @@ import { FaChartBar } from 'react-icons/fa';
 const WinningGuess = ({ matchId }) => {
   const { data: matchDetailsData, isLoading: isLoadingMatchDetails, error: errorMatchDetails } = useGetMatchDetailsQuery(matchId);
   const [predictMatch, { data: predictionData, isLoading: isLoadingPrediction, error: errorPrediction, isUninitialized }] = usePredictMatchFromFixtureMutation();
-
+  console.log("Prediction Data:", predictionData);
   useEffect(() => {
     if (matchId) {
       predictMatch(matchId);
@@ -27,7 +27,6 @@ const WinningGuess = ({ matchId }) => {
         <div className="winning-guess error">
           <FaChartBar size={24} />
           <p>Unable to load prediction data</p>
-          {/* Consider logging errorMatchDetails || errorPrediction to console for debugging */}
         </div>
     );
   }
@@ -44,12 +43,11 @@ const WinningGuess = ({ matchId }) => {
   const homeTeam = match.teams?.home;
   const awayTeam = match.teams?.away;
 
-  const probabilities = predictionData?.probabilities; // Corrected data access path
+  const probabilities = predictionData?.probabilities;
   const homeWinProb = probabilities?.H ? (probabilities.H * 100) : 0;
   const drawProb = probabilities?.D ? (probabilities.D * 100) : 0;
   const awayWinProb = probabilities?.A ? (probabilities.A * 100) : 0;
 
-  // If prediction data is not yet available but not explicitly loading/error, show a specific message or minimal UI
   if (isUninitialized || (isLoadingPrediction && !predictionData)) {
      return (
         <div className="winning-guess loading">
